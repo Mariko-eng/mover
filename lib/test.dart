@@ -173,7 +173,7 @@ class _TestViewState extends State<TestView> {
                             child: Container(
                               height: 300,
                               color: Colors.white,
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -212,28 +212,32 @@ class _TestViewState extends State<TestView> {
                                                         .spaceBetween,
                                                 children: const [
                                                   Text("From"),
-                                                  Icon(Icons.arrow_drop_down)
+                                                  // Icon(Icons.arrow_drop_down)
                                                 ],
                                               ),
                                               Container(
                                                 width: double.infinity,
-                                                height: 50,
+                                                // height: 50,
                                                 child: TextField(
                                                   controller: _fromCtr,
                                                   readOnly: true,
                                                   onTap: () {
                                                     setState(() {
                                                       isFrom = true;
+                                                      _isSearching = true;
                                                     });
                                                   },
+                                                  textAlignVertical: TextAlignVertical.bottom,
                                                   decoration: InputDecoration(
                                                       contentPadding:
                                                           EdgeInsets.symmetric(
                                                               horizontal: 10,
-                                                              vertical: 2),
-                                                      hintText: "Source",
-                                                      hintStyle: TextStyle(
-                                                          fontSize: 14)),
+                                                              vertical: 5),
+                                                      labelText: "Source",
+                                                      labelStyle: TextStyle(
+                                                          fontSize: 15),
+                                                    suffixIcon: Icon(Icons.search)
+                                                  ),
                                                 ),
                                               )
                                             ],
@@ -273,7 +277,7 @@ class _TestViewState extends State<TestView> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text("To"),
-                                                  Icon(Icons.arrow_drop_down)
+                                                  // Icon(Icons.arrow_drop_down)
                                                 ],
                                               ),
                                               const SizedBox(
@@ -288,16 +292,20 @@ class _TestViewState extends State<TestView> {
                                                   onTap: () {
                                                     setState(() {
                                                       isFrom = false;
+                                                      _isSearching = true;
                                                     });
                                                   },
+                                                  textAlignVertical: TextAlignVertical.bottom,
                                                   decoration: InputDecoration(
                                                       contentPadding:
                                                           EdgeInsets.symmetric(
                                                               horizontal: 10,
-                                                              vertical: 2),
-                                                      hintText: "Destination",
-                                                      hintStyle: TextStyle(
-                                                          fontSize: 14)),
+                                                              vertical: 5),
+                                                      labelText: "Destination",
+                                                      labelStyle: TextStyle(
+                                                          fontSize: 15),
+                                                      suffixIcon: Icon(Icons.search)
+                                                  ),
                                                 ),
                                               )
                                             ],
@@ -653,23 +661,23 @@ class _TestViewState extends State<TestView> {
                                 ),
 
                                 // Text("My App"),
-                                Container(
-                                  height: 50,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: IconButton(
-                                    icon: Icon(_isSearching
-                                        ? Icons.close
-                                        : Icons.search),
-                                    onPressed: () {
-                                      setState(() {
-                                        _isSearching = !_isSearching;
-                                      });
-                                    },
-                                  ),
-                                ),
+                                // Container(
+                                //   height: 50,
+                                //   width: 60,
+                                //   decoration: BoxDecoration(
+                                //       color: Colors.white,
+                                //       borderRadius: BorderRadius.circular(10)),
+                                //   child: IconButton(
+                                //     icon: Icon(_isSearching
+                                //         ? Icons.close
+                                //         : Icons.search),
+                                //     onPressed: () {
+                                //       setState(() {
+                                //         _isSearching = !_isSearching;
+                                //       });
+                                //     },
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
