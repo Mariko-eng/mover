@@ -13,6 +13,7 @@ class Trip {
   final String departureLocationId;
   final String departureLocationName;
   final String companyId;
+  final String companyName;
   final DocumentReference company;
   final String busPlateNo;
   final DateTime arrivalTime;
@@ -44,6 +45,7 @@ class Trip {
       required this.departureLocationName,
       required this.company,
       required this.companyId,
+        required this.companyName,
         required  this.busPlateNo,
         required this.departureTime,
       required this.arrivalTime,
@@ -92,6 +94,7 @@ class Trip {
         departureLocationName: data['departureLocationName'] ?? "",
         company: data['company'],
         companyId: data['companyId'] ?? "",
+        companyName: data['companyName'] ?? "",
         busPlateNo: data['busPlateNo'] ?? "",
         departureTime: data['departureTime'].toDate(),
         arrivalTime: data['arrivalTime'].toDate(),
@@ -110,6 +113,23 @@ class Trip {
         discountPriceVip: data['discountPriceVip'] ?? data['priceVip'] ?? 0,
         tripNumber: data['tripNumber'] ?? "",
         tripType: data['tripType'] ?? "");
+  }
+}
+
+Future<List<Trip>> fetchActiveTrips() async{
+  try{
+    DateTime now = DateTime.now();
+    DateTime yesterday = DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
+
+    var res = await tripsCollection
+        .where('departureTime', isGreaterThanOrEqualTo: yesterday)
+        .orderBy('departureTime').get();
+
+    return res.docs.map((doc) => Trip.fromSnapshot(doc)).toList();
+
+  }catch(e){
+    print("E : " + e.toString());
+    throw Exception(e.toString());
   }
 }
 

@@ -21,4 +21,14 @@ Stream<List<Destination>> getDestinations() {
       .orderBy('name')
       .snapshots()
       .map(_destinationListFromSnapshot);
+
+}
+
+Future<List<Destination>> fetchDestinations() async {
+  try{
+    var results = await destinationsCollection.orderBy('name').get();
+    return _destinationListFromSnapshot(results);
+  }catch(e){
+    throw(e.toString());
+  }
 }

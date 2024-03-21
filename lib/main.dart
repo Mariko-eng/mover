@@ -1,5 +1,6 @@
 import 'package:bus_stop/contollers/authController.dart';
 import 'package:bus_stop/contollers/lcoProvider.dart';
+import 'package:bus_stop/contollers/locController.dart';
 import 'package:bus_stop/test.dart';
 import 'package:bus_stop/views/welcome/initial.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Get.put(LocationController());
   await Firebase.initializeApp();
   runApp(const BusStopApp());
 }
@@ -28,8 +30,8 @@ class BusStopApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: "Bus Stop",
           theme: ThemeData(primaryColor: Colors.red, primarySwatch: Colors.red),
-          home: TestView(),
-          // home: const Initial()
+          // home: TestView(),
+          home: const Initial()
        ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:bus_stop/views/v2/main/Home_Info_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:bus_stop/views/v2/main/home_view.dart';
@@ -7,10 +8,11 @@ import 'package:bus_stop/views/v2/main/home_ticket_view.dart';
 
 BottomAppBar buildBottomAppBar({required BuildContext context, required int activeBar}) {
   return BottomAppBar(
+    notchMargin: 2,
     child: Container(
       height: 60,
       color: Colors.grey[100],
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -35,7 +37,7 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
           ),
           GestureDetector(
             onTap: () {
-              Get.off(() => HomeAllTripsView());
+              Get.to(() => HomeAllTripsView());
             },
             child: Column(
               children: [
@@ -53,7 +55,7 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
           ),
           GestureDetector(
             onTap: () {
-              Get.off(() => HomeBusCompanyView());
+              Get.to(() => HomeBusCompanyView());
             },
             child: Column(
               children: [
@@ -71,7 +73,7 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
           ),
           GestureDetector(
             onTap: () {
-              Get.off(() => HomeTicketView());
+              Get.to(() => HomeTicketView());
             },
             child: Column(
               children: [
@@ -80,6 +82,24 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
                 ),
                  Text(
                   "My Tickets",
+                  style: TextStyle(
+                    color: activeBar == 3 ? Colors.black87 :  Color(0xffE4181D),
+                  ),
+                )
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.to(() => HomeInfoView());
+            },
+            child: Column(
+              children: [
+                Icon(Icons.info,
+                  color: activeBar == 3 ? Colors.black87 :  Color(0xffE4181D),
+                ),
+                Text(
+                  "Info",
                   style: TextStyle(
                     color: activeBar == 3 ? Colors.black87 :  Color(0xffE4181D),
                   ),

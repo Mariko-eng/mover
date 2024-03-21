@@ -26,13 +26,24 @@ class BusCompany {
     Map data = snap.data() as Map;
     return BusCompany(
       uid: snap.id,
-      name: data["name"],
-      email: data["email"],
-      contactEmail: data["contactEmail"],
-      phoneNumber: data["phoneNumber"],
-      hotLine: data["hotLine"],
-      logo: data["logo"],
+      name: data["name"] ?? "",
+      email: data["email"] ?? "",
+      contactEmail: data["contactEmail"] ?? "",
+      phoneNumber: data["phoneNumber"] ?? "",
+      hotLine: data["hotLine"] ?? "",
+      logo: data["logo"] ?? "",
     );
+  }
+}
+
+Future<List<BusCompany>> fetchBusCompanies() async{
+  try{
+    var res = await companiesCollection.get();
+
+    return res.docs.map((doc) => BusCompany.fromSnapshot(doc)).toList();
+
+  }catch(e){
+    throw Exception(e.toString());
   }
 }
 

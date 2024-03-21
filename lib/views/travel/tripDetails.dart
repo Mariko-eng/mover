@@ -73,7 +73,7 @@ class _TripDetailsState extends State<TripDetails> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                              width: 300,
+                              width: 340,
                               height: 400,
                               decoration: BoxDecoration(
                                 color: Colors.grey,
@@ -189,8 +189,25 @@ class _TripDetailsState extends State<TripDetails> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    const Text("Company Name"),
-                                                    Text(widget.trip.companyData!['name'])
+                                                    const Text("Company"),
+                                                    widget.trip.companyName != ""
+                                                        ? Text(
+                                                      widget.trip.companyName,
+                                                    )
+                                                        : FutureBuilder(
+                                                        future:
+                                                        widget.trip.setCompanyData(context),
+                                                        builder: (context, snapshot) {
+                                                          if (snapshot.hasData) {
+                                                            return Text(
+                                                              widget.trip.companyData!['name'],
+                                                            );
+                                                          } else {
+                                                            return Text(
+                                                              "Bus Stop"
+                                                            );
+                                                          }
+                                                        }),
                                                   ],
                                                 ),
                                                 Text(
@@ -211,14 +228,13 @@ class _TripDetailsState extends State<TripDetails> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    const Text("Date"),
-                                                    Text(dateToStringNew(
-                                                        widget.trip.departureTime))
-                                                  ],
+                                                const Text("Date Of Travel"),
+                                                Text(dateToStringNew(
+                                                    widget.trip.departureTime,
+                                                ),
+                                                    style: TextStyle(
+                                                        color: Colors.blue
+                                                    )
                                                 ),
                                               ],
                                             ),
@@ -413,7 +429,7 @@ class _TripDetailsState extends State<TripDetails> {
                                 ],
                               )),
                           Container(
-                            width: 300,
+                            width: 340,
                             height: 130,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -464,9 +480,8 @@ class _TripDetailsState extends State<TripDetails> {
                               ],
                             ),
                           ),
-
                           Container(
-                            width: 300,
+                            width: 340,
                             margin: EdgeInsets.only(top:10),
                             padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                             decoration: BoxDecoration(
@@ -490,7 +505,7 @@ class _TripDetailsState extends State<TripDetails> {
                                           minLines: 1,
                                           maxLines: 1,
                                           style: const TextStyle(
-                                            fontSize: 20
+                                            fontSize: 18
                                           ),
                                           controller: noOfTicketsController,
                                           textAlignVertical: TextAlignVertical.bottom,
@@ -523,7 +538,7 @@ class _TripDetailsState extends State<TripDetails> {
                                           decoration: InputDecoration(
                                               contentPadding: EdgeInsets.symmetric(
                                                 horizontal: 10,
-                                                vertical: 0
+                                                vertical: 5
                                               ),
                                               border: OutlineInputBorder(
                                               borderSide: BorderSide(

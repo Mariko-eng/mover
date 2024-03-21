@@ -180,36 +180,42 @@ class TripTile extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    trip.companyData == null
-                                        ? const Text(
-                                            "Bus Stop",
+                                    trip.companyName != ""
+                                        ? Text(
+                                            trip.companyName,
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15),
                                           )
-                                        : Text(
-                                            trip.companyData!['name'],
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15),
-                                          ),
+                                        : FutureBuilder(
+                                            future:
+                                                trip.setCompanyData(context),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                return Text(
+                                                  trip.companyData!['name'],
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 15),
+                                                );
+                                              } else {
+                                                return Text(
+                                                  "Bus Stop",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 15),
+                                                );
+                                              }
+                                            }),
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    trip.busPlateNo == ""
-                                        ? Container()
-                                        : Text(
-                                            trip.busPlateNo.toUpperCase(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.blue[900]),
-                                          ),
                                   ],
                                 ),
                               ),
                             ),
                             const SizedBox(
-                              width: 25,
+                              width: 20,
                             ),
                           ],
                         ),
@@ -240,9 +246,31 @@ class TripTile extends StatelessWidget {
                     Positioned(
                         top: 8,
                         right: 15,
-                        child: Text(
-                          dateToStringNew(trip.departureTime),
-                          style: const TextStyle(color: Colors.white),
+                        child: Row(
+                          children: [
+                            Row(
+                              children: [
+                                trip.busPlateNo == ""
+                                    ? Container()
+                                    : Text(
+                                  trip.busPlateNo.toUpperCase(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue[900]),
+                                ),
+                                trip.busPlateNo == ""
+                                    ? Container()
+                                    :
+                                Text(" , ", style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue[900])),
+                              ],
+                            ),
+                            Text(
+                              dateToStringNew(trip.departureTime),
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ],
                         )),
                   ],
                 )),

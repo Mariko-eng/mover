@@ -2,7 +2,7 @@ import 'package:bus_stop/models/ticket.dart';
 import 'package:bus_stop/views/travel/ticketTile.dart';
 import 'package:bus_stop/views/v2/widgets/home_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:bus_stop/views/v2/widgets/bottom_bar_widget.dart';
+// import 'package:bus_stop/views/v2/widgets/bottom_bar_widget.dart';
 // import 'package:bus_stop/views/v2/drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:bus_stop/contollers/authController.dart';
@@ -91,7 +91,8 @@ class _HomeTicketViewState extends State<HomeTicketView> {
                     })
               ],
             ),
-      bottomNavigationBar: buildBottomAppBar(context: context, activeBar: 3),
+
+      //bottomNavigationBar: buildBottomAppBar(context: context, activeBar: 3),
     );
   }
 }

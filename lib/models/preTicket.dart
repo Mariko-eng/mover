@@ -19,6 +19,9 @@ class PreTripTicket {
   final int numberOfTickets;
   final int ticketPrice;
   final int totalAmount;
+  final String buyerNames;
+  final String buyerPhoneNumber;
+  final String buyerEmail;
   final String clientId;
   final String clientUsername;
   final Timestamp createdAt;
@@ -36,6 +39,9 @@ class PreTripTicket {
       required this.numberOfTickets,
       required this.ticketPrice,
       required this.totalAmount,
+        required this.buyerNames,
+        required this.buyerPhoneNumber,
+        required this.buyerEmail,
       required this.clientId,
       required this.clientUsername,
       required this.createdAt});
@@ -43,6 +49,9 @@ class PreTripTicket {
 
 Future<String> addPreTripTicketData({
   required Client client,
+  required String buyerNames,
+  required String buyerPhoneNumber,
+  required String buyerEmail,
   required Trip trip,
   required String ticketType,
   required int ticketPrice,
@@ -63,6 +72,9 @@ Future<String> addPreTripTicketData({
       'ticketPrice': ticketPrice,
       'totalAmount': totalAmount,
       'isCompleted': false,
+      'buyerNames': buyerNames,
+      'buyerPhoneNumber': buyerPhoneNumber,
+      'buyerEmail': buyerEmail,
       'userId': client.uid,
       'userEmail': client.email,
       'createdAt': DateTime.now(),
