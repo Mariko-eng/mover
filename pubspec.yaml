@@ -73,7 +73,7 @@ dependencies:
   uuid: ^3.0.7
   google_fonts: ^4.0.4
   flutter_launcher_icons: ^0.11.0
-
+  image_gallery_saver:
 
 flutter_icons:
   android: true

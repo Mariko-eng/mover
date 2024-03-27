@@ -1,6 +1,6 @@
-import 'package:bus_stop/views/homeType.dart';
-import 'package:bus_stop/views/shared/loading.dart';
+import 'package:bus_stop/views/welcome/homeType.dart';
 import 'package:bus_stop/views/auth/login_or_signup.dart';
+import 'package:bus_stop/views/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bus_stop/contollers/authController.dart';
@@ -12,7 +12,7 @@ class AuthWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserProvider userProvider = Provider.of<UserProvider>(context);
     if (userProvider.isLoading) {
-      return Loading();
+      return LoadingWidget();
     } else {
       if (userProvider.client == null) {
         return const LoginOrSignUpView();

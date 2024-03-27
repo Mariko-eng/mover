@@ -9,3 +9,4 @@ CollectionReference testTickets = FirebaseFirestore.instance.collection("test_ti
 CollectionReference testTicketsPre = FirebaseFirestore.instance.collection("test_tickets_pre");
 CollectionReference testTicketsHistory = FirebaseFirestore.instance.collection("test_tickets_history");
 CollectionReference testTrips = FirebaseFirestore.instance.collection("test_trips");
+CollectionReference testInfo = FirebaseFirestore.instance.collection("test_news_info");

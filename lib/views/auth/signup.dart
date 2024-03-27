@@ -1,6 +1,6 @@
-import 'package:bus_stop/views/homeType.dart';
+import 'package:bus_stop/views/welcome/homeType.dart';
 import 'package:bus_stop/views/auth/login.dart';
-import 'package:bus_stop/views/v2/widgets/TextFieldConatiner.dart';
+import 'package:bus_stop/views/widgets/TextFieldConatiner.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';

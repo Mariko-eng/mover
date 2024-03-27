@@ -1,7 +1,6 @@
 import 'package:bus_stop/contollers/authController.dart';
 import 'package:bus_stop/contollers/lcoProvider.dart';
 import 'package:bus_stop/contollers/locController.dart';
-import 'package:bus_stop/test.dart';
 import 'package:bus_stop/views/welcome/initial.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,7 +29,6 @@ class BusStopApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: "Bus Stop",
           theme: ThemeData(primaryColor: Colors.red, primarySwatch: Colors.red),
-          // home: TestView(),
           home: const Initial()
        ),
     );

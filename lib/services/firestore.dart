@@ -1,4 +1,4 @@
-import 'package:bus_stop/models/destination.dart';
+import 'package:bus_stop/models/destination/destination.dart';
 import 'package:bus_stop/models/trip.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bus_stop/config/collections/index.dart';

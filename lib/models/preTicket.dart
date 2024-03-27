@@ -60,8 +60,8 @@ Future<String> addPreTripTicketData({
 }) async {
   try {
     final data = {
-      'companyId': trip.companyData!['id'],
-      'companyName': trip.companyData!['name'],
+      'companyId': trip.companyId,
+      'companyName': trip.companyName,
       'tripId': trip.id,
       'arrivalLocationId': trip.arrivalLocationId,
       'arrivalLocationName': trip.arrivalLocationName,

@@ -12,6 +12,8 @@ final CollectionReference clientsCollection = AppCollections.clientsRef;
 
 class TripTicket {
   final String ticketId;
+  final String companyId;
+  final String companyName;
   final String departureLocation;
   final String arrivalLocation;
   final int numberOfTickets;
@@ -30,23 +32,26 @@ class TripTicket {
   final Timestamp createdAt;
   Trip? trip;
 
-  TripTicket({required this.ticketId,
-    required this.departureLocation,
-    required this.arrivalLocation,
-    required this.numberOfTickets,
-    required this.total,
-    required this.amountPaid,
-    required this.tripRef,
-    required this.ticketType,
-    required this.ticketNumber,
-    required this.buyerNames,
-    required this.buyerPhoneNumber,
-    required this.buyerEmail,
-    required this.userId,
-    required this.status,
-    required this.success,
-    required this.transactionId,
-    required this.createdAt});
+  TripTicket(
+      {required this.ticketId,
+      required this.companyId,
+      required this.companyName,
+      required this.departureLocation,
+      required this.arrivalLocation,
+      required this.numberOfTickets,
+      required this.total,
+      required this.amountPaid,
+      required this.tripRef,
+      required this.ticketType,
+      required this.ticketNumber,
+      required this.buyerNames,
+      required this.buyerPhoneNumber,
+      required this.buyerEmail,
+      required this.userId,
+      required this.status,
+      required this.success,
+      required this.transactionId,
+      required this.createdAt});
 
   Future<TripTicket?> setTripData(BuildContext context) async {
     try {
@@ -67,19 +72,23 @@ class TripTicket {
     Map data = snapshot.data() as Map;
     return TripTicket(
         ticketId: snapshot.id,
+        companyId: data['companyId'],
+        companyName: data['companyName'],
         departureLocation: data['departureLocation'],
         arrivalLocation: data['arrivalLocation'],
-        numberOfTickets: data["numberOfTickets"] == null ? 0 : int.parse(
-            data["numberOfTickets"].toString()),
+        numberOfTickets: data["numberOfTickets"] == null
+            ? 0
+            : int.parse(data["numberOfTickets"].toString()),
         total: data["total"] == null ? 0 : int.parse(data["total"].toString()),
-        amountPaid: data["amountPaid"] == null ? 0 : int.parse(
-            data["amountPaid"].toString()),
+        amountPaid: data["amountPaid"] == null
+            ? 0
+            : int.parse(data["amountPaid"].toString()),
         tripRef: data['trip'],
         ticketType: data['ticketType'] ?? "",
         ticketNumber: data['ticketNumber'] ?? "",
-        buyerNames: data['userId'] ?? "Nan",
-        buyerEmail: data['userId'] ?? "Nan",
-        buyerPhoneNumber: data['userId'] ?? "Nan",
+        buyerNames: data['buyerNames'] ?? "Nan",
+        buyerEmail: data['buyerEmail'] ?? "Nan",
+        buyerPhoneNumber: data['buyerPhoneNumber'] ?? "Nan",
         userId: data['userId'] ?? "",
         status: data['status'] ?? "",
         success: data['success'] ?? true,
@@ -88,24 +97,25 @@ class TripTicket {
   }
 }
 
-Future<bool> purchaseOrdinaryTicket({required String preTicketId,
-  required String buyerNames,
-  required String buyerPhoneNumber,
-  required String buyerEmail,
-  required Client client,
-  required Trip trip,
-  required int numberOfTickets,
-  required int total,
-  required int amountPaid,
-  required String status,
-  required bool success,
-  required String transactionId,
-  required String txRef}) async {
+Future<bool> purchaseOrdinaryTicket(
+    {required String preTicketId,
+    required String buyerNames,
+    required String buyerPhoneNumber,
+    required String buyerEmail,
+    required Client client,
+    required Trip trip,
+    required int numberOfTickets,
+    required int total,
+    required int amountPaid,
+    required String status,
+    required bool success,
+    required String transactionId,
+    required String txRef}) async {
   try {
     final data = {
       'preTicketId': preTicketId,
-      'companyId': trip.companyData!['id'],
-      'companyName': trip.companyData!['name'],
+      'companyId': trip.companyId,
+      'companyName': trip.companyName,
       'trip': tripsCollection.doc(trip.id),
       'tripId': trip.id,
       'departureLocationId': trip.departureLocationId,
@@ -132,16 +142,16 @@ Future<bool> purchaseOrdinaryTicket({required String preTicketId,
       'createdAt': DateTime.now(),
     };
 
-    DocumentReference doc = await ticketsCollection.add(data);
+    await ticketsCollection.doc(preTicketId).set(data);
 
     await addTicketHistory(
-        ticketId: doc.id,
+        ticketId: preTicketId,
         status: "created",
         statusDesc: "Ticket Has Been Purchased");
 
     await addClientNotification(
       clientId: client.uid,
-      busCompanyId: trip.companyData!['id'],
+      busCompanyId: trip.companyId,
       title: "New Ordinary Ticket",
       body: "#" +
           transactionId +
@@ -158,24 +168,25 @@ Future<bool> purchaseOrdinaryTicket({required String preTicketId,
   }
 }
 
-Future<bool> purchaseVIPTicket({required String preTicketId,
-  required String buyerNames,
-  required String buyerEmail,
-  required String buyerPhoneNumber,
-  required Client client,
-  required Trip trip,
-  required int numberOfTickets,
-  required int total,
-  required int amountPaid,
-  required String status,
-  required bool success,
-  required String transactionId,
-  required String txRef}) async {
+Future<bool> purchaseVIPTicket(
+    {required String preTicketId,
+    required String buyerNames,
+    required String buyerEmail,
+    required String buyerPhoneNumber,
+    required Client client,
+    required Trip trip,
+    required int numberOfTickets,
+    required int total,
+    required int amountPaid,
+    required String status,
+    required bool success,
+    required String transactionId,
+    required String txRef}) async {
   try {
     final data = {
       'preTicketId': preTicketId,
-      'companyId': trip.companyData!['id'],
-      'companyName': trip.companyData!['name'],
+      'companyId': trip.companyId,
+      'companyName': trip.companyName,
       'trip': tripsCollection.doc(trip.id),
       'tripId': trip.id,
       'departureLocationId': trip.departureLocationId,
@@ -202,16 +213,16 @@ Future<bool> purchaseVIPTicket({required String preTicketId,
       'createdAt': DateTime.now(),
     };
 
-    DocumentReference doc = await ticketsCollection.add(data);
+    await ticketsCollection.doc(preTicketId).set(data);
 
     await addTicketHistory(
-        ticketId: doc.id,
+        ticketId: preTicketId,
         status: "created",
         statusDesc: "Ticket Has Been Purchased");
 
     await addClientNotification(
       clientId: client.uid,
-      busCompanyId: trip.companyData!['id'],
+      busCompanyId: trip.companyId,
       title: "New VIP Ticket",
       body: "#" + transactionId + " VIP Ticket Has Been Purchased Successfully",
     );
@@ -246,4 +257,13 @@ Stream<List<TripTicket>> getMyTicketsForBusCompany(
       .map((snap) {
     return snap.docs.map((doc) => TripTicket.fromSnapshot(doc)).toList();
   });
+}
+
+Future<TripTicket> fetchTicketDetail({required String ticketId}) async {
+  try {
+    DocumentSnapshot res = await ticketsCollection.doc(ticketId).get();
+    return TripTicket.fromSnapshot(res);
+  } catch (e) {
+    throw e.toString();
+  }
 }

@@ -1,9 +1,8 @@
 import 'package:bus_stop/services/auth.dart';
-import 'package:bus_stop/views/v2/widgets/TextFieldConatiner.dart';
+import 'package:bus_stop/views/widgets/TextFieldConatiner.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 // import 'package:tricket/utils/firebase_auth_error.dart';
 // import 'package:tricket/controllers/authController.dart';

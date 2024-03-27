@@ -1,5 +1,5 @@
 import 'package:bus_stop/models/busCompany.dart';
-import 'package:bus_stop/models/destination.dart';
+import 'package:bus_stop/models/destination/destination.dart';
 import 'package:bus_stop/models/trip.dart';
 import 'package:flutter/cupertino.dart';
 

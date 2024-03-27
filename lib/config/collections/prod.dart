@@ -9,3 +9,4 @@ CollectionReference prodTicketsPre = FirebaseFirestore.instance.collection("tick
 CollectionReference prodTicketsHistory = FirebaseFirestore.instance.collection("tickets_history");
 CollectionReference prodTrips = FirebaseFirestore.instance.collection("trips");
 CollectionReference prodNotifications = FirebaseFirestore.instance.collection("notifications");
+CollectionReference prodInfo = FirebaseFirestore.instance.collection("news_info");

@@ -1,7 +1,7 @@
 import 'package:bus_stop/views/auth/forgot_password.dart';
 import 'package:bus_stop/views/auth/wrapper.dart';
 import 'package:bus_stop/views/auth/signup.dart';
-import 'package:bus_stop/views/v2/widgets/TextFieldConatiner.dart';
+import 'package:bus_stop/views/widgets/TextFieldConatiner.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

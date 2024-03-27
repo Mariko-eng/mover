@@ -43,7 +43,7 @@
 	<key>NSMotionUsageDescription</key>
 	<string>For Motion Usage</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>For Gallery</string>
+	<string>For Saving Tickets To Your Gallery</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
