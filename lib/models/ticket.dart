@@ -5,6 +5,7 @@ import 'package:bus_stop/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bus_stop/config/collections/index.dart';
+import 'package:random_string/random_string.dart';
 
 final CollectionReference tripsCollection = AppCollections.tripsRef;
 final CollectionReference ticketsCollection = AppCollections.ticketsRef;
@@ -97,6 +98,23 @@ class TripTicket {
   }
 }
 
+Future<String> getRandomNumber() async {
+  String num1 = randomNumeric(4);
+  String num2 = randomNumeric(4);
+  String num = "T" + num1 + num2;
+  try {
+    var res = await ticketsCollection.where("ticketNumber", isEqualTo: num).get();
+    if (res.docs.isEmpty) {
+      return num;
+    } else {
+      return getRandomNumber();
+    }
+  } catch (e) {
+    print(e.toString());
+    return num;
+  }
+}
+
 Future<bool> purchaseOrdinaryTicket(
     {required String preTicketId,
     required String buyerNames,
@@ -107,11 +125,13 @@ Future<bool> purchaseOrdinaryTicket(
     required int numberOfTickets,
     required int total,
     required int amountPaid,
-    required String status,
-    required bool success,
-    required String transactionId,
-    required String txRef}) async {
+    // required String status,
+    // required bool success,
+    // required String transactionId,
+    // required String txRef
+    }) async {
   try {
+    String ticketNumber = await getRandomNumber();
     final data = {
       'preTicketId': preTicketId,
       'companyId': trip.companyId,
@@ -132,11 +152,7 @@ Future<bool> purchaseOrdinaryTicket(
       'total': total,
       'amountPaid': amountPaid,
       'ticketType': "Ordinary",
-      'ticketNumber': "#" + transactionId,
-      'paymentStatus': status,
-      'paymentSuccessFul': success,
-      'paymentTransactionId': transactionId,
-      'paymentTxRef': txRef,
+      'ticketNumber': ticketNumber,
       'status': "pending",
       'noOfVerifications': 0,
       'createdAt': DateTime.now(),
@@ -153,9 +169,7 @@ Future<bool> purchaseOrdinaryTicket(
       clientId: client.uid,
       busCompanyId: trip.companyId,
       title: "New Ordinary Ticket",
-      body: "#" +
-          transactionId +
-          " Ordinary Ticket Has Been Purchased Successfully",
+      body: ticketNumber + " Ordinary Ticket Has Been Purchased Successfully",
     );
 
     DocumentReference tripRef = tripsCollection.doc(trip.id);
@@ -177,12 +191,11 @@ Future<bool> purchaseVIPTicket(
     required Trip trip,
     required int numberOfTickets,
     required int total,
-    required int amountPaid,
-    required String status,
-    required bool success,
-    required String transactionId,
-    required String txRef}) async {
+    required int amountPaid
+    }) async {
   try {
+    String ticketNumber = await getRandomNumber();
+
     final data = {
       'preTicketId': preTicketId,
       'companyId': trip.companyId,
@@ -203,11 +216,7 @@ Future<bool> purchaseVIPTicket(
       'total': total,
       'amountPaid': amountPaid,
       'ticketType': "VIP",
-      'ticketNumber': "#" + transactionId,
-      'paymentStatus': status,
-      'paymentSuccessFul': success,
-      'paymentTransactionId': transactionId,
-      'paymentTxRef': txRef,
+      'ticketNumber': ticketNumber,
       'status': "pending",
       'noOfVerifications': 0,
       'createdAt': DateTime.now(),
@@ -224,7 +233,7 @@ Future<bool> purchaseVIPTicket(
       clientId: client.uid,
       busCompanyId: trip.companyId,
       title: "New VIP Ticket",
-      body: "#" + transactionId + " VIP Ticket Has Been Purchased Successfully",
+      body: ticketNumber + " VIP Ticket Has Been Purchased Successfully",
     );
 
     DocumentReference tripRef = tripsCollection.doc(trip.id);

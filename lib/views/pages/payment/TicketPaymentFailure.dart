@@ -12,9 +12,6 @@ class PurchaseTicketFailure extends StatefulWidget {
   final String buyerName;
   final String buyerEmail;
   final String buyerPhone;
-  final String transactionId;
-  final String transactionStatus;
-  final String transactionTxRef;
 
   const PurchaseTicketFailure({Key? key,
     required this.client,
@@ -25,9 +22,6 @@ class PurchaseTicketFailure extends StatefulWidget {
     required this.buyerName,
     required this.buyerEmail,
     required this.buyerPhone,
-    required this.transactionId,
-    required this.transactionStatus,
-    required this.transactionTxRef,
   }) : super(key: key);
 
   @override
@@ -183,64 +177,6 @@ class _PurchaseTicketFailureState extends State<PurchaseTicketFailure> {
                     ),
                   ],
                 ),
-                SizedBox(height: 5,),
-                Column(
-                  children: [
-                    Text("Transaction Tax Ref",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
-                    ),
-                    Text(widget.transactionTxRef,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w400,
-                          color: Theme.of(context).primaryColor
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(height: 5,),
-                Column(
-                  children: [
-                    Text("Transaction Status",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
-                    ),
-                    Text(widget.transactionStatus.toUpperCase(),
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w400,
-                          color: Theme.of(context).primaryColor
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 5,),
-                widget.transactionStatus.toLowerCase() == 'successful' ?
-                Column(
-                  children: [
-                    Text("Ticket Generation Status",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
-                    ),
-                    Text("Sorry, Failed!",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor
-                      ),
-                    ),
-                  ],
-                ) : Container(),
                 SizedBox(height: 5,),
               ],
             ),

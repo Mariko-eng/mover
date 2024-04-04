@@ -15,9 +15,6 @@ class PurchaseTicketSuccess extends StatefulWidget {
   final String buyerName;
   final String buyerEmail;
   final String buyerPhone;
-  final String transactionId;
-  final String transactionStatus;
-  final String transactionTxRef;
 
   const PurchaseTicketSuccess({
     Key? key,
@@ -30,9 +27,6 @@ class PurchaseTicketSuccess extends StatefulWidget {
     required this.buyerName,
     required this.buyerEmail,
     required this.buyerPhone,
-    required this.transactionId,
-    required this.transactionStatus,
-    required this.transactionTxRef,
   }) : super(key: key);
 
   @override
@@ -43,19 +37,19 @@ class _PurchaseTicketSuccessState extends State<PurchaseTicketSuccess> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFEFDF8),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          "Congratulations!",
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-              color: Colors.green[900]),
-        ),
-      ),
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   elevation: 0,
+      //   centerTitle: true,
+      //   // title: Text(
+      //   //   "Congratulations!",
+      //   //   style: TextStyle(
+      //   //       fontWeight: FontWeight.bold,
+      //   //       fontSize: 18,
+      //   //       color: Colors.green[900]),
+      //   // ),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
@@ -70,11 +64,33 @@ class _PurchaseTicketSuccessState extends State<PurchaseTicketSuccess> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Container(
+                        width: 80,
+                          height: 80,
+                          child: Image.asset('assets/images/image5.png')),
+                    ],
+                  ),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Icon(
                         Icons.check_box,
                         size: 100,
                         color: Colors.green[700],
                       )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Hey, Congratulations!",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.green[800]),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -207,48 +223,6 @@ class _PurchaseTicketSuccessState extends State<PurchaseTicketSuccess> {
                                     color: Colors.blue),
                           ),
                         ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        "Transaction Tax Ref",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      Text(
-                        widget.transactionTxRef,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w400,
-                            color: Theme.of(context).primaryColor),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        "Transaction Status",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      Text(
-                        widget.transactionStatus.toUpperCase(),
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w400,
-                            color: Theme.of(context).primaryColor),
                       ),
                     ],
                   ),

@@ -8,8 +8,8 @@ class AppCollections{
   // static CollectionReference clientsRef = prodClients;
   // static CollectionReference companiesRef = prodCompanies;
   // static CollectionReference destinationsRef = prodDestinations;
+  // static CollectionReference transactionsRef = prodTransactions;
   // static CollectionReference ticketsRef = prodTickets;
-  // static CollectionReference ticketsPreRef = prodTicketsPre;
   // static CollectionReference ticketsHistoryRef = prodTicketsHistory;
   // static CollectionReference tripsRef = prodTrips;
   // static CollectionReference notificationsRef = prodNotifications;
@@ -21,10 +21,14 @@ class AppCollections{
   static CollectionReference clientsRef = testClients;
   static CollectionReference companiesRef = testCompanies;
   static CollectionReference destinationsRef = testDestinations;
+  static CollectionReference transactionsRef = testTransactions;
   static CollectionReference ticketsRef = testTickets;
-  static CollectionReference ticketsPreRef = testTicketsPre;
   static CollectionReference ticketsHistoryRef = testTicketsHistory;
   static CollectionReference tripsRef = testTrips;
   static CollectionReference notificationsRef = testNotifications;
   static CollectionReference infoRef = testInfo;
 }
+
+
+// static CollectionReference ticketsPreRef = prodTicketsPre;
+// static CollectionReference ticketsPreRef = testTicketsPre;
