@@ -4,6 +4,7 @@ import 'package:bus_stop/config/collections/dev.dart';
 
 class AppCollections{
   // Production
+  // static bool isTestMode = false;
   // static CollectionReference adminAccountsRef = prodAdminAccounts;
   // static CollectionReference clientsRef = prodClients;
   // static CollectionReference companiesRef = prodCompanies;
@@ -17,6 +18,7 @@ class AppCollections{
 
 
   // Development
+  static bool isTestMode = true;
   static CollectionReference adminAccountsRef = testAdminAccounts;
   static CollectionReference clientsRef = testClients;
   static CollectionReference companiesRef = testCompanies;

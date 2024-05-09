@@ -1,3 +1,4 @@
+import 'package:bus_stop/config/collections/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bus_stop/models/ticket.dart';
@@ -500,6 +501,7 @@ class _TicketPaymentState extends State<TicketPayment> {
           buyerPhone: phoneNumberController.text.trim(),
           buyerEmail: emailController.text.trim(),
           client: widget.client,
+          isTestMode: AppCollections.isTestMode,
           paymentAccount: lastNineDigits,
           paymentAmount: widget.totalAmount,
           paymentWallet: paymentOption,

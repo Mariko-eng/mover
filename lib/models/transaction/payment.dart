@@ -58,6 +58,7 @@ class PaymentDetails {
 }
 
 Future<PaymentModel> initiateTransaction({
+  required bool isTestMode,
   required String account, // Phone Number
   required int amount,
   required String wallet, // 'mtnug' | 'airtelug'
@@ -72,9 +73,9 @@ Future<PaymentModel> initiateTransaction({
 
     Map payload = {
       "account": account,
-      "amount": amount,
+      "amount":  amount,
       "currency": "UGX",
-      "wallet": wallet,
+      "wallet": isTestMode ? wallet : "MTN-AIRTEL-UG",
       "transactionID": transactionID,
       "merchant": merchant,
       "memo": memo

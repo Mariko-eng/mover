@@ -18,19 +18,22 @@ class TransactionModel {
   final String arrivalLocationId;
   final String arrivalLocationName;
   final String ticketType;
-  final int ticketPrice;
-  final int numberOfTickets;
-  final int totalAmount;
+
+  final String ticketPrice;
+  final String numberOfTickets;
+  final String totalAmount;
+
   final String buyerNames;
   final String buyerPhone;
   final String buyerEmail;
   final String clientId;
   final String clientUsername;
   final String clientEmail;
-
   final String paymentStatus;
   final String paymentAccount;
-  final int paymentAmount;
+
+  final String paymentAmount;
+
   final String paymentWallet;
   final String paymentMemo;
 
@@ -38,30 +41,30 @@ class TransactionModel {
 
   TransactionModel(
       {required this.transactionId,
-      required this.companyId,
-      required this.companyName,
-      required this.tripId,
-      required this.tripNumber,
-      required this.departureLocationId,
-      required this.departureLocationName,
-      required this.arrivalLocationId,
-      required this.arrivalLocationName,
-      required this.ticketType,
-      required this.numberOfTickets,
-      required this.ticketPrice,
-      required this.totalAmount,
-      required this.buyerNames,
-      required this.buyerPhone,
-      required this.buyerEmail,
-      required this.clientId,
-      required this.clientUsername,
-      required this.clientEmail,
-      required this.createdAt,
-      required this.paymentStatus,
-      required this.paymentAccount,
-      required this.paymentAmount,
-      required this.paymentWallet,
-      required this.paymentMemo});
+        required this.companyId,
+        required this.companyName,
+        required this.tripId,
+        required this.tripNumber,
+        required this.departureLocationId,
+        required this.departureLocationName,
+        required this.arrivalLocationId,
+        required this.arrivalLocationName,
+        required this.ticketType,
+        required this.numberOfTickets,
+        required this.ticketPrice,
+        required this.totalAmount,
+        required this.buyerNames,
+        required this.buyerPhone,
+        required this.buyerEmail,
+        required this.clientId,
+        required this.clientUsername,
+        required this.clientEmail,
+        required this.createdAt,
+        required this.paymentStatus,
+        required this.paymentAccount,
+        required this.paymentAmount,
+        required this.paymentWallet,
+        required this.paymentMemo});
 
   factory TransactionModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map data = snapshot.data() as Map;
@@ -76,9 +79,9 @@ class TransactionModel {
         departureLocationId: data['departureLocationId'] ?? "",
         departureLocationName: data['departureLocationName'] ?? "",
         ticketType: data['ticketType'] ?? "",
-        ticketPrice: data['ticketPrice'] ?? 0,
-        numberOfTickets: data['numberOfTickets'] ?? 0,
-        totalAmount: data['totalAmount'] ?? 0,
+        ticketPrice: data['ticketPrice'] == null ? ""  : data['ticketPrice'] .toString(),
+        numberOfTickets: data['numberOfTickets'] == null ? ""  : data['numberOfTickets'] .toString(),
+        totalAmount: data['totalAmount'] == null ? ""  : data['totalAmount'] .toString(),
         buyerNames: data['buyerNames'] ?? "",
         buyerPhone: data['buyerPhone'] ?? "",
         buyerEmail: data['buyerEmail'] ?? "",
@@ -87,10 +90,26 @@ class TransactionModel {
         clientEmail: data['clientEmail'] ?? "",
         paymentStatus: data['paymentStatus'] ?? "PENDING",
         paymentAccount: data['paymentAccount'] ?? "",
-        paymentAmount: data['paymentAmount'] ?? "",
+        paymentAmount: data['paymentAmount'] == null ? ""  : data['paymentAmount'] .toString(),
         paymentWallet: data['paymentWallet'] ?? "",
         paymentMemo: data['paymentMemo'] ?? "",
         createdAt: DateTime.parse(data['createdAt']));
+  }
+
+
+  static Future<List<TransactionModel>> getClientTransactions(
+      {required String clientId}) async {
+    try {
+      var results = await AppCollections.transactionsRef
+          .where('clientId', isEqualTo: clientId)
+          .orderBy('createdAt', descending: true)
+          .get();
+
+      return results.docs.map((doc) => TransactionModel.fromSnapshot(doc)).toList();
+    } catch (e) {
+      print(e.toString());
+      throw Exception(e.toString());
+    }
   }
 }
 
@@ -104,6 +123,7 @@ Future<PaymentModel> buyTripTicket({
   required String buyerPhone,
   required String buyerEmail,
   required Client client,
+  required bool isTestMode,
   String paymentStatus = "PENDING",
   required String paymentAccount,
   required int paymentAmount,
@@ -142,6 +162,7 @@ Future<PaymentModel> buyTripTicket({
     DocumentReference doc = await transactionsCollection.add(transactionData);
 
     PaymentModel? paymentModel = await initiateTransaction(
+        isTestMode: isTestMode,
         account: paymentAccount,
         amount: paymentAmount,
         wallet: paymentWallet,

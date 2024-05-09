@@ -71,7 +71,6 @@ class _TripsTicketListState extends State<TripsTicketList> {
                         if (index == 0) {
                           return LoadingWidget();
                         }
-
                         return Container();
                       case ConnectionState.none:
                         return Container(

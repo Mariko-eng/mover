@@ -2,6 +2,7 @@ import 'package:bus_stop/models/trip.dart';
 import 'package:bus_stop/views/pages/trips/tripDetails.dart';
 import 'package:bus_stop/config/shared/utils.dart';
 import 'package:dotted_line/dotted_line.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bus_stop/models/user.dart';
 
@@ -16,6 +17,9 @@ class TripTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        if(trip.isClosed) {
+          return;
+        }
         if (trip.tripType == "Ordinary") {
           Navigator.push(
               context,
@@ -199,7 +203,7 @@ class TripTile extends StatelessWidget {
                                                       fontSize: 15),
                                                 );
                                               } else {
-                                                return const Text( 
+                                                return const Text(
                                                   "Bus Stop",
                                                   style: TextStyle(
                                                       color: Colors.white,
@@ -510,6 +514,21 @@ class TripTile extends StatelessWidget {
                                 ),
                               ],
                             )),
+                  ),
+
+                  Visibility(
+                    visible: trip.isClosed,
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5,vertical: 3),
+                          color: Colors.black,
+                          child: Text("ClOSED",
+                          style: TextStyle(
+                            color: Colors.white
+                          ),
+                          )),
+                    ),
                   )
                 ],
               ),
