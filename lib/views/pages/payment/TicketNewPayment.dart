@@ -1,5 +1,7 @@
 import 'package:bus_stop/config/collections/index.dart';
+import 'package:bus_stop/config/shared/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:bus_stop/models/ticket.dart';
 import 'package:bus_stop/models/trip.dart';
@@ -434,13 +436,27 @@ class _TicketPaymentState extends State<TicketPayment> {
                   width: double.infinity,
                   height: 50,
                   margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                  child: isProcessingTicket == true
-                      ? const LoadingWidget()
-                      : ElevatedButton(
+                  child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xffE4181D)),
-                          onPressed: _onPressed,
-                          child: Text(
+                          onPressed: (){
+                            if(isProcessingTicket == true){
+                              return;
+                            }else{
+                              _onPressed();
+                            }
+                          },
+                          child: isProcessingTicket ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Please Wait!",
+                                style: TextStyle(color: Colors.white, fontSize: 17),
+                              ),
+                              SizedBox(width: 5,),
+                              SpinKitThreeInOut(color: Colors.white,)
+                            ],
+                          ) : Text(
                             "Buy Now",
                             style: TextStyle(color: Colors.white, fontSize: 17),
                           )),
@@ -502,6 +518,7 @@ class _TicketPaymentState extends State<TicketPayment> {
           buyerEmail: emailController.text.trim(),
           client: widget.client,
           isTestMode: AppCollections.isTestMode,
+          apiKey: AppCollections.isTestMode ? devCulipaAPIKey : prodCulipaAPIKey,
           paymentAccount: lastNineDigits,
           paymentAmount: widget.totalAmount,
           paymentWallet: paymentOption,
@@ -511,6 +528,7 @@ class _TicketPaymentState extends State<TicketPayment> {
         if (widget.ticketChoice == "Ordinary") {
           bool res = await purchaseOrdinaryTicket(
             preTicketId: paymentResult.transactionId,
+            transactionId: paymentResult.transactionId,
             buyerNames: nameController.text.trim(),
             buyerPhoneNumber: phoneNumberController.text.trim(),
             buyerEmail: emailController.text.trim(),
@@ -522,7 +540,7 @@ class _TicketPaymentState extends State<TicketPayment> {
           );
           if (res == true) {
             Get.offAll(() => PurchaseTicketSuccess(
-                  ticketId: paymentResult.transactionId,
+                  transactionId: paymentResult.transactionId,
                   client: widget.client,
                   trip: widget.trip,
                   ticketChoice: widget.ticketChoice,
@@ -547,6 +565,7 @@ class _TicketPaymentState extends State<TicketPayment> {
         } else {
           bool res = await purchaseVIPTicket(
             preTicketId: paymentResult.transactionId,
+              transactionId: paymentResult.transactionId,
             buyerNames: nameController.text.trim(),
             buyerPhoneNumber: phoneNumberController.text.trim(),
             buyerEmail: emailController.text.trim(),
@@ -559,7 +578,7 @@ class _TicketPaymentState extends State<TicketPayment> {
 
           if (res) {
             Get.offAll(() => PurchaseTicketSuccess(
-                  ticketId: paymentResult.transactionId,
+              transactionId: paymentResult.transactionId,
                   client: widget.client,
                   trip: widget.trip,
                   ticketChoice: widget.ticketChoice,

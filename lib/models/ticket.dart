@@ -64,7 +64,7 @@ class TripTicket {
         return null;
       }
     } catch (e) {
-      print(e);
+      print(e.toString());
       return null;
     }
   }
@@ -116,8 +116,10 @@ Future<String> getRandomNumber() async {
 }
 
 Future<bool> purchaseOrdinaryTicket(
-    {required String preTicketId,
-    required String buyerNames,
+    {
+      required String preTicketId,
+      required String transactionId,
+      required String buyerNames,
     required String buyerPhoneNumber,
     required String buyerEmail,
     required Client client,
@@ -131,50 +133,54 @@ Future<bool> purchaseOrdinaryTicket(
     // required String txRef
     }) async {
   try {
-    String ticketNumber = await getRandomNumber();
-    final data = {
-      'preTicketId': preTicketId,
-      'companyId': trip.companyId,
-      'companyName': trip.companyName,
-      'trip': tripsCollection.doc(trip.id),
-      'tripId': trip.id,
-      'departureLocationId': trip.departureLocationId,
-      'departureLocation': trip.departureLocationName,
-      'arrivalLocationId': trip.arrivalLocationId,
-      'arrivalLocation': trip.arrivalLocationName,
-      'numberOfTickets': numberOfTickets,
-      'buyerNames': buyerNames,
-      'buyerPhoneNumber': buyerPhoneNumber,
-      'buyerEmail': buyerEmail,
-      'user': clientsCollection.doc(client.uid),
-      'userId': client.uid,
-      'userEmail': client.email,
-      'total': total,
-      'amountPaid': amountPaid,
-      'ticketType': "Ordinary",
-      'ticketNumber': ticketNumber,
-      'status': "pending",
-      'noOfVerifications': 0,
-      'createdAt': DateTime.now(),
-    };
+    for (int i=0; i < numberOfTickets; i ++) {
+      String ticketNumber = await getRandomNumber();
+      final data = {
+        'preTicketId': preTicketId,
+        'transactionId' : transactionId,
+        'companyId': trip.companyId,
+        'companyName': trip.companyName,
+        'trip': tripsCollection.doc(trip.id),
+        'tripId': trip.id,
+        'departureLocationId': trip.departureLocationId,
+        'departureLocation': trip.departureLocationName,
+        'arrivalLocationId': trip.arrivalLocationId,
+        'arrivalLocation': trip.arrivalLocationName,
+        'numberOfTickets': numberOfTickets,
+        'buyerNames': buyerNames,
+        'buyerPhoneNumber': buyerPhoneNumber,
+        'buyerEmail': buyerEmail,
+        'user': clientsCollection.doc(client.uid),
+        'userId': client.uid,
+        'userEmail': client.email,
+        'total': total,
+        'amountPaid': amountPaid,
+        'ticketType': "Ordinary",
+        'ticketNumber': ticketNumber,
+        'status': "pending",
+        'noOfVerifications': 0,
+        'createdAt': DateTime.now(),
+      };
 
-    await ticketsCollection.doc(preTicketId).set(data);
+      // await ticketsCollection.doc(preTicketId).set(data);
+      await ticketsCollection.add(data);
 
-    await addTicketHistory(
-        ticketId: preTicketId,
-        status: "created",
-        statusDesc: "Ticket Has Been Purchased");
+      await addTicketHistory(
+          ticketId: preTicketId,
+          status: "created",
+          statusDesc: "Ticket Has Been Purchased");
 
-    await addClientNotification(
-      clientId: client.uid,
-      busCompanyId: trip.companyId,
-      title: "New Ordinary Ticket",
-      body: ticketNumber + " Ordinary Ticket Has Been Purchased Successfully",
-    );
+      await addClientNotification(
+        clientId: client.uid,
+        busCompanyId: trip.companyId,
+        title: "New Ordinary Ticket",
+        body: ticketNumber + " Ordinary Ticket Has Been Purchased Successfully",
+      );
 
-    DocumentReference tripRef = tripsCollection.doc(trip.id);
-    await tripRef
-        .update({'occupiedSeats': FieldValue.increment(numberOfTickets)});
+      DocumentReference tripRef = tripsCollection.doc(trip.id);
+      await tripRef
+          .update({'occupiedSeats': FieldValue.increment(numberOfTickets)});
+    }
     return true;
   } catch (e) {
     print(e.toString());
@@ -184,7 +190,8 @@ Future<bool> purchaseOrdinaryTicket(
 
 Future<bool> purchaseVIPTicket(
     {required String preTicketId,
-    required String buyerNames,
+      required String transactionId,
+      required String buyerNames,
     required String buyerEmail,
     required String buyerPhoneNumber,
     required Client client,
@@ -194,51 +201,55 @@ Future<bool> purchaseVIPTicket(
     required int amountPaid
     }) async {
   try {
-    String ticketNumber = await getRandomNumber();
+    for (int i=0; i < numberOfTickets; i ++) {
+      String ticketNumber = await getRandomNumber();
 
-    final data = {
-      'preTicketId': preTicketId,
-      'companyId': trip.companyId,
-      'companyName': trip.companyName,
-      'trip': tripsCollection.doc(trip.id),
-      'tripId': trip.id,
-      'departureLocationId': trip.departureLocationId,
-      'departureLocation': trip.departureLocationName,
-      'arrivalLocationId': trip.arrivalLocationId,
-      'arrivalLocation': trip.arrivalLocationName,
-      'numberOfTickets': numberOfTickets,
-      'buyerNames': buyerNames,
-      'buyerEmail': buyerEmail,
-      'buyerPhoneNumber': buyerPhoneNumber,
-      'user': clientsCollection.doc(client.uid),
-      'userId': client.uid,
-      'userEmail': client.email,
-      'total': total,
-      'amountPaid': amountPaid,
-      'ticketType': "VIP",
-      'ticketNumber': ticketNumber,
-      'status': "pending",
-      'noOfVerifications': 0,
-      'createdAt': DateTime.now(),
-    };
+      final data = {
+        'preTicketId': preTicketId,
+        'transactionId': transactionId,
+        'companyId': trip.companyId,
+        'companyName': trip.companyName,
+        'trip': tripsCollection.doc(trip.id),
+        'tripId': trip.id,
+        'departureLocationId': trip.departureLocationId,
+        'departureLocation': trip.departureLocationName,
+        'arrivalLocationId': trip.arrivalLocationId,
+        'arrivalLocation': trip.arrivalLocationName,
+        'numberOfTickets': numberOfTickets,
+        'buyerNames': buyerNames,
+        'buyerEmail': buyerEmail,
+        'buyerPhoneNumber': buyerPhoneNumber,
+        'user': clientsCollection.doc(client.uid),
+        'userId': client.uid,
+        'userEmail': client.email,
+        'total': total,
+        'amountPaid': amountPaid,
+        'ticketType': "VIP",
+        'ticketNumber': ticketNumber,
+        'status': "pending",
+        'noOfVerifications': 0,
+        'createdAt': DateTime.now(),
+      };
 
-    await ticketsCollection.doc(preTicketId).set(data);
+      // await ticketsCollection.doc(preTicketId).set(data);
+      await ticketsCollection.add(data);
 
-    await addTicketHistory(
-        ticketId: preTicketId,
-        status: "created",
-        statusDesc: "Ticket Has Been Purchased");
+      await addTicketHistory(
+          ticketId: preTicketId,
+          status: "created",
+          statusDesc: "Ticket Has Been Purchased");
 
-    await addClientNotification(
-      clientId: client.uid,
-      busCompanyId: trip.companyId,
-      title: "New VIP Ticket",
-      body: ticketNumber + " VIP Ticket Has Been Purchased Successfully",
-    );
+      await addClientNotification(
+        clientId: client.uid,
+        busCompanyId: trip.companyId,
+        title: "New VIP Ticket",
+        body: ticketNumber + " VIP Ticket Has Been Purchased Successfully",
+      );
 
-    DocumentReference tripRef = tripsCollection.doc(trip.id);
-    await tripRef
-        .update({'occupiedSeats': FieldValue.increment(numberOfTickets)});
+      DocumentReference tripRef = tripsCollection.doc(trip.id);
+      await tripRef
+          .update({'occupiedSeats': FieldValue.increment(numberOfTickets)});
+    }
     return true;
   } catch (e) {
     print(e.toString());
@@ -250,6 +261,15 @@ Stream<List<TripTicket>> getMyTickets({required String uid}) {
   return ticketsCollection
       .where("userId", isEqualTo: uid)
       .orderBy("createdAt", descending: true)
+      .snapshots()
+      .map((snap) {
+    return snap.docs.map((doc) => TripTicket.fromSnapshot(doc)).toList();
+  });
+}
+
+Stream<List<TripTicket>> getTransactionTickets({required String transactionId}) {
+  return ticketsCollection
+      .where("transactionId", isEqualTo: transactionId)
       .snapshots()
       .map((snap) {
     return snap.docs.map((doc) => TripTicket.fromSnapshot(doc)).toList();

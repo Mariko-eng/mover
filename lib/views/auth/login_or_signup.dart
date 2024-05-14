@@ -56,7 +56,7 @@ class _LoginOrSignUpViewState extends State<LoginOrSignUpView> {
                               fontSize: 17
                           ),
                         ),
-                        Text("Book tour ticket today.",
+                        Text("Book your ticket today.",
                           style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 17

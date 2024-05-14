@@ -1,12 +1,13 @@
+import 'package:bus_stop/views/pages/payment/TransactionTickets.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:bus_stop/models/trip.dart';
 import 'package:bus_stop/models/user.dart';
 import 'package:bus_stop/views/main/home_view.dart';
-import 'package:bus_stop/views/pages/tickets/ticket_details.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:bus_stop/views/pages/tickets/ticketsList.dart';
 
 class PurchaseTicketSuccess extends StatefulWidget {
-  final String ticketId;
+  final String transactionId;
   final Client client;
   final Trip trip;
   final String ticketChoice;
@@ -18,7 +19,7 @@ class PurchaseTicketSuccess extends StatefulWidget {
 
   const PurchaseTicketSuccess({
     Key? key,
-    required this.ticketId,
+    required this.transactionId,
     required this.client,
     required this.trip,
     required this.ticketChoice,
@@ -65,12 +66,14 @@ class _PurchaseTicketSuccessState extends State<PurchaseTicketSuccess> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: 80,
+                          width: 80,
                           height: 80,
                           child: Image.asset('assets/images/image5.png')),
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -250,8 +253,10 @@ class _PurchaseTicketSuccessState extends State<PurchaseTicketSuccess> {
               ),
               GestureDetector(
                 onTap: () {
-                  // print(widget.ticketId);
-                  Get.to(() => TicketDetailsView(ticketId: widget.ticketId));
+                  Get.to(() => TransactionTickets(
+                        client: widget.client,
+                        transactionId: widget.transactionId,
+                      ));
                 },
                 child: Container(
                   height: 45,
@@ -274,7 +279,7 @@ class _PurchaseTicketSuccessState extends State<PurchaseTicketSuccess> {
                         width: 10,
                       ),
                       Text(
-                        "View Ticket",
+                        "View Your Tickets",
                         style: TextStyle(
                           fontSize: 17,
                           color: Color(0xff8c2636),

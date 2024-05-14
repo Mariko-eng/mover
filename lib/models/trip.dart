@@ -154,6 +154,8 @@ Future<List<Trip>> fetchActiveTrips() async {
 }
 
 Stream<List<Trip>> getAllActiveTrips() {
+  print("fetchActiveTrips");
+
   DateTime now = DateTime.now();
   DateTime yesterday =
       DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);

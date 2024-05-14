@@ -1,3 +1,4 @@
+import 'package:bus_stop/config/shared/constants.dart';
 import 'package:dio/dio.dart';
 
 class PaymentModel {
@@ -63,35 +64,49 @@ Future<PaymentModel> initiateTransaction({
   required int amount,
   required String wallet, // 'mtnug' | 'airtelug'
   required String transactionID,
-  required String memo,
-  String currency = "UGX",
-  String merchant = "BusStop",
 }) async {
   try {
     Dio dio = Dio();
-    String url = "https://test.culipay.ug/initiate";
+
+    String url = "https://culipay.ug/initiate";
+    String apiKey = prodCulipaAPIKey;
+
+    if (isTestMode == true) {
+      url = "https://test.culipay.ug/initiate";
+      apiKey = devCulipaAPIKey;
+    }
+
+    // Map payload1 = {
+    //   "account":"785227694",
+    //   "amount":500,
+    //   "currency":"UGX",
+    //   "wallet":"MTN-AIRTEL-UG",
+    //   "transactionID":"ticket00456",
+    //   "merchant":"BusStop",
+    //   "memo":"Bus Ticket Payment"
+    // };
 
     Map payload = {
       "account": account,
       "amount":  amount,
       "currency": "UGX",
-      "wallet": isTestMode ? wallet : "MTN-AIRTEL-UG",
+      "wallet": isTestMode == true ? wallet : "MTN-AIRTEL-UG",
       "transactionID": transactionID,
-      "merchant": merchant,
-      "memo": memo
+      "merchant": "BusStop",
+      "memo": "Bus Ticket Payment"
     };
 
     print("Be4 response");
     print(payload);
+
     Response response = await dio.post(url, data: payload,
         options: Options(
           headers: {
             'Content-Type': 'application/json',
             'Accept': '*/*',
             'Connection': 'keep-alive',
-            'api-key': '183F45697BE7F79B5C827595867AE23A0245591E8EA46658FC84080011903087',
+            'api-key': apiKey,
             'merchant': 'BusStop'
-            // 'Cookie': accessToken, // Corrected header name
           },
         )
     );
@@ -110,10 +125,18 @@ Future<PaymentModel> initiateTransaction({
 
 Future<PaymentModel> checkPaymentTransactionStatus({
   required PaymentModel paymentModel,
+  required bool isTestMode,
 }) async {
   try {
     Dio dio = Dio();
-    String url = "https://test.culipay.ug/status/${paymentModel.culipaTxId}";
+
+    String url = "https://culipay.ug/status/${paymentModel.culipaTxId}";
+    String apiKey = prodCulipaAPIKey;
+
+    if (isTestMode == true) {
+      url = "https://test.culipay.ug/status/${paymentModel.culipaTxId}";
+      apiKey = devCulipaAPIKey;
+    }
 
     while (true) {
       Response response = await dio.get(url,
@@ -122,13 +145,14 @@ Future<PaymentModel> checkPaymentTransactionStatus({
               'Content-Type': 'application/json',
               'Accept': '*/*',
               'Connection': 'keep-alive',
-              'api-key': '183F45697BE7F79B5C827595867AE23A0245591E8EA46658FC84080011903087',
+              'api-key': apiKey,
               'merchant': 'BusStop'
-              // 'Cookie': accessToken, // Corrected header name
             },
           )
       );
       PaymentModel data = PaymentModel.fromJson(response.data);
+
+      print(data.transactionId);
 
       if (data.status.toUpperCase() != "PENDING") {
         return data; // Transaction status is no longer "Pending", return the data

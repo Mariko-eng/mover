@@ -4,31 +4,31 @@ import 'package:bus_stop/config/collections/dev.dart';
 
 class AppCollections{
   // Production
-  // static bool isTestMode = false;
-  // static CollectionReference adminAccountsRef = prodAdminAccounts;
-  // static CollectionReference clientsRef = prodClients;
-  // static CollectionReference companiesRef = prodCompanies;
-  // static CollectionReference destinationsRef = prodDestinations;
-  // static CollectionReference transactionsRef = prodTransactions;
-  // static CollectionReference ticketsRef = prodTickets;
-  // static CollectionReference ticketsHistoryRef = prodTicketsHistory;
-  // static CollectionReference tripsRef = prodTrips;
-  // static CollectionReference notificationsRef = prodNotifications;
-  // static CollectionReference infoRef = prodInfo;
+  static bool isTestMode = false;
+  static CollectionReference adminAccountsRef = prodAdminAccounts;
+  static CollectionReference clientsRef = prodClients;
+  static CollectionReference companiesRef = prodCompanies;
+  static CollectionReference destinationsRef = prodDestinations;
+  static CollectionReference transactionsRef = prodTransactions;
+  static CollectionReference ticketsRef = prodTickets;
+  static CollectionReference ticketsHistoryRef = prodTicketsHistory;
+  static CollectionReference tripsRef = prodTrips;
+  static CollectionReference notificationsRef = prodNotifications;
+  static CollectionReference infoRef = prodInfo;
 
 
   // Development
-  static bool isTestMode = true;
-  static CollectionReference adminAccountsRef = testAdminAccounts;
-  static CollectionReference clientsRef = testClients;
-  static CollectionReference companiesRef = testCompanies;
-  static CollectionReference destinationsRef = testDestinations;
-  static CollectionReference transactionsRef = testTransactions;
-  static CollectionReference ticketsRef = testTickets;
-  static CollectionReference ticketsHistoryRef = testTicketsHistory;
-  static CollectionReference tripsRef = testTrips;
-  static CollectionReference notificationsRef = testNotifications;
-  static CollectionReference infoRef = testInfo;
+  // static bool isTestMode = true;
+  // static CollectionReference adminAccountsRef = testAdminAccounts;
+  // static CollectionReference clientsRef = testClients;
+  // static CollectionReference companiesRef = testCompanies;
+  // static CollectionReference destinationsRef = testDestinations;
+  // static CollectionReference transactionsRef = testTransactions;
+  // static CollectionReference ticketsRef = testTickets;
+  // static CollectionReference ticketsHistoryRef = testTicketsHistory;
+  // static CollectionReference tripsRef = testTrips;
+  // static CollectionReference notificationsRef = testNotifications;
+  // static CollectionReference infoRef = testInfo;
 }
 
 

@@ -124,6 +124,7 @@ Future<PaymentModel> buyTripTicket({
   required String buyerEmail,
   required Client client,
   required bool isTestMode,
+  required String apiKey,
   String paymentStatus = "PENDING",
   required String paymentAccount,
   required int paymentAmount,
@@ -167,14 +168,19 @@ Future<PaymentModel> buyTripTicket({
         amount: paymentAmount,
         wallet: paymentWallet,
         transactionID: doc.id,
-        memo: paymentMemo);
+    );
 
       print("Checking Payment Status!");
 
       PaymentModel updatedPaymentModel =
-      await checkPaymentTransactionStatus(paymentModel: paymentModel);
+      await checkPaymentTransactionStatus(
+          paymentModel: paymentModel,
+          isTestMode: isTestMode,
+      );
 
-      await transactionsCollection.doc(paymentModel.transactionId).update({
+      print(transactionsCollection.doc(doc.id));
+
+      await transactionsCollection.doc(doc.id).update({
         "culipaTxId": updatedPaymentModel.culipaTxId,
         "paymentStatus": updatedPaymentModel.status
       });
