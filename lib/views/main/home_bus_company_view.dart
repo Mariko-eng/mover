@@ -102,7 +102,7 @@ class _HomeBusCompanyViewState extends State<HomeBusCompanyView> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .bodyText1!
+                                                                .bodyMedium!
                                                                 .copyWith(
                                                                     fontWeight:
                                                                         FontWeight
@@ -121,7 +121,7 @@ class _HomeBusCompanyViewState extends State<HomeBusCompanyView> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .bodyText1!
+                                                                .bodyMedium!
                                                                 .copyWith(
                                                                     fontWeight:
                                                                         FontWeight
@@ -141,7 +141,7 @@ class _HomeBusCompanyViewState extends State<HomeBusCompanyView> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .bodyText1!
+                                                                .bodyMedium!
                                                                 .copyWith(
                                                                     fontWeight:
                                                                         FontWeight

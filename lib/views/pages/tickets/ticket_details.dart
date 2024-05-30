@@ -4,7 +4,6 @@ import 'package:bus_stop/views/widgets/loading_widget.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-// import 'package:path_provider/path_provider.dart';
 
 class TicketDetailsView extends StatefulWidget {
   final String ticketId;
@@ -21,7 +20,6 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
@@ -38,10 +36,9 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                 'assets/images/back_arrow.png',
               )),
         ),
-        title: Text("My Ticket",
-        style: TextStyle(
-          color: Colors.red[900]
-        ),
+        title: Text(
+          "My Ticket",
+          style: TextStyle(color: Colors.red[900]),
         ),
         centerTitle: true,
         actions: [
@@ -50,10 +47,8 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
             child: Row(
               children: [
                 Icon(
-                  Icons
-                      .print,
-                  color:
-                  Colors.red[900],
+                  Icons.print,
+                  color: Colors.red[900],
                   size: 30,
                 ),
               ],
@@ -102,7 +97,7 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                               child: Text("Sorry Ticket Not Found!"),
                             ));
                           } else {
-                            if (tripTicket.trip == null){
+                            if (tripTicket.trip == null) {
                               return Container();
                             }
                             return SingleChildScrollView(
@@ -131,8 +126,8 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                           BorderRadius.only(
                                                               topRight: Radius
                                                                   .circular(20),
-                                                              topLeft:
-                                                                  Radius.circular(
+                                                              topLeft: Radius
+                                                                  .circular(
                                                                       20))),
                                                   child: Column(
                                                     children: [
@@ -141,29 +136,31 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                         alignment:
                                                             Alignment.center,
                                                         child: Text(
-                                                          tripTicket.ticketNumber
+                                                          tripTicket
+                                                              .ticketNumber
                                                               .toUpperCase(),
-                                                          style: const TextStyle(
-                                                              color:
-                                                                  Colors.white),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
                                                         ),
                                                         decoration: const BoxDecoration(
-                                                            color:
-                                                                Color(0xffE4181D),
-                                                            borderRadius:
-                                                                BorderRadius.only(
-                                                                    topRight: Radius
-                                                                        .circular(
-                                                                            20),
-                                                                    topLeft: Radius
-                                                                        .circular(
-                                                                            20))),
+                                                            color: Color(
+                                                                0xffE4181D),
+                                                            borderRadius: BorderRadius.only(
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        20),
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        20))),
                                                       ),
                                                       Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
-                                                            horizontal: 40,
-                                                            vertical: 10),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 40,
+                                                                vertical: 10),
                                                         child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -179,10 +176,11 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                         ),
                                                       ),
                                                       Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
-                                                            horizontal: 50,
-                                                            vertical: 2),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 50,
+                                                                vertical: 2),
                                                         child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -201,7 +199,8 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                                   border: Border.all(
                                                                       color: Colors
                                                                           .white,
-                                                                      width: 2)),
+                                                                      width:
+                                                                          2)),
                                                             ),
                                                             Expanded(
                                                               child: Container(
@@ -224,16 +223,18 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                                   border: Border.all(
                                                                       color: Colors
                                                                           .white,
-                                                                      width: 2)),
+                                                                      width:
+                                                                          2)),
                                                             )
                                                           ],
                                                         ),
                                                       ),
                                                       Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
-                                                            horizontal: 30,
-                                                            vertical: 10),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 30,
+                                                                vertical: 10),
                                                         child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -246,7 +247,8 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                               padding:
                                                                   const EdgeInsets
                                                                       .only(
-                                                                      right: 20),
+                                                                      right:
+                                                                          20),
                                                               child: Text(tripTicket
                                                                   .departureLocation),
                                                             ),
@@ -270,7 +272,8 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                           padding:
                                                               const EdgeInsets
                                                                   .symmetric(
-                                                                  horizontal: 30,
+                                                                  horizontal:
+                                                                      30,
                                                                   vertical: 1),
                                                           child: Row(
                                                             mainAxisAlignment:
@@ -294,10 +297,13 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                           padding:
                                                               const EdgeInsets
                                                                   .symmetric(
-                                                                  horizontal: 30,
+                                                                  horizontal:
+                                                                      30,
                                                                   vertical: 2),
                                                           child: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             children: [
                                                               Column(
                                                                 children: [
@@ -307,13 +313,12 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                               ),
                                                               Column(
                                                                 children: [
-                                                                  Text(
-                                                                      tripTicket
-                                                                          .companyName),
-                                                                  Text(
-                                                                      tripTicket.trip!
-                                                                          .busPlateNo
-                                                                          .toUpperCase()),
+                                                                  Text(tripTicket
+                                                                      .companyName),
+                                                                  Text(tripTicket
+                                                                      .trip!
+                                                                      .busPlateNo
+                                                                      .toUpperCase()),
                                                                 ],
                                                               ),
                                                             ],
@@ -325,7 +330,8 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                           padding:
                                                               const EdgeInsets
                                                                   .symmetric(
-                                                                  horizontal: 30,
+                                                                  horizontal:
+                                                                      30,
                                                                   vertical: 2),
                                                           child: Row(
                                                             mainAxisAlignment:
@@ -342,66 +348,30 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                                         right:
                                                                             20),
                                                                 child: Text(
-                                                                    "No Of Tickets"),
+                                                                    "Seat No"),
                                                               ),
                                                               Expanded(
-                                                                child: Container(
+                                                                child:
+                                                                    Container(
                                                                   height: 3,
                                                                 ),
                                                               ),
                                                               Padding(
                                                                 padding:
                                                                     const EdgeInsets
-                                                                        .all(4.0),
+                                                                        .all(
+                                                                        4.0),
                                                                 child: Text(
-                                                                  tripTicket
-                                                                      .numberOfTickets
-                                                                      .toString(),
+                                                                  tripTicket.seatNumber ==
+                                                                          ""
+                                                                      ? "??"
+                                                                      : tripTicket
+                                                                          .seatNumber
+                                                                          .toString(),
                                                                   style: TextStyle(
                                                                       color: Colors
-                                                                          .red[900]),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Padding(
-                                                          padding:
-                                                          const EdgeInsets
-                                                              .symmetric(
-                                                              horizontal: 30,
-                                                              vertical: 2),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                            crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    right:
-                                                                    20),
-                                                                child: Text(
-                                                                    "Ticket Price"),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                const EdgeInsets
-                                                                    .all(4.0),
-                                                                child: Text(
-                                                                  tripTicket
-                                                                      .trip!
-                                                                      .price
-                                                                      .toString(),
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .red[900]),
+                                                                              .red[
+                                                                          900]),
                                                                 ),
                                                               ),
                                                             ],
@@ -413,7 +383,8 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                           padding:
                                                               const EdgeInsets
                                                                   .symmetric(
-                                                                  horizontal: 30,
+                                                                  horizontal:
+                                                                      30,
                                                                   vertical: 2),
                                                           child: Row(
                                                             mainAxisAlignment:
@@ -429,20 +400,67 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                                         .only(
                                                                         right:
                                                                             20),
-                                                                child:
-                                                                    Text("Total"),
+                                                                child: Text(
+                                                                    "Ticket Price"),
                                                               ),
                                                               Padding(
                                                                 padding:
                                                                     const EdgeInsets
-                                                                        .all(4.0),
+                                                                        .all(
+                                                                        4.0),
+                                                                child: Text(
+                                                                  tripTicket
+                                                                      .trip!
+                                                                      .price
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                              .red[
+                                                                          900]),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  horizontal:
+                                                                      30,
+                                                                  vertical: 2),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        right:
+                                                                            20),
+                                                                child: Text(
+                                                                    "Total"),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        4.0),
                                                                 child: Text(
                                                                   tripTicket
                                                                       .total
                                                                       .toString(),
                                                                   style: TextStyle(
                                                                       color: Colors
-                                                                          .red[900]),
+                                                                              .red[
+                                                                          900]),
                                                                 ),
                                                               ),
                                                             ],
@@ -452,38 +470,41 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                       Container(
                                                         child: Padding(
                                                           padding:
-                                                          const EdgeInsets
-                                                              .symmetric(
-                                                              horizontal: 30,
-                                                              vertical: 2),
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  horizontal:
+                                                                      30,
+                                                                  vertical: 2),
                                                           child: Row(
                                                             mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
+                                                                CrossAxisAlignment
+                                                                    .center,
                                                             children: [
                                                               Padding(
                                                                 padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    right:
-                                                                    20),
-                                                                child:
-                                                                Text("Buyer Name/s"),
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        right:
+                                                                            20),
+                                                                child: Text(
+                                                                    "Buyer Name/s"),
                                                               ),
                                                               Padding(
                                                                 padding:
-                                                                const EdgeInsets
-                                                                    .all(4.0),
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        4.0),
                                                                 child: Text(
                                                                   tripTicket
                                                                       .buyerNames
                                                                       .toString(),
                                                                   style: TextStyle(
                                                                       color: Colors
-                                                                          .red[900]),
+                                                                              .red[
+                                                                          900]),
                                                                 ),
                                                               ),
                                                             ],
@@ -493,37 +514,44 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                       Container(
                                                         child: Padding(
                                                           padding:
-                                                          const EdgeInsets
-                                                              .symmetric(
-                                                              horizontal: 30,
-                                                              vertical: 2),
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  horizontal:
+                                                                      30,
+                                                                  vertical: 2),
                                                           child: Row(
                                                             mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
+                                                                CrossAxisAlignment
+                                                                    .center,
                                                             children: [
                                                               Padding(
                                                                 padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    right:
-                                                                    20),
-                                                                child:
-                                                                Text("Buyer Contact"),
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        right:
+                                                                            20),
+                                                                child: Text(
+                                                                    "Buyer Contact"),
                                                               ),
                                                               Padding(
                                                                 padding:
-                                                                const EdgeInsets
-                                                                    .all(4.0),
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        4.0),
                                                                 child: Text(
-                                                                  tripTicket.buyerPhoneNumber.toString(),
-                                                                  overflow: TextOverflow.clip,
+                                                                  tripTicket
+                                                                      .buyerPhoneNumber
+                                                                      .toString(),
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .clip,
                                                                   style: TextStyle(
                                                                       color: Colors
-                                                                          .red[900]),
+                                                                              .red[
+                                                                          900]),
                                                                 ),
                                                               ),
                                                             ],
@@ -543,13 +571,14 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                       color: Colors.grey[300],
                                                       borderRadius:
                                                           BorderRadius.only(
-                                                              topRight:
-                                                                  Radius.circular(
+                                                              topRight: Radius
+                                                                  .circular(
                                                                       50))),
                                                 ),
                                               ),
                                               Align(
-                                                alignment: Alignment.bottomRight,
+                                                alignment:
+                                                    Alignment.bottomRight,
                                                 child: Container(
                                                   width: 20,
                                                   height: 20,
@@ -557,8 +586,8 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                       color: Colors.grey[300],
                                                       borderRadius:
                                                           BorderRadius.only(
-                                                              topLeft:
-                                                                  Radius.circular(
+                                                              topLeft: Radius
+                                                                  .circular(
                                                                       50))),
                                                 ),
                                               )
@@ -569,7 +598,8 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                         height: 200,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
                                         child: Stack(
                                           children: [
@@ -621,7 +651,7 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                             tripTicket
                                                                 .ticketNumber +
                                                             ", " +
-                                                        "Bus Company: " +
+                                                            "Bus Company: " +
                                                             tripTicket
                                                                 .companyName +
                                                             ", " +

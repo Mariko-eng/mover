@@ -51,7 +51,7 @@ android {
 
     defaultConfig {
         applicationId "me.simonojok19.bus_stop"
-        minSdkVersion 21
+        minSdkVersion 22
         compileSdkVersion 34
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()

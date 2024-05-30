@@ -3,7 +3,6 @@ import 'package:bus_stop/models/user.dart';
 import 'package:bus_stop/views/pages/bus_company/BusCompanyMyTickets.dart';
 import 'package:bus_stop/views/pages/bus_company/BusCompanyProfile.dart';
 import 'package:flutter/material.dart';
-
 import 'BusCompanyDestinations.dart';
 import 'BusCompanyTrips.dart';
 
@@ -85,7 +84,7 @@ class _BusCompanyScreenState extends State<BusCompanyScreen> {
                                         "Name : ",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText1!
+                                            .bodyMedium!
                                             .copyWith(
                                                 fontWeight: FontWeight.bold),
                                       ),
@@ -101,7 +100,7 @@ class _BusCompanyScreenState extends State<BusCompanyScreen> {
                                         "Email : ",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText1!
+                                            .bodyMedium!
                                             .copyWith(
                                                 fontWeight: FontWeight.bold),
                                       ),
@@ -117,7 +116,7 @@ class _BusCompanyScreenState extends State<BusCompanyScreen> {
                                         "Phone Number : ",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText1!
+                                            .bodyMedium!
                                             .copyWith(
                                                 fontWeight: FontWeight.bold),
                                       ),

@@ -22,6 +22,7 @@ class TripTicket {
   final int amountPaid;
   final String ticketType;
   final String ticketNumber;
+  final String seatNumber;
   final String buyerNames;
   final String buyerPhoneNumber;
   final String buyerEmail;
@@ -45,6 +46,7 @@ class TripTicket {
       required this.tripRef,
       required this.ticketType,
       required this.ticketNumber,
+      required this.seatNumber,
       required this.buyerNames,
       required this.buyerPhoneNumber,
       required this.buyerEmail,
@@ -87,6 +89,7 @@ class TripTicket {
         tripRef: data['trip'],
         ticketType: data['ticketType'] ?? "",
         ticketNumber: data['ticketNumber'] ?? "",
+        seatNumber: data['seatNumber'] ?? "",
         buyerNames: data['buyerNames'] ?? "Nan",
         buyerEmail: data['buyerEmail'] ?? "Nan",
         buyerPhoneNumber: data['buyerPhoneNumber'] ?? "Nan",
@@ -103,7 +106,8 @@ Future<String> getRandomNumber() async {
   String num2 = randomNumeric(4);
   String num = "T" + num1 + num2;
   try {
-    var res = await ticketsCollection.where("ticketNumber", isEqualTo: num).get();
+    var res =
+        await ticketsCollection.where("ticketNumber", isEqualTo: num).get();
     if (res.docs.isEmpty) {
       return num;
     } else {
@@ -115,29 +119,28 @@ Future<String> getRandomNumber() async {
   }
 }
 
-Future<bool> purchaseOrdinaryTicket(
-    {
-      required String preTicketId,
-      required String transactionId,
-      required String buyerNames,
-    required String buyerPhoneNumber,
-    required String buyerEmail,
-    required Client client,
-    required Trip trip,
-    required int numberOfTickets,
-    required int total,
-    required int amountPaid,
-    // required String status,
-    // required bool success,
-    // required String transactionId,
-    // required String txRef
-    }) async {
+Future<bool> purchaseOrdinaryTicket({
+  required String preTicketId,
+  required String transactionId,
+  required String buyerNames,
+  required String buyerPhoneNumber,
+  required String buyerEmail,
+  required Client client,
+  required Trip trip,
+  required int numberOfTickets,
+  required int total,
+  required int amountPaid,
+  // required String status,
+  // required bool success,
+  // required String transactionId,
+  // required String txRef
+}) async {
   try {
-    for (int i=0; i < numberOfTickets; i ++) {
+    for (int i = 0; i < numberOfTickets; i++) {
       String ticketNumber = await getRandomNumber();
       final data = {
         'preTicketId': preTicketId,
-        'transactionId' : transactionId,
+        'transactionId': transactionId,
         'companyId': trip.companyId,
         'companyName': trip.companyName,
         'trip': tripsCollection.doc(trip.id),
@@ -190,18 +193,17 @@ Future<bool> purchaseOrdinaryTicket(
 
 Future<bool> purchaseVIPTicket(
     {required String preTicketId,
-      required String transactionId,
-      required String buyerNames,
+    required String transactionId,
+    required String buyerNames,
     required String buyerEmail,
     required String buyerPhoneNumber,
     required Client client,
     required Trip trip,
     required int numberOfTickets,
     required int total,
-    required int amountPaid
-    }) async {
+    required int amountPaid}) async {
   try {
-    for (int i=0; i < numberOfTickets; i ++) {
+    for (int i = 0; i < numberOfTickets; i++) {
       String ticketNumber = await getRandomNumber();
 
       final data = {
@@ -267,7 +269,8 @@ Stream<List<TripTicket>> getMyTickets({required String uid}) {
   });
 }
 
-Stream<List<TripTicket>> getTransactionTickets({required String transactionId}) {
+Stream<List<TripTicket>> getTransactionTickets(
+    {required String transactionId}) {
   return ticketsCollection
       .where("transactionId", isEqualTo: transactionId)
       .snapshots()

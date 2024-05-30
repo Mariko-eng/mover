@@ -1,3 +1,4 @@
+import 'package:bus_stop/config/collections/index.dart';
 import 'package:bus_stop/contollers/authController.dart';
 import 'package:bus_stop/contollers/lcoProvider.dart';
 import 'package:bus_stop/contollers/locController.dart';
@@ -11,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(LocationController());
   await Firebase.initializeApp();
+  AppCollections();
   runApp(const BusStopApp());
 }
 
