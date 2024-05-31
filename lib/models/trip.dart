@@ -108,19 +108,21 @@ class Trip {
         busPlateNo: data['busPlateNo'] ?? "",
         departureTime: data['departureTime'].toDate(),
         arrivalTime: data['arrivalTime'].toDate(),
+
         totalSeats: data['totalSeats'] ?? 0,
         occupiedSeats: data['occupiedSeats'] ?? 0,
-        price: data['price'] ?? 0,
-        discountPrice: data['discountPrice'] ?? data['price'] ?? 0,
         totalOrdinarySeats: data['totalOrdinarySeats'] ?? 0,
         occupiedOrdinarySeats: data['occupiedOrdinarySeats'] ?? 0,
-        priceOrdinary: data['priceOrdinary'] ?? 0,
-        discountPriceOrdinary:
-            data['discountPriceOrdinary'] ?? data['priceOrdinary'] ?? 0,
         totalVipSeats: data['totalVipSeats'] ?? 0,
         occupiedVipSeats: data['occupiedVipSeats'] ?? 0,
+
+        price: data['price'] ?? 0,
+        discountPrice: data['discountPrice'] ?? 0,
+        priceOrdinary: data['priceOrdinary'] ?? 0,
+        discountPriceOrdinary: data['discountPriceOrdinary'] ?? 0,
         priceVip: data['priceVip'] ?? 0,
-        discountPriceVip: data['discountPriceVip'] ?? data['priceVip'] ?? 0,
+        discountPriceVip: data['discountPriceVip']  ?? 0,
+
         tripNumber: data['tripNumber'] ?? "",
         tripType: data['tripType'] ?? "",
         isActive: data['isActive'] ?? false ?? data['is_active'],

@@ -18,41 +18,10 @@ class TicketTile extends StatefulWidget {
 }
 
 class _TicketTileState extends State<TicketTile> {
-  String companyName = "";
-
-  _getCompanyInfo() async {
-    try {
-      String docId = widget.tripTicket.trip!.company.id;
-      DocumentSnapshot snap =
-          await AppCollections.companiesRef.doc(docId).get();
-
-      Map data = snap.data() as Map;
-      if (data == null) {
-        if (mounted) {
-          setState(() {
-            companyName = "Bus Stop";
-          });
-        }
-      } else if (mounted) {
-        setState(() {
-          companyName = data["name"] ?? "Bus Stop";
-          // companyName = snap.get("name") ?? "Bus Stop";
-        });
-      }
-    } catch (e) {
-      print(e.toString());
-      if (mounted) {
-        setState(() {
-          companyName = "Bus Stop";
-        });
-      }
-    }
-  }
 
   @override
   void initState() {
     super.initState();
-    _getCompanyInfo();
   }
 
   @override

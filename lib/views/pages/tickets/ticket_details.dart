@@ -144,9 +144,12 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
                                                                   color: Colors
                                                                       .white),
                                                         ),
-                                                        decoration: const BoxDecoration(
-                                                            color: Color(
-                                                                0xffE4181D),
+                                                        decoration: BoxDecoration(
+                                                            color: tripTicket.status == "used"
+                                                                ? Colors.indigo
+                                                                : tripTicket.status == "cancelled"
+                                                                ? Colors.black
+                                                                : Colors.red[900],
                                                             borderRadius: BorderRadius.only(
                                                                 topRight: Radius
                                                                     .circular(

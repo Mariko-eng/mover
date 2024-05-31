@@ -5,6 +5,17 @@ AppBar buildHomeAppBar({required GlobalKey<ScaffoldState> scaffoldKey, required 
     backgroundColor: Color(0xfffdfdfd),
     elevation: 0,
     centerTitle: true,
+    leading: GestureDetector(
+      onTap: () {
+        Navigator.of(context).pop();
+      },
+      child: Container(
+          width: 20,
+          height: 25,
+          child: Image.asset(
+            'assets/images/back_arrow.png',
+          )),
+    ),
     title: Text(
       title.toUpperCase(),
       style: TextStyle(color: Colors.red[900]),

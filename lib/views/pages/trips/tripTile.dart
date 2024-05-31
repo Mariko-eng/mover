@@ -331,11 +331,11 @@ class TripTile extends StatelessWidget {
                                 if (trip.discountPriceOrdinary != 0)
                                   RichText(
                                     text: TextSpan(
-                                      text: trip.discountPriceOrdinary
+                                      text: trip.priceOrdinary
                                               .toString() +
                                           " SHS",
                                       style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize: 10,
                                           fontStyle: FontStyle.italic,
                                           color: Colors.red[800],
                                           decoration:
@@ -344,7 +344,7 @@ class TripTile extends StatelessWidget {
                                   ),
                                 RichText(
                                   text: TextSpan(
-                                      text: trip.priceOrdinary.toString() +
+                                      text: trip.discountPriceOrdinary.toString() +
                                           " SHS",
                                       style: TextStyle(
                                           fontSize: 15,
