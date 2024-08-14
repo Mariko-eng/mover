@@ -1,10 +1,10 @@
-import 'dart:async';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-import 'package:bus_stop/contollers/authController.dart';
-import 'package:bus_stop/views/pages/settings/SettingsView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:async';
+import 'dart:ui' as ui;
+import 'package:provider/provider.dart';
+import 'package:bus_stop/contollers/authController.dart';
+import 'package:bus_stop/views/pages/settings/SettingsView.dart';
 import 'package:bus_stop/contollers/lcoProvider.dart';
 import 'package:bus_stop/models/destination/destination.dart';
 import 'package:bus_stop/models/directions_model.dart';
@@ -13,7 +13,6 @@ import 'package:bus_stop/views/pages/trips/search/trip_search_list_view.dart';
 import 'package:bus_stop/views/widgets/bottom_bar_widget.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -544,7 +543,8 @@ class _HomeViewState extends State<HomeView> {
                                                                   ],
                                                                 ),
                                                               ),
-                                                            ))
+                                                            )
+                                                )
                                                     .toList()
                                               ],
                                       ),
@@ -746,13 +746,6 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       bottomNavigationBar: buildBottomAppBar(context: context, activeBar: 0),
-
-      // bottomNavigationBar: BottomAppBar(
-      //   child: Container(
-      //     height: 40,
-      //     color: Colors.white,
-      //   ),
-      // ),
     );
   }
 

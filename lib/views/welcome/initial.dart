@@ -21,7 +21,7 @@ class _InitialState extends State<Initial> with SingleTickerProviderStateMixin {
   ];
   int i = 0;
 
-  changeAnimation() async {
+  _changeAnimation() async {
     setState(() {
       Timer.periodic(Duration(milliseconds: 700), (Timer timer) {
         setState(() {
@@ -40,7 +40,7 @@ class _InitialState extends State<Initial> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    changeAnimation();
+    _changeAnimation();
   }
 
   @override

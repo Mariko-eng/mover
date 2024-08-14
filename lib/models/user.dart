@@ -76,7 +76,11 @@ Future<void> updateToken({required String uid}) async {
   var fcm = FirebaseMessaging.instance;
   try {
     String? token = await fcm.getToken();
-    await clientsCollection.doc(uid).update({"token": token});
+    await fcm.subscribeToTopic("client");
+    if (token != null) {
+      print("Token : " + token);
+      await clientsCollection.doc(uid).update({"token": token});
+    }
   } catch (e) {
     print("Failed To Update FCM Token");
     print(e.toString());
