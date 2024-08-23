@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bus_stop/config/collections/index.dart';
 
-final CollectionReference clientsCollection = AppCollections.clientsRef;
-
 class Client {
   final String uid;
   final String username;
@@ -28,7 +26,7 @@ class Client {
 Future<bool> checkIfUserExists(String email) async {
   try {
     QuerySnapshot snap =
-        await clientsCollection.where("email", isEqualTo: email).get();
+        await AppCollections.clientsRef.where("email", isEqualTo: email).get();
     if (snap.docs.isNotEmpty) {
       return true;
     } else {
@@ -46,7 +44,7 @@ Future<Client?> createProfile(
     required String phoneNumber,
     required String username}) async {
   try {
-    await clientsCollection.doc(uid).set(
+    await AppCollections.clientsRef.doc(uid).set(
         {'email': email, 'phoneNumber': phoneNumber, 'username': username});
     return Client(
         uid: uid, username: username, email: email, phoneNumber: phoneNumber);
@@ -58,7 +56,7 @@ Future<Client?> createProfile(
 
 Future<Client> getProfile({required String uid}) async {
   try {
-    DocumentSnapshot snap = await clientsCollection.doc(uid).get();
+    DocumentSnapshot snap = await AppCollections.clientsRef.doc(uid).get();
     if (snap.exists) {
       Client currentClient = Client.fromSnapshot(snap);
       await updateToken(uid: uid);
@@ -79,7 +77,7 @@ Future<void> updateToken({required String uid}) async {
     await fcm.subscribeToTopic("client");
     if (token != null) {
       print("Token : " + token);
-      await clientsCollection.doc(uid).update({"token": token});
+      await AppCollections.clientsRef.doc(uid).update({"token": token});
     }
   } catch (e) {
     print("Failed To Update FCM Token");

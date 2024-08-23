@@ -1,9 +1,8 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'dart:io' show Platform;
-// import 'package:sail_courier_client/views/intro_view.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =

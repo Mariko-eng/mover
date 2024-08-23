@@ -3,19 +3,19 @@ import 'package:bus_stop/views/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TripSearchNewView extends StatefulWidget {
+class SearchDestinationView extends StatefulWidget {
   final Function setPlace;
 
-  const TripSearchNewView({
+  const SearchDestinationView({
     super.key,
     required this.setPlace,
   });
 
   @override
-  State<TripSearchNewView> createState() => _TripSearchNewViewState();
+  State<SearchDestinationView> createState() => _SearchDestinationViewState();
 }
 
-class _TripSearchNewViewState extends State<TripSearchNewView> {
+class _SearchDestinationViewState extends State<SearchDestinationView> {
   final _searchCtr = TextEditingController();
 
   @override

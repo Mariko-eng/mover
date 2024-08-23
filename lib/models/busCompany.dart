@@ -2,8 +2,6 @@ import 'package:bus_stop/models/parkLocation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bus_stop/config/collections/index.dart';
 
-final CollectionReference companiesCollection = AppCollections.companiesRef;
-
 class BusCompany {
   String uid;
   String name;
@@ -36,32 +34,30 @@ class BusCompany {
   }
 }
 
-Future<List<BusCompany>> fetchBusCompanies() async{
-  try{
-    var res = await companiesCollection.get();
+Future<List<BusCompany>> fetchBusCompanies() async {
+  try {
+    var res = await AppCollections.companiesRef.get();
 
     return res.docs.map((doc) => BusCompany.fromSnapshot(doc)).toList();
-
-  }catch(e){
+  } catch (e) {
     throw Exception(e.toString());
   }
 }
 
 Stream<List<BusCompany>> getAllBusCompanies() {
-  return companiesCollection
-      .snapshots()
-      .map((snap) {
+  return AppCollections.companiesRef.snapshots().map((snap) {
     return snap.docs.map((doc) => BusCompany.fromSnapshot(doc)).toList();
   });
 }
 
-Stream<List<ParkLocations>> getBusCompanyDestinations({required String companyId}) {
-  return companiesCollection
+Stream<List<ParkLocations>> getBusCompanyDestinations(
+    {required String companyId}) {
+  return AppCollections.companiesRef
       .doc(companyId)
       .snapshots()
       .map((DocumentSnapshot snap) {
-        Map map = snap.data() as Map<String,dynamic>;
-        var doc = map["parksLocations"];
+    Map map = snap.data() as Map<String, dynamic>;
+    var doc = map["parksLocations"];
     List<ParkLocations> _result = [];
     if (doc != null) {
       if (doc.length > 0) {
@@ -76,9 +72,7 @@ Stream<List<ParkLocations>> getBusCompanyDestinations({required String companyId
 
 Future getBusCompanyProfile({required String userId}) async {
   try {
-    var result = await companiesCollection
-        .doc(userId)
-        .get();
+    var result = await AppCollections.companiesRef.doc(userId).get();
     return BusCompany.fromSnapshot(result);
   } catch (e) {
     return null;

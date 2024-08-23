@@ -2,8 +2,6 @@ import 'package:bus_stop/config/collections/index.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-final CollectionReference tripsCollection = AppCollections.tripsRef;
-
 class Trip {
   final String id;
 
@@ -108,21 +106,18 @@ class Trip {
         busPlateNo: data['busPlateNo'] ?? "",
         departureTime: data['departureTime'].toDate(),
         arrivalTime: data['arrivalTime'].toDate(),
-
         totalSeats: data['totalSeats'] ?? 0,
         occupiedSeats: data['occupiedSeats'] ?? 0,
         totalOrdinarySeats: data['totalOrdinarySeats'] ?? 0,
         occupiedOrdinarySeats: data['occupiedOrdinarySeats'] ?? 0,
         totalVipSeats: data['totalVipSeats'] ?? 0,
         occupiedVipSeats: data['occupiedVipSeats'] ?? 0,
-
         price: data['price'] ?? 0,
         discountPrice: data['discountPrice'] ?? 0,
         priceOrdinary: data['priceOrdinary'] ?? 0,
         discountPriceOrdinary: data['discountPriceOrdinary'] ?? 0,
         priceVip: data['priceVip'] ?? 0,
-        discountPriceVip: data['discountPriceVip']  ?? 0,
-
+        discountPriceVip: data['discountPriceVip'] ?? 0,
         tripNumber: data['tripNumber'] ?? "",
         tripType: data['tripType'] ?? "",
         isActive: data['isActive'] ?? false ?? data['is_active'],
@@ -142,7 +137,7 @@ Future<List<Trip>> fetchActiveTrips() async {
     DateTime yesterday =
         DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-    var res = await tripsCollection
+    var res = await AppCollections.tripsRef
         .where('departureTime', isGreaterThanOrEqualTo: yesterday)
         .where('isDraft', isEqualTo: false)
         .orderBy('departureTime')
@@ -162,7 +157,7 @@ Stream<List<Trip>> getAllActiveTrips() {
   DateTime yesterday =
       DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-  return tripsCollection
+  return AppCollections.tripsRef
       .where('departureTime', isGreaterThanOrEqualTo: yesterday)
       .where('isDraft', isEqualTo: false)
       .orderBy('departureTime')
@@ -177,7 +172,7 @@ Stream<List<Trip>> getAllTripsForBusCompany({required String companyId}) {
   DateTime yesterday =
       DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-  return tripsCollection
+  return AppCollections.tripsRef
       .where('companyId', isEqualTo: companyId)
       .where('departureTime', isGreaterThanOrEqualTo: yesterday)
       .where('isDraft', isEqualTo: false)
@@ -194,7 +189,7 @@ Future<List<Trip>> searchForTrips(
   DateTime yesterday =
       DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-  QuerySnapshot snapshot = await tripsCollection
+  QuerySnapshot snapshot = await AppCollections.tripsRef
       .where('departureTime', isGreaterThan: yesterday)
       .where('departureLocationId', isEqualTo: fromDestId.trim())
       .where('arrivalLocationId', isEqualTo: toDestId.trim())

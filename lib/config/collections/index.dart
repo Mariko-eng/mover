@@ -49,7 +49,7 @@ class AppCollections {
   static late CollectionReference infoRef;
 
   AppCollections() {
-    print("isTestMode :: " + isTestMode.toString());
+    // print("isTestMode :: " + isTestMode.toString());
 
     if (isTestMode == true) {
       // Development

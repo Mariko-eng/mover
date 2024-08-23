@@ -37,7 +37,7 @@ void initializeNotifications() async {
         );
       }
     });
-  }catch(e) {
+  } catch (e) {
     print("Notification Display Error : " + e.toString());
   }
 }
@@ -60,7 +60,6 @@ class BusStopApp extends StatefulWidget {
 }
 
 class _BusStopAppState extends State<BusStopApp> {
-
   @override
   void initState() {
     super.initState();
@@ -76,11 +75,11 @@ class _BusStopAppState extends State<BusStopApp> {
         ChangeNotifierProvider<UserProvider>.value(value: UserProvider()),
       ],
       child: GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: "Bus Stop",
-          theme: ThemeData(primaryColor: Colors.red, primarySwatch: Colors.red),
-          home: HomeCargoView(),
-          // home: const Initial(),
+        debugShowCheckedModeBanner: false,
+        title: "Bus Stop",
+        theme: ThemeData(primaryColor: Colors.red, primarySwatch: Colors.red),
+        home: const Initial(),
+        // home: HomeCargoView(),
       ),
     );
   }

@@ -30,6 +30,9 @@ class _TripDetailsState extends State<TripDetails> {
   TextEditingController noOfTicketsController = TextEditingController();
   int noOfTickets = 1;
   int totalAmount = 0;
+  int extraCharges = 0;
+  int totalCharges = 0;
+
 
   @override
   void initState() {
@@ -37,7 +40,9 @@ class _TripDetailsState extends State<TripDetails> {
     setState(() {
       noOfTicketsController.text = noOfTickets.toString();
       int amt = widget.ticketChoicePrice * noOfTickets;
-      totalAmount = amt + (amt * (2 / 100)).toInt();
+      totalAmount = amt;
+      extraCharges = (amt * (2 / 100)).toInt();
+      totalCharges = totalAmount + extraCharges;
     });
   }
 
@@ -355,63 +360,9 @@ class _TripDetailsState extends State<TripDetails> {
                                                 ],
                                               ),
                                             ),
-                                            // Padding(
-                                            //   padding: const EdgeInsets.symmetric(
-                                            //       horizontal: 30, vertical: 3),
-                                            //   child: Row(
-                                            //     mainAxisAlignment:
-                                            //         MainAxisAlignment.spaceBetween,
-                                            //     crossAxisAlignment: CrossAxisAlignment.center,
-                                            //     children: [
-                                            //       const Padding(
-                                            //         padding: EdgeInsets.only(right: 20),
-                                            //         child: Text("Number Of Tickets"),
-                                            //       ),
-                                            //       Expanded(
-                                            //         child: Container(
-                                            //           height: 3,
-                                            //         ),
-                                            //       ),
-                                            //       Container(
-                                            //         width: 80,
-                                            //         height: 40,
-                                            //         alignment: Alignment.center,
-                                            //         child: TextField(
-                                            //           controller: noOfTicketsController,
-                                            //           onChanged: (val) {
-                                            //             if (val.trim().isNotEmpty) {
-                                            //               int n = int.parse(val.trim());
-                                            //               setState(() {
-                                            //                 noOfTickets = n;
-                                            //                 int amt =
-                                            //                     widget.ticketChoicePrice * n;
-                                            //                 // totalAmount = amt;
-                                            //                 totalAmount = amt +
-                                            //                     (amt * (2 / 100)).toInt();
-                                            //               });
-                                            //             } else {
-                                            //               setState(() {
-                                            //                 noOfTickets = 1;
-                                            //                 int amt =
-                                            //                     widget.ticketChoicePrice * 1;
-                                            //                 totalAmount = amt +
-                                            //                     (amt * (2 / 100)).toInt();
-                                            //               });
-                                            //             }
-                                            //           },
-                                            //           keyboardType: TextInputType.number,
-                                            //           decoration: const InputDecoration(
-                                            //               border: OutlineInputBorder(
-                                            //                   borderSide: BorderSide(
-                                            //                       color: Colors.red))),
-                                            //         ),
-                                            //       ),
-                                            //     ],
-                                            //   ),
-                                            // ),
                                             Padding(
                                               padding: const EdgeInsets.symmetric(
-                                                  horizontal: 30, vertical: 3),
+                                                  horizontal: 30),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -422,7 +373,7 @@ class _TripDetailsState extends State<TripDetails> {
                                                   const Padding(
                                                     padding: EdgeInsets.only(
                                                         right: 20),
-                                                    child: Text("Total Charges"),
+                                                    child: Text("Amount Charged"),
                                                   ),
                                                   Expanded(
                                                     child: Container(
@@ -440,6 +391,42 @@ class _TripDetailsState extends State<TripDetails> {
                                                           fontSize: 15,
                                                           color:
                                                               Colors.blue[900]),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 30),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: [
+                                                  const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        right: 20),
+                                                    child: Text("Extra Charges"),
+                                                  ),
+                                                  Expanded(
+                                                    child: Container(
+                                                      height: 3,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 100,
+                                                    height: 30,
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                      extraCharges.toString() +
+                                                          " SHS",
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          color:
+                                                          Colors.blue[900]),
                                                     ),
                                                   ),
                                                 ],
@@ -616,44 +603,6 @@ class _TripDetailsState extends State<TripDetails> {
                                 ],
                               ),
                             ),
-        
-                            // const SizedBox(
-                            //   height: 20,
-                            // ),
-                            // GestureDetector(
-                            //   onTap: () async {
-                            //     final remainingSeats =
-                            //         widget.trip.totalSeats - widget.trip.occupiedSeats;
-                            //     if (noOfTickets > remainingSeats) {
-                            //       Get.snackbar("Error", 'Invalid number of tickets',
-                            //           backgroundColor: Colors.grey[200]);
-                            //       return;
-                            //     }
-                            //     Get.to(() => TicketPayment(
-                            //           client: widget.client,
-                            //           trip: widget.trip,
-                            //           ticketChoice: widget.ticketChoice,
-                            //           ticketPrice: widget.ticketChoicePrice,
-                            //           noOfTickets: noOfTickets,
-                            //           totalAmount: totalAmount,
-                            //         ));
-                            //   },
-                            //   child: Container(
-                            //     width: 300,
-                            //     height: 50,
-                            //     alignment: Alignment.center,
-                            //     child: const Text(
-                            //       "Buy Tickets",
-                            //       style: TextStyle(color: Colors.white, fontSize: 15),
-                            //     ),
-                            //     decoration: const BoxDecoration(
-                            //         color: Color(0xffE4181D),
-                            //         borderRadius: BorderRadius.all(Radius.circular(20))),
-                            //   ),
-                            // ),
-                            // const SizedBox(
-                            //   height: 5,
-                            // )
                           ],
                         ),
                       ],

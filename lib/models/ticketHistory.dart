@@ -2,9 +2,7 @@ import 'package:bus_stop/config/collections/index.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-final CollectionReference tripTicketHistoryCollection = AppCollections.ticketsHistoryRef;
-
-class TicketHistory{
+class TicketHistory {
   final String id;
   final String ticketId;
   final String status;
@@ -12,22 +10,21 @@ class TicketHistory{
   final String createdBy;
   final Timestamp createdAt;
 
-  TicketHistory(
-      {required this.id,
-        required this.ticketId,
-        required this.status,
-        required this.statusDesc,
-        required this.createdBy,
-        required this.createdAt,
-      });
+  TicketHistory({
+    required this.id,
+    required this.ticketId,
+    required this.status,
+    required this.statusDesc,
+    required this.createdBy,
+    required this.createdAt,
+  });
 }
 
-Future<String> addTicketHistory(
-    {
-      required String ticketId,
-      required String status,
-      required String statusDesc,
-    }) async {
+Future<String> addTicketHistory({
+  required String ticketId,
+  required String status,
+  required String statusDesc,
+}) async {
   try {
     final data = {
       'ticketId': ticketId,
@@ -37,11 +34,10 @@ Future<String> addTicketHistory(
       'createdAt': DateTime.now(),
     };
 
-    DocumentReference doc = await tripTicketHistoryCollection.add(data);
+    DocumentReference doc = await AppCollections.ticketsHistoryRef.add(data);
     return doc.id;
   } catch (e) {
     print(e.toString());
     throw Exception(e.toString());
   }
 }
-

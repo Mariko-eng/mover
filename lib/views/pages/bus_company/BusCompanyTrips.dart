@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bus_stop/models/trip.dart';
 import 'package:bus_stop/models/user.dart';
-import 'package:bus_stop/views/pages/trips/tripTile.dart';
+import 'package:bus_stop/views/pages/trips/widgets/tripTile.dart';
 import 'package:bus_stop/models/busCompany.dart';
 
 class BusCompanyTrips extends StatefulWidget {

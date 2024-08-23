@@ -9,10 +9,11 @@ import 'package:bus_stop/contollers/lcoProvider.dart';
 import 'package:bus_stop/models/destination/destination.dart';
 import 'package:bus_stop/models/directions_model.dart';
 import 'package:bus_stop/services/directions_service.dart';
-import 'package:bus_stop/views/pages/trips/search/trip_search_list_view.dart';
 import 'package:bus_stop/views/widgets/bottom_bar_widget.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:bus_stop/views/pages/trips/search_destination_list.dart';
+
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -67,9 +68,8 @@ class _HomeViewState extends State<HomeView> {
   late LocationsProvider locationsProvider;
   List<Destination> _items = [];
 
-  _getDestinations() async{
-    locationsProvider =
-        Provider.of<LocationsProvider>(context,listen: false);
+  _getDestinations() async {
+    locationsProvider = Provider.of<LocationsProvider>(context, listen: false);
 
     setState(() {
       _items = locationsProvider.destinations;
@@ -77,8 +77,8 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  _loadMarkers(List<Destination> destinations) async{
-    if(destinations.isNotEmpty) {
+  _loadMarkers(List<Destination> destinations) async {
+    if (destinations.isNotEmpty) {
       for (int i = 0; i < destinations.length; i++) {
         String busImage = 'assets/images/bus.png';
 
@@ -120,17 +120,17 @@ class _HomeViewState extends State<HomeView> {
 
       if (_fromDestination != null && _toDestination != null) {
         LatLng? org =
-        _fromDestination!.locationDetails?.geometry?.location != null
-            ? LatLng(
-            _fromDestination!.locationDetails!.geometry!.location.lat,
-            _fromDestination!.locationDetails!.geometry!.location.lng)
-            : null;
+            _fromDestination!.locationDetails?.geometry?.location != null
+                ? LatLng(
+                    _fromDestination!.locationDetails!.geometry!.location.lat,
+                    _fromDestination!.locationDetails!.geometry!.location.lng)
+                : null;
         LatLng? dest =
-        _toDestination!.locationDetails?.geometry?.location != null
-            ? LatLng(
-            _toDestination!.locationDetails!.geometry!.location.lat,
-            _toDestination!.locationDetails!.geometry!.location.lng)
-            : null;
+            _toDestination!.locationDetails?.geometry?.location != null
+                ? LatLng(
+                    _toDestination!.locationDetails!.geometry!.location.lat,
+                    _toDestination!.locationDetails!.geometry!.location.lng)
+                : null;
 
         _markers = <Marker>[];
 
@@ -141,7 +141,6 @@ class _HomeViewState extends State<HomeView> {
       }
     });
   }
-
 
   @override
   void initState() {
@@ -184,7 +183,6 @@ class _HomeViewState extends State<HomeView> {
                               _controller.complete(controller);
                             },
                             polylines: polys == null ? {} : polys!,
-
                           ),
                         ),
                         Align(
@@ -375,14 +373,15 @@ class _HomeViewState extends State<HomeView> {
                                             colorText: Colors.white);
                                         return;
                                       }
-                                      if (_fromDestination!.id == _toDestination!.id) {
-                                        Get.snackbar(
-                                            "Failed", "Destinations Must Be Different!",
+                                      if (_fromDestination!.id ==
+                                          _toDestination!.id) {
+                                        Get.snackbar("Failed",
+                                            "Destinations Must Be Different!",
                                             backgroundColor: Colors.orange,
                                             colorText: Colors.white);
                                         return;
                                       } else {
-                                        Get.to(() => TripSearchListView(
+                                        Get.to(() => SearchDestinationListView(
                                             fro: _fromDestination!,
                                             to: _toDestination!));
                                       }
@@ -543,8 +542,7 @@ class _HomeViewState extends State<HomeView> {
                                                                   ],
                                                                 ),
                                                               ),
-                                                            )
-                                                )
+                                                            ))
                                                     .toList()
                                               ],
                                       ),
@@ -614,8 +612,9 @@ class _HomeViewState extends State<HomeView> {
                                                               50)),
                                                 ),
                                                 GestureDetector(
-                                                  onTap: (){
-                                                    Get.to(() => SettingsView());
+                                                  onTap: () {
+                                                    Get.to(
+                                                        () => SettingsView());
                                                   },
                                                   child: Container(
                                                     height: 40,
@@ -632,8 +631,8 @@ class _HomeViewState extends State<HomeView> {
                                                     decoration: BoxDecoration(
                                                         color: Colors.red[900],
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10)),
+                                                            BorderRadius
+                                                                .circular(10)),
                                                   ),
                                                 )
                                               ],
@@ -661,7 +660,7 @@ class _HomeViewState extends State<HomeView> {
                                                               50)),
                                                 ),
                                                 GestureDetector(
-                                                  onDoubleTap: (){
+                                                  onDoubleTap: () {
                                                     userProvider.signOut();
                                                   },
                                                   child: Container(
@@ -679,8 +678,8 @@ class _HomeViewState extends State<HomeView> {
                                                     decoration: BoxDecoration(
                                                         color: Colors.red[900],
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10)),
+                                                            BorderRadius
+                                                                .circular(10)),
                                                   ),
                                                 )
                                               ],
@@ -755,10 +754,8 @@ class _HomeViewState extends State<HomeView> {
     Directions? _data =
         await _ds.getDirections(origin: origin, destination: destination);
 
-
     if (_data != null) {
       setState(() {
-
         // _directions = _data;
         // totalDistanceValue = _data.totalDistanceValue;
         // totalDuration = _data.totalDuration;
@@ -778,7 +775,7 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-  _changeCameraPosition (LatLngBounds bounds) async {
+  _changeCameraPosition(LatLngBounds bounds) async {
     // Animate the camera to fit the bounds
     GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newLatLngBounds(bounds, 100));
