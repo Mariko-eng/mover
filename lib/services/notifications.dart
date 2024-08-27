@@ -134,8 +134,12 @@ class NotificationService {
     }
   }
 
-  Future<void> subscribeToFirebaseMessagingTopic(
-      {required String topic}) async {
-    await FirebaseMessaging.instance.subscribeToTopic(topic);
+  subscribeToFirebaseMessagingTopic({required String topic}) {
+    try {
+      // should not use async await, otherwise the app will freeze
+      FirebaseMessaging.instance.subscribeToTopic(topic);
+    } catch (e){
+      print("Subscription Error " + e.toString());
+    }
   }
 }

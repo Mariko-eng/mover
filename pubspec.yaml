@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # IOS
 #version: 1.2.7+1
 # Android
-version: 1.0.0+22
+version: 1.0.0+23
 
 environment:
   sdk: ">=2.18.2 <3.0.0"
@@ -48,8 +48,8 @@ dependencies:
   flutter_polyline_points: ^1.0.0
 #  flutterwave_standard: ^1.0.7
   dotted_line: ^3.1.0
-  qr_flutter: ^4.0.0
   path_provider: ^2.0.4
+  qr_flutter: ^4.0.0
   qr_code_scanner: ^1.0.0
   geolocator: ^9.0.2
   geocoding: ^2.0.1
