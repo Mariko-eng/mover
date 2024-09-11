@@ -1,4 +1,3 @@
-import 'package:bus_stop/views/pages/cargo/home_cargo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -8,8 +7,11 @@ import 'package:bus_stop/config/collections/index.dart';
 import 'package:bus_stop/contollers/authController.dart';
 import 'package:bus_stop/contollers/lcoProvider.dart';
 import 'package:bus_stop/contollers/locController.dart';
-import 'package:bus_stop/views/welcome/initial.dart';
 import 'package:bus_stop/services/notifications.dart';
+import 'package:bus_stop/views/welcome/initial.dart';
+// import 'package:bus_stop/views/pages/cargo/home_cargo.dart';
+import 'package:bus_stop/views/v3/main/wrapper.dart';
+
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -77,9 +79,9 @@ class _BusStopAppState extends State<BusStopApp> {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Bus Stop",
-        theme: ThemeData(primaryColor: Colors.red, primarySwatch: Colors.red),
-        home: const Initial(),
-        // home: HomeCargoView(),
+        theme: ThemeData(primaryColor: Color(0xffcd181a), primarySwatch: Colors.red),
+        // home: const Initial(),
+        home: HomeWrapper2(),
       ),
     );
   }
