@@ -35,6 +35,7 @@ class LocationsProvider extends ChangeNotifier {
   _init() async{
     try{
       List<Destination> results = await fetchDestinations();
+
       destinations = results;
     }catch (err){
       print(err);

@@ -1,6 +1,7 @@
-import 'package:bus_stop/models/busCompany.dart';
-import 'package:bus_stop/models/trip.dart';
 import 'package:get/get.dart';
+import 'package:bus_stop/models/busCompany.dart';
+import 'package:bus_stop/models/destination/destination.dart';
+import 'package:bus_stop/models/trip.dart';
 
 class LocationController extends GetxController {
   RxString error = "".obs;
@@ -10,8 +11,28 @@ class LocationController extends GetxController {
   RxBool isCompaniesError = false.obs;
 
   RxList<Trip> trips = <Trip>[].obs;
+  RxList<Destination> destinations = <Destination>[].obs;
   RxList<BusCompany> companies = <BusCompany>[].obs;
 
+
+  @override
+  void onReady () {
+    // _fetchDestinations();
+  }
+
+  getDestinations() async{
+    try{
+      List<Destination> results = await fetchDestinations();
+      destinations.value = results;
+      // print("destinations");
+      // print(destinations);
+    }catch (err){
+      print(err);
+      destinations.value = [];
+    } finally{
+      print("Finally Destinations!");
+    }
+  }
 
   activeTrips() async{
     isTripsLoading.value = true;

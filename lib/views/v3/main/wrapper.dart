@@ -14,7 +14,7 @@ class _HomeWrapperState extends State<HomeWrapper2> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: HomeView(),
-      bottomNavigationBar: buildBottomAppBar(context: context, activeBar: 1),
+      bottomNavigationBar: buildBottomAppBar(context: context, activeBar: 0),
     );
   }
 }

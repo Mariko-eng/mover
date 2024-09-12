@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 import 'dart:ui' as ui;
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:bus_stop/contollers/authController.dart';
 import 'package:bus_stop/views/pages/settings/SettingsView.dart';
@@ -10,7 +11,6 @@ import 'package:bus_stop/models/destination/destination.dart';
 import 'package:bus_stop/models/directions_model.dart';
 import 'package:bus_stop/services/directions_service.dart';
 import 'package:bus_stop/views/widgets/bottom_bar_widget.dart';
-import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:bus_stop/views/pages/trips/search_destination_list.dart';
 

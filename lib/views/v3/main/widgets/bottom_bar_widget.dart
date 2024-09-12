@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 // import 'package:get/get.dart';
 // import 'package:bus_stop/views/main/Home_Info_view.dart';
 // import 'package:bus_stop/views/main/home_view.dart';
@@ -29,15 +30,17 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
                 },
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.home,
-                      color: activeBar == 0 ? Colors.blue[800] :  Color(0xffE4181D),
+                    SvgPicture.asset(
+                      "lib/images/home.svg",
+                      width: 30,
+                      height: 30,
+                      colorFilter: ColorFilter.mode(activeBar == 0 ? Theme.of(context).primaryColor : Colors.black, BlendMode.srcIn),
                     ),
                     Text(
                       "Home",
                       style: TextStyle(
-                        fontSize: 17,
-                        color: activeBar == 0 ? Colors.blue[800] :  Color(0xffE4181D),
+                        fontSize: 15,
+                        color: activeBar == 0 ? Theme.of(context).primaryColor :  Colors.black,
                       ),
                     )
                   ],
@@ -49,14 +52,17 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
                 },
                 child: Column(
                   children: [
-                    Icon(Icons.bus_alert,
-                      color: activeBar == 1 ? Colors.black87 :  Color(0xffE4181D),
+                    SvgPicture.asset(
+                      "lib/images/routing.svg",
+                      width: 30,
+                      height: 30,
+                      colorFilter: ColorFilter.mode(activeBar == 1 ? Theme.of(context).primaryColor : Colors.black, BlendMode.srcIn),
                     ),
                     Text(
                       "Trips",
                       style: TextStyle(
-                        fontSize: 17,
-                        color: activeBar == 1 ? Colors.black87 :  Color(0xffE4181D),
+                        fontSize: 15,
+                        color: activeBar == 1 ? Theme.of(context).primaryColor :  Colors.black,
                       ),
                     )
                   ],
@@ -68,14 +74,17 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
                 },
                 child: Column(
                   children: [
-                    Icon(Icons.airplane_ticket_sharp,
-                      color: activeBar == 3 ? Colors.black87 :  Color(0xffE4181D),
+                    SvgPicture.asset(
+                      "lib/images/receipt-item.svg",
+                      width: 30,
+                      height: 30,
+                      colorFilter: ColorFilter.mode(activeBar == 2 ? Theme.of(context).primaryColor : Colors.black, BlendMode.srcIn),
                     ),
-                     Text(
+                    Text(
                       "My Tickets",
                       style: TextStyle(
-                        fontSize: 17,
-                        color: activeBar == 3 ? Colors.black87 :  Color(0xffE4181D),
+                        fontSize: 15,
+                        color: activeBar == 2 ? Theme.of(context).primaryColor :  Colors.black,
                       ),
                     )
                   ],
@@ -87,14 +96,17 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
                 },
                 child: Column(
                   children: [
-                    Icon(Icons.info,
-                      color: activeBar == 3 ? Colors.black87 :  Color(0xffE4181D),
+                    SvgPicture.asset(
+                      "lib/images/information-circle.svg",
+                      width: 30,
+                      height: 30,
+                      colorFilter: ColorFilter.mode(activeBar == 3 ? Theme.of(context).primaryColor : Colors.black, BlendMode.srcIn),
                     ),
                     Text(
-                      "What's New",
+                      "Info",
                       style: TextStyle(
-                        fontSize: 17,
-                        color: activeBar == 3 ? Colors.black87 :  Color(0xffE4181D),
+                        fontSize: 15,
+                        color: activeBar == 3 ? Theme.of(context).primaryColor :  Colors.black,
                       ),
                     )
                   ],
