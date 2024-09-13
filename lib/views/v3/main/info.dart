@@ -1,3 +1,4 @@
+import 'package:bus_stop/views/v3/main/widgets/bottom_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class InfoView extends StatefulWidget {
@@ -26,31 +27,18 @@ class _InfoViewState extends State<InfoView> {
                   Padding(
                     padding: const EdgeInsets.only(left: 15, top: 10),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Booking Information",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w900,
-                                        color: Colors.black,
-                                        fontSize: 18),
-                              )
-                            ],
-                          ),
-                        ),
+                        Text(
+                          "Booking Information",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.black,
+                                  fontSize: 18),
+                        )
                       ],
                     ),
                   ),
@@ -100,6 +88,7 @@ class _InfoViewState extends State<InfoView> {
             ],
           ),
         ),
+        bottomNavigationBar: buildBottomAppBar(context: context, activeBar: 3),
       ),
     );
   }

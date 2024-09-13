@@ -1,101 +1,58 @@
-import 'package:bus_stop/views/v3/main/widgets/bottom_bar_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_horizontal_date_picker/flutter_horizontal_date_picker.dart';
+import 'package:get/get.dart';
 
-class TripsView extends StatefulWidget {
-  const TripsView({super.key});
+class TripsSearchView extends StatefulWidget {
+  const TripsSearchView({super.key});
 
   @override
-  State<TripsView> createState() => _TripsViewState();
+  State<TripsSearchView> createState() => _TripsSearchViewState();
 }
 
-class _TripsViewState extends State<TripsView> {
-  DateTime selected0 = DateTime.now().to000000;
-
-  bool use000000 = false;
-  DateTime get _now => use000000 ? DateTime.now().to000000 : DateTime.now();
-
-  Duration _kSampleDurationToEndDay = Duration(days: 10);
-
+class _TripsSearchViewState extends State<TripsSearchView> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color(0xffffffff),
         automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: Text("Trips",
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black
+        leading: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+            child: Icon(Icons.arrow_back_ios,color: Colors.black,)),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Masaka to Kampala",
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black
+                ),
+              ),
+              Text("20th July 2024",
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black
+                ),
+              ),
+            ],
           ),
         ),
       ),
       body: Column(
         children: [
-          Container(
-            color: Color(0xffffffff),
-            child: HorizontalDatePicker(
-              needFocus: true,
-              begin: _now,
-              end: _now.add(_kSampleDurationToEndDay),
-              selected: selected0,
-              onSelected: (item) {
-                setState(() {
-                  selected0 = item;
-                });
-              },
-              selectedColor: Colors.transparent,
-              unSelectedColor: Colors.transparent,
-              itemBuilder: (DateTime itemValue, DateTime? selected) {
-
-                var itemValueEdit = DateTime(itemValue.year,itemValue.month,itemValue.day);
-                var selectedEdit = DateTime(selected!.year,selected.month,selected.day);
-
-                // print("itemValue : " + itemValueEdit.toString() + " " + "selected : " + selectedEdit.toString());
-
-                bool isSelected = itemValueEdit.toString() == selectedEdit.toString();
-                // bool isSelected = selected?.difference(itemValue).inMilliseconds == 0;
-
-                return Container(
-                  width: 100,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 5,
-                        color: isSelected ? Theme.of(context).primaryColor : Colors.transparent,
-                      ),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      itemValue.toLocal().formatted(pattern: isSelected ? "EEE dd/MM" : "EEE, dd/MM"), // Ensure you have 'toLocal()' if using DateTime UTC
-                      style: TextStyle(
-                          color: isSelected ? Colors.black : Colors.black54,
-                          fontSize: isSelected ? 14 : 10,
-                          fontWeight: FontWeight.bold
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                );
-              },
-              itemCount: 10,
-              itemSpacing: 7,
-            ),
-          ),
-
           SizedBox(height: 20,),
-
           TripWidget(),
-
         ],
       ),
-      bottomNavigationBar: buildBottomAppBar(context: context, activeBar: 1),
     );
   }
 }

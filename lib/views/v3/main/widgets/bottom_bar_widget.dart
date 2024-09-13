@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter_svg/svg.dart';
-// import 'package:get/get.dart';
-// import 'package:bus_stop/views/main/Home_Info_view.dart';
-// import 'package:bus_stop/views/main/home_view.dart';
-// import 'package:bus_stop/views/main/home_all_trips_view.dart';
-// import 'package:bus_stop/views/main/home_bus_company_view.dart';
-// import 'package:bus_stop/views/main/home_ticket_view.dart';
+import 'package:bus_stop/views/v3/main/home.dart';
+import 'package:bus_stop/views/v3/main/trips.dart';
+import 'package:bus_stop/views/v3/main/tickets.dart';
+import 'package:bus_stop/views/v3/main/info.dart';
+
 
 BottomAppBar buildBottomAppBar({required BuildContext context, required int activeBar}) {
   return BottomAppBar(
     // notchMargin: 2,
-    // padding: EdgeInsets.symmetric(horizontal: 0,vertical: 5),
     padding: EdgeInsets.zero,
     child: Container(
       height: 60,
-      color: Colors.grey[100],
-      // alignment: Alignment.center,
-      // padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      padding: EdgeInsets.only(left: 10,right: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          top: BorderSide(
+            color: Colors.black12
+          )
+        )
+      ),
+      padding: EdgeInsets.only(left: 20,right: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -26,7 +30,9 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
             children: [
               GestureDetector(
                 onTap: () {
-                  // Get.off(() => HomeView());
+                  if(activeBar != 0) {
+                    Get.off(() => HomeView());
+                  }
                 },
                 child: Column(
                   children: [
@@ -48,7 +54,9 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
               ),
               GestureDetector(
                 onTap: () {
-                  // Get.to(() => HomeAllTripsView());
+                  if(activeBar != 1) {
+                    Get.off(() => TripsView());
+                  }
                 },
                 child: Column(
                   children: [
@@ -70,7 +78,9 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
               ),
               GestureDetector(
                 onTap: () {
-                  // Get.to(() => HomeTicketView());
+                  if(activeBar != 2) {
+                    Get.off(() => TicketsView());
+                  }
                 },
                 child: Column(
                   children: [
@@ -92,6 +102,9 @@ BottomAppBar buildBottomAppBar({required BuildContext context, required int acti
               ),
               GestureDetector(
                 onTap: () {
+                  if(activeBar != 3) {
+                    Get.off(() => InfoView());
+                  }
                   // Get.to(() => HomeInfoView());
                 },
                 child: Column(

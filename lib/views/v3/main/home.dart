@@ -1,5 +1,8 @@
+import 'package:bus_stop/views/v3/main/widgets/bottom_bar_widget.dart';
 import 'package:bus_stop/views/v3/main/widgets/draggable_scrollable_widget.dart';
+import 'package:bus_stop/views/v3/utils/google_map_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 import 'dart:ui' as ui;
@@ -27,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
   // given camera position
   static const CameraPosition _kGoogle = CameraPosition(
     target: LatLng(0.3152, 32.5816),
-    zoom: 10.5,
+    zoom: 12.0,
     tilt: 40.0,
   );
 
@@ -78,7 +81,7 @@ class _HomeViewState extends State<HomeView> {
   _loadMarkers(List<Destination> destinations) async {
     if (destinations.isNotEmpty) {
       for (int i = 0; i < destinations.length; i++) {
-        String busImage = 'assets/images/bus.png';
+        String busImage = 'lib/images/small_bus.png';
 
         final Uint8List markIcons = await getImages(busImage, 100);
         // makers added according to index
@@ -168,6 +171,7 @@ class _HomeViewState extends State<HomeView> {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
+      drawer: Drawer(),
       body: Stack(
         children: [
           Stack(
@@ -185,10 +189,11 @@ class _HomeViewState extends State<HomeView> {
                   myLocationButtonEnabled: true,
                   // on below line we have enabled compass
                   compassEnabled: true,
-                  zoomControlsEnabled: false,
+                  zoomControlsEnabled: true,
                   // below line displays google map in our app
                   onMapCreated: (GoogleMapController controller) {
                     _googleMapController.complete(controller);
+                    controller.setMapStyle(googleMapStyle2);
                   },
                   polylines: polys == null ? {} : polys!,
                 ),
@@ -342,8 +347,19 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
               )),
+          Positioned(
+            top: 50,
+              left: 20,
+              child: SvgPicture.asset(
+                "lib/images/menu-icon.svg",
+                width: 30,
+                height: 30,
+              ),
+          )
         ],
       ),
+      bottomNavigationBar: buildBottomAppBar(
+          context: context, activeBar: 0),
     );
   }
 

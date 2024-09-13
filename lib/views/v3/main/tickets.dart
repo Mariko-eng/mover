@@ -1,3 +1,4 @@
+import 'package:bus_stop/views/v3/main/widgets/bottom_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -18,10 +19,6 @@ class _TicketsViewState extends State<TicketsView> {
         elevation: 0,
         backgroundColor: Color(0xffffffff),
         automaticallyImplyLeading: false,
-        leading: Icon(
-          Icons.arrow_back_ios,
-          color: Colors.black,
-        ),
         centerTitle: true,
         title: Text(
           "My Tickets",
@@ -99,6 +96,7 @@ class _TicketsViewState extends State<TicketsView> {
           ),
         ),
       ),
+      bottomNavigationBar: buildBottomAppBar(context: context, activeBar: 2),
     );
   }
 }

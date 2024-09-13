@@ -1,4 +1,6 @@
+import 'package:bus_stop/views/v3/pages/trips_search.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DraggableScrollableWidget extends StatefulWidget {
   final Function(bool) updateIsFrom;
@@ -44,7 +46,7 @@ class _DraggableScrollableWidgetState extends State<DraggableScrollableWidget> {
           return Container(
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-              color: Theme.of(context).canvasColor,
+              color: _scrollPosition > 0.07 ? Colors.white : Colors.white60,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(25),
                 topRight: Radius.circular(25),
@@ -58,14 +60,14 @@ class _DraggableScrollableWidgetState extends State<DraggableScrollableWidget> {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 5),
-                    child: Icon(_scrollPosition > 0.07
-                        ? Icons.keyboard_arrow_down_outlined
-                        : Icons.keyboard_arrow_up_outlined,
+                    child: Icon(
+                      _scrollPosition > 0.07
+                          ? Icons.keyboard_arrow_down_outlined
+                          : Icons.keyboard_arrow_up_outlined,
                       size: 35,
                     ),
                   ),
                 ),
-
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -234,12 +236,14 @@ class _DraggableScrollableWidgetState extends State<DraggableScrollableWidget> {
                               ],
                             ),
                             SizedBox(height: 40.0),
-                            Container(
-                              width: double.infinity,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: Container(
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => TripsSearchView());
+                                  },
+                                  child: Container(
                                     height: 50,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
@@ -250,9 +254,9 @@ class _DraggableScrollableWidgetState extends State<DraggableScrollableWidget> {
                                       "Book The Trip",
                                       style: TextStyle(color: Colors.white),
                                     ),
-                                  ))
-                                ],
-                              ),
+                                  ),
+                                ))
+                              ],
                             )
                           ],
                         ),

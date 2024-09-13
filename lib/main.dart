@@ -9,8 +9,7 @@ import 'package:bus_stop/contollers/lcoProvider.dart';
 import 'package:bus_stop/contollers/locController.dart';
 import 'package:bus_stop/services/notifications.dart';
 import 'package:bus_stop/views/welcome/initial.dart';
-// import 'package:bus_stop/views/pages/cargo/home_cargo.dart';
-import 'package:bus_stop/views/v3/main/wrapper.dart';
+import 'package:bus_stop/views/v3/main/home.dart';
 
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -81,7 +80,7 @@ class _BusStopAppState extends State<BusStopApp> {
         title: "Bus Stop",
         theme: ThemeData(primaryColor: Color(0xffcd181a), primarySwatch: Colors.red),
         // home: const Initial(),
-        home: HomeWrapper2(),
+        home: HomeView(),
       ),
     );
   }
