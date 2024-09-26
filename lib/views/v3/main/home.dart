@@ -1,6 +1,8 @@
+import 'package:bus_stop/views/v3/main/widgets/app_drawer.dart';
 import 'package:bus_stop/views/v3/main/widgets/bottom_bar_widget.dart';
 import 'package:bus_stop/views/v3/main/widgets/draggable_scrollable_widget.dart';
 import 'package:bus_stop/views/v3/utils/google_map_options.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -21,6 +23,9 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   // final DraggableScrollableController _draggableScrollableController = DraggableScrollableController();
   LocationController locationController = Get.find();
 
@@ -49,7 +54,6 @@ class _HomeViewState extends State<HomeView> {
 
   final TextEditingController _fromCtr = TextEditingController();
   final TextEditingController _toCtr = TextEditingController();
-  final TextEditingController _searchCtr = TextEditingController();
 
   Destination? _fromDestination;
   Destination? _toDestination;
@@ -60,10 +64,8 @@ class _HomeViewState extends State<HomeView> {
   LatLngBounds? bounds;
 
   bool isFrom = true;
-  bool _isSearching = false;
 
   List<Destination> _items = [];
-  List<Destination> _selItems = [];
 
   _getDestinations() async {
     try {
@@ -117,7 +119,6 @@ class _HomeViewState extends State<HomeView> {
           _toCtr.text = destination.name;
         }
       }
-      _isSearching = false;
 
       if (_fromDestination != null && _toDestination != null) {
         LatLng? org =
@@ -160,18 +161,11 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  void _updateIsSearching (bool val) {
-    setState(() {
-      _isSearching = val;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
-
     return Scaffold(
-      drawer: Drawer(),
+      key: _scaffoldKey,
+      drawer: AppDrawerWidget(),
       body: Stack(
         children: [
           Stack(
@@ -198,162 +192,29 @@ class _HomeViewState extends State<HomeView> {
                   polylines: polys == null ? {} : polys!,
                 ),
               ),
-
               DraggableScrollableWidget(
                 fromCtr: _fromCtr,
                 toCtr: _toCtr,
                 updateIsFrom: _updateIsFrom,
-                updateIsSearching: _updateIsSearching,
+                destinations: _items,
+                setPlace: _setPlace,
               ),
             ],
           ),
-          Visibility(
-              visible: _isSearching,
-              child: Container(
-                color: Colors.black.withOpacity(0.7),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: statusBarHeight + 20, left: 10, right: 10),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                              child: TextField(
-                            controller: _searchCtr,
-                            autofocus: true,
-                            decoration: InputDecoration(
-                              suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _isSearching = false;
-                                      _selItems = [];
-                                    });
-                                  },
-                                  child: Icon(Icons.close)),
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: 'Search...',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                            onChanged: (String val) {
-                              List<Destination> results = [];
-                              if (val.trim().isNotEmpty) {
-                                for (int i = 0; i < _items.length; i++) {
-                                  if (_items[i]
-                                      .name
-                                      .toLowerCase()
-                                      .contains(val)) {
-                                    results.add(_items[i]);
-                                  }
-                                }
-                              }
-
-                              setState(() {
-                                _selItems = results;
-                              });
-                            },
-                          ))
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _isSearching = false;
-                              _selItems = [];
-                            });
-                          },
-                          child: ListView(
-                            children: _searchCtr.text.isEmpty
-                                ? [
-                                    ..._items
-                                        .map((item) => GestureDetector(
-                                              onTap: () {
-                                                _setPlace(item);
-                                              },
-                                              child: Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    vertical: 10),
-                                                child: Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.location_on,
-                                                      color: Colors.white,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text(
-                                                      item.name,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyMedium!
-                                                          .copyWith(
-                                                              fontSize: 18,
-                                                              color:
-                                                                  Colors.white),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ))
-                                        .toList()
-                                  ]
-                                : [
-                                    ..._selItems
-                                        .map((item) => GestureDetector(
-                                              onTap: () {
-                                                _setPlace(item);
-                                              },
-                                              child: Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    vertical: 10),
-                                                child: Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.location_on,
-                                                      color: Colors.white,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text(
-                                                      item.name,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyMedium!
-                                                          .copyWith(
-                                                              fontSize: 18,
-                                                              color:
-                                                                  Colors.white),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ))
-                                        .toList()
-                                  ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )),
           Positioned(
             top: 50,
               left: 20,
-              child: SvgPicture.asset(
-                "lib/images/menu-icon.svg",
-                width: 30,
-                height: 30,
+              child: InkWell(
+                onTap: () {
+                  if(!_scaffoldKey.currentState!.isDrawerOpen) {
+                    _scaffoldKey.currentState!.openDrawer();
+                  }
+                },
+                child: SvgPicture.asset(
+                  "lib/images/menu-icon.svg",
+                  width: 30,
+                  height: 30,
+                ),
               ),
           )
         ],

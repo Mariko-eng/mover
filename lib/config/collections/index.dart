@@ -32,8 +32,8 @@ import 'package:bus_stop/config/collections/dev.dart';
 // }
 
 class AppCollections {
-  // Production
-  static bool isTestMode = false;
+  // Production || Development
+  static bool isTestMode = true;
 
   static late CollectionReference groupsRef;
   static late CollectionReference adminAccountsRef;

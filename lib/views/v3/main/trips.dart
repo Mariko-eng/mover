@@ -1,6 +1,11 @@
-import 'package:bus_stop/views/v3/main/widgets/bottom_bar_widget.dart';
+import 'package:bus_stop/views/v3/main/widgets/custom_search/trip.dart';
 import 'package:flutter/material.dart';
+import 'package:bus_stop/views/v3/pages/payment.dart';
+import 'package:bus_stop/views/widgets/loading_widget.dart';
 import 'package:flutter_horizontal_date_picker/flutter_horizontal_date_picker.dart';
+import 'package:bus_stop/models/trip.dart';
+import 'package:bus_stop/views/v3/main/widgets/bottom_bar_widget.dart';
+import 'package:bus_stop/views/v3/main/widgets/trip.dart';
 
 class TripsView extends StatefulWidget {
   const TripsView({super.key});
@@ -13,13 +18,17 @@ class _TripsViewState extends State<TripsView> {
   DateTime selected0 = DateTime.now().to000000;
 
   bool use000000 = false;
+
   DateTime get _now => use000000 ? DateTime.now().to000000 : DateTime.now();
 
   Duration _kSampleDurationToEndDay = Duration(days: 10);
 
+  // LocationController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       backgroundColor: Color(0xffffffff),
       appBar: AppBar(
@@ -27,333 +36,232 @@ class _TripsViewState extends State<TripsView> {
         backgroundColor: Color(0xffffffff),
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: Text("Trips",
+        title: Text(
+          "Trips",
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black
-          ),
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
         ),
       ),
       body: Column(
         children: [
-          Container(
-            color: Color(0xffffffff),
-            child: HorizontalDatePicker(
-              needFocus: true,
-              begin: _now,
-              end: _now.add(_kSampleDurationToEndDay),
-              selected: selected0,
-              onSelected: (item) {
-                setState(() {
-                  selected0 = item;
-                });
-              },
-              selectedColor: Colors.transparent,
-              unSelectedColor: Colors.transparent,
-              itemBuilder: (DateTime itemValue, DateTime? selected) {
-
-                var itemValueEdit = DateTime(itemValue.year,itemValue.month,itemValue.day);
-                var selectedEdit = DateTime(selected!.year,selected.month,selected.day);
-
-                // print("itemValue : " + itemValueEdit.toString() + " " + "selected : " + selectedEdit.toString());
-
-                bool isSelected = itemValueEdit.toString() == selectedEdit.toString();
-                // bool isSelected = selected?.difference(itemValue).inMilliseconds == 0;
-
-                return Container(
-                  width: 100,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 5,
-                        color: isSelected ? Theme.of(context).primaryColor : Colors.transparent,
+          // Container(
+          //   color: Color(0xffffffff),
+          //   child: HorizontalDatePicker(
+          //     needFocus: true,
+          //     begin: _now,
+          //     end: _now.add(_kSampleDurationToEndDay),
+          //     selected: selected0,
+          //     onSelected: (item) {
+          //       setState(() {
+          //         selected0 = item;
+          //       });
+          //     },
+          //     selectedColor: Colors.transparent,
+          //     unSelectedColor: Colors.transparent,
+          //     itemBuilder: (DateTime itemValue, DateTime? selected) {
+          //       var itemValueEdit =
+          //       DateTime(itemValue.year, itemValue.month, itemValue.day);
+          //       var selectedEdit =
+          //       DateTime(selected!.year, selected.month, selected.day);
+          //
+          //       // print("itemValue : " + itemValueEdit.toString() + " " + "selected : " + selectedEdit.toString());
+          //
+          //       bool isSelected =
+          //           itemValueEdit.toString() == selectedEdit.toString();
+          //       // bool isSelected = selected?.difference(itemValue).inMilliseconds == 0;
+          //
+          //       return Container(
+          //         width: 100,
+          //         decoration: BoxDecoration(
+          //           border: Border(
+          //             bottom: BorderSide(
+          //               width: 5,
+          //               color: isSelected
+          //                   ? Theme.of(context).primaryColor
+          //                   : Colors.transparent,
+          //             ),
+          //           ),
+          //         ),
+          //         child: Center(
+          //           child: Text(
+          //             itemValue.toLocal().formatted(
+          //                 pattern: isSelected ? "EEE dd/MM" : "EEE, dd/MM"),
+          //             // Ensure you have 'toLocal()' if using DateTime UTC
+          //             style: TextStyle(
+          //                 color: isSelected ? Colors.black : Colors.black54,
+          //                 fontSize: isSelected ? 14 : 10,
+          //                 fontWeight: FontWeight.bold),
+          //             textAlign: TextAlign.center,
+          //           ),
+          //         ),
+          //       );
+          //     },
+          //     itemCount: 10,
+          //     itemSpacing: 7,
+          //   ),
+          // ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              children: [
+                Expanded(child: Container(
+                  height: 50,
+                  child: TextField(
+                    readOnly: true,
+                    onTap: () {
+                      showSearch(
+                          context: context,
+                          delegate: CustomSearchTripWidget());
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Search Trip",
+                      hintStyle: textTheme.bodyMedium!.copyWith(
+                        fontSize: 15
                       ),
+                      suffixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)
+                      )
                     ),
                   ),
-                  child: Center(
-                    child: Text(
-                      itemValue.toLocal().formatted(pattern: isSelected ? "EEE dd/MM" : "EEE, dd/MM"), // Ensure you have 'toLocal()' if using DateTime UTC
-                      style: TextStyle(
-                          color: isSelected ? Colors.black : Colors.black54,
-                          fontSize: isSelected ? 14 : 10,
-                          fontWeight: FontWeight.bold
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                );
-              },
-              itemCount: 10,
-              itemSpacing: 7,
+                ))
+              ],
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: FutureBuilder(
+                future: fetchActiveTrips(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        "Something Went Wrong!",
+                        style: textTheme.bodyMedium!.copyWith(
+                            color: Colors.black, fontSize: 15),
+                      ),
+                    );
+                  }
 
-          SizedBox(height: 20,),
+                  if (!snapshot.hasData) {
+                    return const Center(child: LoadingWidget());
+                  }
 
-          TripWidget(),
+                  List<Trip>? data = snapshot.data;
 
+                  if (data == null) {
+                    return const Center(child: LoadingWidget());
+                  }
+
+                  if(data.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "No Trips At The Moment!",
+                        style: textTheme.bodyMedium!.copyWith(
+                            color: Colors.black, fontSize: 15),
+                      ),
+                    );
+                  }
+
+                  return ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (context, int index) {
+                        return GestureDetector(
+                          onTap: () {
+                            if(data[index].isClosed) {
+                              return;
+                            }
+                            if (data[index].tripType == "Ordinary") {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PaymentView(
+                                        trip: data[index],
+                                        ticketChoice: "Ordinary",
+                                        ticketChoicePrice: data[index].priceOrdinary,
+                                      )));
+                            } else {
+                              _openBottomSheet(context: context, trip:  data[index]);
+                            }
+                          },
+                          child: TripWidget(trip: data[index]),
+                        );
+                      });
+                }
+            ),
+          )
         ],
       ),
       bottomNavigationBar: buildBottomAppBar(context: context, activeBar: 1),
     );
   }
-}
 
-class TripWidget extends StatefulWidget {
-  const TripWidget({super.key});
+  void _openBottomSheet({required BuildContext context, required Trip trip}) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return _getTicketOptions(context,trip);
+        });
+  }
 
-  @override
-  State<TripWidget> createState() => _TripWidgetState();
-}
-
-class _TripWidgetState extends State<TripWidget> {
-  double contentHeight = 0.0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: 100,
-              decoration: BoxDecoration(
-                color: Color(0xffffffff),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 6,
-                    offset: Offset(0, 2), // changes position of shadow
-                  ),
-                ],
+  Widget _getTicketOptions(BuildContext context, Trip trip) {
+    final options = [
+      "Buy Ordinary Ticket",
+      "Buy VIP Ticket",
+    ];
+    return Container(
+      height: 150,
+      margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+      color: Colors.white,
+      child: ListView(
+        children: options
+            .map((option) => ListTile(
+          onTap: () async {
+            if (option == "Buy Ordinary Ticket") {
+              Navigator.of(context).pop();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PaymentView(
+                        trip: trip,
+                        ticketChoice: "Ordinary",
+                        ticketChoicePrice:
+                        trip.discountPriceOrdinary == 0
+                            ? trip.priceOrdinary
+                            : trip.discountPriceOrdinary,
+                      )));
+            }
+            if (option == "Buy VIP Ticket") {
+              Navigator.of(context).pop();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PaymentView(
+                        trip: trip,
+                        ticketChoice: "VIP",
+                        ticketChoicePrice:
+                        trip.discountPriceVip == 0
+                            ? trip.priceVip
+                            : trip.discountPriceVip,
+                      )));
+            }
+          },
+          title: Column(
+            children: [
+              Text(
+                option,
+                textAlign: TextAlign.start,
+                style: TextStyle(color: Color(0xFFE4191D)),
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20,right: 20,top: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Thausi Coaches UG",
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18
-                          ),
-                        ),
-                      ],),
-
-                    SizedBox(height: 10,),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 100,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Kampala Kampala Kampala",
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontWeight: FontWeight.bold
-                                ),
-                              ),
-                              Text("08:00 AM",
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontWeight: FontWeight.w400
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            width: 100,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    height: 2,
-                                    color: Colors.red.shade100,
-                                  ),
-                                ),
-                                Icon(Icons.bus_alert_outlined,
-                                  color: Colors.blueGrey,),
-                                Expanded(
-                                  child: Container(
-                                    height: 2,
-                                    color: Colors.red.shade100,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 100,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text("Masaka",
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontWeight: FontWeight.bold
-                                ),
-                              ),
-                              Text("08:00 AM",
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontWeight: FontWeight.w400
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              color: Color(0xffffffff),
-              child: Row(
-                children: [
-                  SizedBox(
-                    height: 30,
-                    width: 20,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 1,
-                              offset: Offset(1,0)
-                          ),
-                          BoxShadow(
-                              color: Colors.white,
-                              offset: Offset(-15, 0)
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        // Calculate the number of items based on the width of the parent widget.
-                        final itemCount = (constraints.maxWidth / 10).floor();
-
-                        return Flex(
-                          children: List.generate(
-                            itemCount,
-                                (index) => SizedBox(
-                              height: 1,
-                              width: 5,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(color: Colors.black54),
-                              ),
-                            ),
-                          ),
-                          direction: Axis.horizontal,
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                    width: 20,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                        ),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 1,
-                              offset: Offset(-1,0)
-                          ),
-                          BoxShadow(
-                              color: Colors.white,
-                              offset: Offset(15, 0)
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 80,
-              decoration: BoxDecoration(
-                color: Color(0xffffffff),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 6,
-                    offset: Offset(0, 15), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Color(0xffcd181a),
-                            borderRadius: BorderRadius.circular(20)
-                        ),
-                        child: Text("60,000 SHS",
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: 18,
-                              color: Colors.white
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
-        )
+              SizedBox(height: 4),
+              Divider(height: 1)
+            ],
+          ),
+        ))
+            .toList(),
+      ),
     );
   }
 }
-
-
-
-
-

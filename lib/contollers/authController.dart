@@ -1,4 +1,6 @@
+import 'package:bus_stop/views/v3/auth/wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:bus_stop/models/user.dart';
 import 'package:bus_stop/views/auth/wrapper.dart';
@@ -50,8 +52,15 @@ class UserProvider with ChangeNotifier {
       if (exists == false) {
         _isLoading = false;
         notifyListeners();
-        Get.snackbar("Sorry", "Account Not Found!",
-            backgroundColor: Colors.orange, colorText: Colors.white);
+        Fluttertoast.showToast(
+            msg: "Account Not Found",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
         return false;
       }
 
@@ -62,16 +71,30 @@ class UserProvider with ChangeNotifier {
       return true;
     } on FirebaseAuthException catch (e) {
       print(e.message);
-      Get.snackbar("Failed", e.message!,
-          backgroundColor: Colors.orange, colorText: Colors.white);
+      Fluttertoast.showToast(
+          msg: e.message!,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
       _client = null;
       _isLoading = false;
       notifyListeners();
       return false;
     } catch (e) {
       print(e.toString());
-      Get.snackbar("Failed", "Something Went Wrong!",
-          backgroundColor: Colors.orange, colorText: Colors.white);
+      Fluttertoast.showToast(
+          msg: "Something Went Wrong!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
       _client = null;
       _isLoading = false;
       notifyListeners();
@@ -91,8 +114,15 @@ class UserProvider with ChangeNotifier {
       if (exists == true) {
         _isLoading = false;
         notifyListeners();
-        Get.snackbar("Sorry", "Account Already Exists!",
-            backgroundColor: Colors.orange, colorText: Colors.white);
+        Fluttertoast.showToast(
+            msg: "Account Already Exists!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
         return false;
       }
       UserCredential userCredential =
@@ -112,16 +142,30 @@ class UserProvider with ChangeNotifier {
       return true;
     } on FirebaseAuthException catch (e) {
       print(e.message);
-      Get.snackbar("Failed", e.message!,
-          backgroundColor: Colors.orange, colorText: Colors.white);
+      Fluttertoast.showToast(
+          msg: e.message!,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
       _client = null;
       _isLoading = false;
       notifyListeners();
       return false;
     } catch (e) {
       print(e.toString());
-      Get.snackbar("Failed", "Something Went Wrong",
-          backgroundColor: Colors.orange, colorText: Colors.white);
+      Fluttertoast.showToast(
+          msg: "Something Went Wrong",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
       _client = null;
       _isLoading = false;
       notifyListeners();
@@ -135,6 +179,7 @@ class UserProvider with ChangeNotifier {
     await _auth.signOut();
     _isLoading = false;
     notifyListeners();
-    Get.offAll(const AuthWrapper());
+    Get.offAll(const AuthWrapperView());
+    // Get.offAll(const AuthWrapper());
   }
 }
