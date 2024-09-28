@@ -42,7 +42,7 @@ Future<bool> addClientNotification({
 }) async{
   DateTime nw = DateTime.now();
   try{
-    await AppCollections.notificationsRef.add({
+    await AppCollections().notificationsRef.add({
       "clientId":clientId,
       "busCompanyId":busCompanyId,
       "title":title,

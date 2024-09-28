@@ -36,7 +36,7 @@ class InfoModel {
 }
 
 Stream<List<InfoModel>> getAllInfo() {
-  return AppCollections.infoRef.snapshots().map((snap) {
+  return AppCollections().infoRef.snapshots().map((snap) {
     return snap.docs.map((doc) => InfoModel.fromSnapshot(doc)).toList();
   });
 }

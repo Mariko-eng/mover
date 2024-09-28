@@ -35,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
   // given camera position
   static const CameraPosition _kGoogle = CameraPosition(
     target: LatLng(0.3152, 32.5816),
-    zoom: 12.0,
+    zoom: 7,
     tilt: 40.0,
   );
 
@@ -153,6 +153,12 @@ class _HomeViewState extends State<HomeView> {
   @override
   void dispose() {
     super.dispose();
+    _disposeGoogleMapController();
+  }
+
+  _disposeGoogleMapController () async {
+    GoogleMapController controller = await _googleMapController.future;
+    controller.dispose();
   }
 
   void _updateIsFrom (bool val) {

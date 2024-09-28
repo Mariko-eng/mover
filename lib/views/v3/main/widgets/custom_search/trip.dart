@@ -1,8 +1,9 @@
-import 'package:bus_stop/views/v3/main/widgets/trip.dart';
-import 'package:bus_stop/views/v3/pages/payment.dart';
-import 'package:bus_stop/views/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:bus_stop/models/trip.dart';
+import 'package:bus_stop/views/widgets/loading_widget.dart';
+import 'package:bus_stop/views/v3/main/widgets/trip_widget.dart';
+import 'package:bus_stop/views/v3/pages/payment.dart';
+
 
 class CustomSearchTripWidget extends SearchDelegate {
   // List<Trip> searchTerms;
@@ -41,8 +42,8 @@ class CustomSearchTripWidget extends SearchDelegate {
             return Center(
               child: Text(
                 "Something Went Wrong!",
-                style: textTheme.bodyMedium!.copyWith(
-                    color: Colors.black, fontSize: 15),
+                style: textTheme.bodyMedium!
+                    .copyWith(color: Colors.black, fontSize: 15),
               ),
             );
           }
@@ -61,8 +62,8 @@ class CustomSearchTripWidget extends SearchDelegate {
 
           for (var item in trips) {
             if (item.arrivalLocationName
-                .toLowerCase()
-                .contains(query.toLowerCase()) ||
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) ||
                 item.departureLocationName
                     .toLowerCase()
                     .contains(query.toLowerCase())) {
@@ -85,20 +86,20 @@ class CustomSearchTripWidget extends SearchDelegate {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => PaymentView(
-                                    trip: matches[index],
-                                    ticketChoice: "Ordinary",
-                                    ticketChoicePrice:
-                                    matches[index].priceOrdinary,
-                                  )));
+                                        trip: matches[index],
+                                        ticketChoice: "Ordinary",
+                                        ticketChoicePrice:
+                                            matches[index].priceOrdinary,
+                                      )));
                         } else {
-                          _openBottomSheet(context: context, trip: matches[index]);
+                          _openBottomSheet(
+                              context: context, trip: matches[index]);
                         }
                       },
                       child: TripWidget(trip: matches[index]));
                 }),
           );
-        }
-    );
+        });
   }
 
   @override
@@ -107,69 +108,73 @@ class CustomSearchTripWidget extends SearchDelegate {
 
     return FutureBuilder(
         future: fetchActiveTrips(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              "Something Went Wrong!",
-              style: textTheme.bodyMedium!.copyWith(
-                  color: Colors.black, fontSize: 15),
-            ),
-          );
-        }
-
-        if (!snapshot.hasData) {
-          return const Center(child: LoadingWidget());
-        }
-
-        List<Trip>? trips = snapshot.data;
-
-        if (trips == null) {
-          return const Center(child: LoadingWidget());
-        }
-
-        List<Trip> matches = [];
-
-        for (var item in trips) {
-          if (item.arrivalLocationName
-              .toLowerCase()
-              .contains(query.toLowerCase()) ||
-              item.departureLocationName
-                  .toLowerCase()
-                  .contains(query.toLowerCase())) {
-            matches.add(item);
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                "Something Went Wrong!",
+                style: textTheme.bodyMedium!
+                    .copyWith(color: Colors.black, fontSize: 15),
+              ),
+            );
           }
-        }
 
-        return Container(
-          color: Colors.white,
-          child: ListView.builder(
-              itemCount: matches.length,
-              itemBuilder: (context, int index) {
-                return GestureDetector(
-                    onTap: () {
-                      if (matches[index].isClosed) {
-                        return;
-                      }
-                      if (matches[index].tripType == "Ordinary") {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PaymentView(
-                                      trip: matches[index],
-                                      ticketChoice: "Ordinary",
-                                      ticketChoicePrice:
-                                          matches[index].priceOrdinary,
-                                    )));
-                      } else {
-                        _openBottomSheet(context: context, trip: matches[index]);
-                      }
-                    },
-                    child: TripWidget(trip: matches[index]));
-              }),
-        );
-      }
-    );
+          if (!snapshot.hasData) {
+            return const Center(child: LoadingWidget());
+          }
+
+          List<Trip>? trips = snapshot.data;
+
+          if (trips == null) {
+            return const Center(child: LoadingWidget());
+          }
+
+          List<Trip> matches = [];
+
+          for (var item in trips) {
+            if (item.arrivalLocationName
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) ||
+                item.departureLocationName
+                    .toLowerCase()
+                    .contains(query.toLowerCase())) {
+              matches.add(item);
+            }
+          }
+
+          return Container(
+            color: Colors.white,
+            child: ListView.builder(
+                itemCount: matches.length,
+                itemBuilder: (context, int index) {
+                  return GestureDetector(
+                      onTap: () {
+                        if (matches[index].isClosed) {
+                          return;
+                        }
+                        if (matches[index].tripType == "Ordinary") {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PaymentView(
+                                        trip: matches[index],
+                                        ticketChoice: "Ordinary",
+                                        ticketChoicePrice: matches[index]
+                                                    .discountPriceOrdinary >
+                                                0
+                                            ? matches[index]
+                                                .discountPriceOrdinary
+                                            : matches[index].priceOrdinary,
+                                      )));
+                        } else {
+                          _openBottomSheet(
+                              context: context, trip: matches[index]);
+                        }
+                      },
+                      child: TripWidget(trip: matches[index]));
+                }),
+          );
+        });
   }
 
   void _openBottomSheet({required BuildContext context, required Trip trip}) {
@@ -202,9 +207,9 @@ class CustomSearchTripWidget extends SearchDelegate {
                                     trip: trip,
                                     ticketChoice: "Ordinary",
                                     ticketChoicePrice:
-                                        trip.discountPriceOrdinary == 0
-                                            ? trip.priceOrdinary
-                                            : trip.discountPriceOrdinary,
+                                        trip.discountPriceOrdinary > 0
+                                            ? trip.discountPriceOrdinary
+                                            : trip.priceOrdinary,
                                   )));
                     }
                     if (option == "Buy VIP Ticket") {
@@ -215,10 +220,9 @@ class CustomSearchTripWidget extends SearchDelegate {
                               builder: (context) => PaymentView(
                                     trip: trip,
                                     ticketChoice: "VIP",
-                                    ticketChoicePrice:
-                                        trip.discountPriceVip == 0
-                                            ? trip.priceVip
-                                            : trip.discountPriceVip,
+                                    ticketChoicePrice: trip.discountPriceVip > 0
+                                        ? trip.discountPriceVip
+                                        : trip.priceVip,
                                   )));
                     }
                   },

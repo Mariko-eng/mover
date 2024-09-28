@@ -1,8 +1,33 @@
-import 'package:bus_stop/views/v3/main/widgets/ticket.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:bus_stop/models/trip.dart';
+import 'package:bus_stop/models/user.dart';
+import 'package:bus_stop/views/v3/main/home.dart';
+import 'package:bus_stop/views/v3/main/widgets/ticket_widget.dart';
 
 class PaymentSuccessfulView extends StatefulWidget {
-  const PaymentSuccessfulView({super.key});
+  final String transactionId;
+  final Client client;
+  final Trip trip;
+  final String ticketChoice;
+  final int noOfTickets;
+  final int amountPaid;
+  final String buyerName;
+  final String buyerEmail;
+  final String buyerPhone;
+
+  const PaymentSuccessfulView({
+    Key? key,
+    required this.transactionId,
+    required this.client,
+    required this.trip,
+    required this.ticketChoice,
+    required this.noOfTickets,
+    required this.amountPaid,
+    required this.buyerName,
+    required this.buyerEmail,
+    required this.buyerPhone,
+  }) : super(key: key);
 
   @override
   State<PaymentSuccessfulView> createState() => _PaymentSuccessfulViewState();
@@ -67,7 +92,7 @@ class _PaymentSuccessfulViewState extends State<PaymentSuccessfulView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("60,000 shs",
+                  Text("${widget.amountPaid} shs",
                     textAlign: TextAlign.center,
                     style: textTheme.bodyMedium!.copyWith(
                         fontSize: 17,
@@ -90,6 +115,7 @@ class _PaymentSuccessfulViewState extends State<PaymentSuccessfulView> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
+                          Get.offAll(() => const HomeView());
                         },
                         child: Container(
                           height: 50,

@@ -47,7 +47,6 @@ void main() async {
   await Firebase.initializeApp();
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  AppCollections();
   Get.put(LocationController());
   runApp(const BusStopApp());
 }

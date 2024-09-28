@@ -34,7 +34,7 @@ Future<String> addTicketHistory({
       'createdAt': DateTime.now(),
     };
 
-    DocumentReference doc = await AppCollections.ticketsHistoryRef.add(data);
+    DocumentReference doc = await AppCollections().ticketsHistoryRef.add(data);
     return doc.id;
   } catch (e) {
     print(e.toString());

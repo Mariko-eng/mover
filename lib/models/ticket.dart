@@ -102,7 +102,7 @@ Future<String> getRandomNumber() async {
   String num2 = randomNumeric(4);
   String num = "T" + num1 + num2;
   try {
-    var res = await AppCollections.ticketsRef
+    var res = await AppCollections().ticketsRef
         .where("ticketNumber", isEqualTo: num)
         .get();
     if (res.docs.isEmpty) {
@@ -140,7 +140,7 @@ Future<bool> purchaseOrdinaryTicket({
         'transactionId': transactionId,
         'companyId': trip.companyId,
         'companyName': trip.companyName,
-        'trip': AppCollections.tripsRef.doc(trip.id),
+        'trip': AppCollections().tripsRef.doc(trip.id),
         'tripId': trip.id,
         'departureLocationId': trip.departureLocationId,
         'departureLocation': trip.departureLocationName,
@@ -150,7 +150,7 @@ Future<bool> purchaseOrdinaryTicket({
         'buyerNames': buyerNames,
         'buyerPhoneNumber': buyerPhoneNumber,
         'buyerEmail': buyerEmail,
-        'user': AppCollections.clientsRef.doc(client.uid),
+        'user': AppCollections().clientsRef.doc(client.uid),
         'userId': client.uid,
         'userEmail': client.email,
         'total': total,
@@ -162,8 +162,7 @@ Future<bool> purchaseOrdinaryTicket({
         'createdAt': DateTime.now(),
       };
 
-      // await ticketsCollection.doc(preTicketId).set(data);
-      await AppCollections.ticketsRef.add(data);
+      await AppCollections().ticketsRef.add(data);
 
       await addTicketHistory(
           ticketId: preTicketId,
@@ -177,7 +176,7 @@ Future<bool> purchaseOrdinaryTicket({
         body: ticketNumber + " Ordinary Ticket Has Been Purchased Successfully",
       );
 
-      DocumentReference tripRef = AppCollections.tripsRef.doc(trip.id);
+      DocumentReference tripRef = AppCollections().tripsRef.doc(trip.id);
       await tripRef
           .update({'occupiedSeats': FieldValue.increment(numberOfTickets)});
     }
@@ -208,7 +207,7 @@ Future<bool> purchaseVIPTicket(
         'transactionId': transactionId,
         'companyId': trip.companyId,
         'companyName': trip.companyName,
-        'trip': AppCollections.tripsRef.doc(trip.id),
+        'trip': AppCollections().tripsRef.doc(trip.id),
         'tripId': trip.id,
         'departureLocationId': trip.departureLocationId,
         'departureLocation': trip.departureLocationName,
@@ -218,7 +217,7 @@ Future<bool> purchaseVIPTicket(
         'buyerNames': buyerNames,
         'buyerEmail': buyerEmail,
         'buyerPhoneNumber': buyerPhoneNumber,
-        'user': AppCollections.clientsRef.doc(client.uid),
+        'user': AppCollections().clientsRef.doc(client.uid),
         'userId': client.uid,
         'userEmail': client.email,
         'total': total,
@@ -230,7 +229,7 @@ Future<bool> purchaseVIPTicket(
         'createdAt': DateTime.now(),
       };
 
-      await AppCollections.ticketsRef.add(data);
+      await AppCollections().ticketsRef.add(data);
 
       await addTicketHistory(
           ticketId: preTicketId,
@@ -244,7 +243,7 @@ Future<bool> purchaseVIPTicket(
         body: ticketNumber + " VIP Ticket Has Been Purchased Successfully",
       );
 
-      DocumentReference tripRef = AppCollections.tripsRef.doc(trip.id);
+      DocumentReference tripRef = AppCollections().tripsRef.doc(trip.id);
       await tripRef
           .update({'occupiedSeats': FieldValue.increment(numberOfTickets)});
     }
@@ -256,7 +255,7 @@ Future<bool> purchaseVIPTicket(
 }
 
 Stream<List<TripTicket>> getMyTickets({required String uid}) {
-  return AppCollections.ticketsRef
+  return AppCollections().ticketsRef
       .where("userId", isEqualTo: uid)
       .orderBy("createdAt", descending: true)
       .snapshots()
@@ -267,7 +266,7 @@ Stream<List<TripTicket>> getMyTickets({required String uid}) {
 
 Stream<List<TripTicket>> getTransactionTickets(
     {required String transactionId}) {
-  return AppCollections.ticketsRef
+  return AppCollections().ticketsRef
       .where("transactionId", isEqualTo: transactionId)
       .snapshots()
       .map((snap) {
@@ -277,7 +276,7 @@ Stream<List<TripTicket>> getTransactionTickets(
 
 Stream<List<TripTicket>> getMyTicketsForBusCompany(
     {required String uid, required String companyId}) {
-  return AppCollections.ticketsRef
+  return AppCollections().ticketsRef
       .where("userId", isEqualTo: uid)
       .where("companyId", isEqualTo: companyId)
       .orderBy("createdAt", descending: true)
@@ -289,7 +288,7 @@ Stream<List<TripTicket>> getMyTicketsForBusCompany(
 
 Future<TripTicket> fetchTicketDetail({required String ticketId}) async {
   try {
-    DocumentSnapshot res = await AppCollections.ticketsRef.doc(ticketId).get();
+    DocumentSnapshot res = await AppCollections().ticketsRef.doc(ticketId).get();
     return TripTicket.fromSnapshot(res);
   } catch (e) {
     throw e.toString();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bus_stop/views/v3/main/widgets/bottom_bar_widget.dart';
-import 'package:bus_stop/views/v3/main/widgets/ticket.dart';
+import 'package:bus_stop/views/v3/main/widgets/ticket_widget.dart';
 
 class TicketsView extends StatefulWidget {
   const TicketsView({super.key});

@@ -1,11 +1,11 @@
-import 'package:bus_stop/views/v3/main/widgets/custom_search/trip.dart';
 import 'package:flutter/material.dart';
 import 'package:bus_stop/views/v3/pages/payment.dart';
 import 'package:bus_stop/views/widgets/loading_widget.dart';
-import 'package:flutter_horizontal_date_picker/flutter_horizontal_date_picker.dart';
+// import 'package:flutter_horizontal_date_picker/flutter_horizontal_date_picker.dart';
 import 'package:bus_stop/models/trip.dart';
 import 'package:bus_stop/views/v3/main/widgets/bottom_bar_widget.dart';
-import 'package:bus_stop/views/v3/main/widgets/trip.dart';
+import 'package:bus_stop/views/v3/main/widgets/trip_widget.dart';
+import 'package:bus_stop/views/v3/main/widgets/custom_search/trip.dart';
 
 class TripsView extends StatefulWidget {
   const TripsView({super.key});
@@ -15,15 +15,13 @@ class TripsView extends StatefulWidget {
 }
 
 class _TripsViewState extends State<TripsView> {
-  DateTime selected0 = DateTime.now().to000000;
-
-  bool use000000 = false;
-
-  DateTime get _now => use000000 ? DateTime.now().to000000 : DateTime.now();
-
-  Duration _kSampleDurationToEndDay = Duration(days: 10);
-
-  // LocationController controller = Get.find();
+  // DateTime selected0 = DateTime.now().to000000;
+  //
+  // bool use000000 = false;
+  //
+  // DateTime get _now => use000000 ? DateTime.now().to000000 : DateTime.now();
+  //
+  // Duration _kSampleDurationToEndDay = Duration(days: 10);
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +178,7 @@ class _TripsViewState extends State<TripsView> {
                                       builder: (context) => PaymentView(
                                         trip: data[index],
                                         ticketChoice: "Ordinary",
-                                        ticketChoicePrice: data[index].priceOrdinary,
+                                        ticketChoicePrice: data[index].discountPriceOrdinary > 0 ? data[index].discountPriceOrdinary : data[index].priceOrdinary,
                                       )));
                             } else {
                               _openBottomSheet(context: context, trip:  data[index]);
@@ -228,9 +226,9 @@ class _TripsViewState extends State<TripsView> {
                         trip: trip,
                         ticketChoice: "Ordinary",
                         ticketChoicePrice:
-                        trip.discountPriceOrdinary == 0
-                            ? trip.priceOrdinary
-                            : trip.discountPriceOrdinary,
+                        trip.discountPriceOrdinary > 0
+                            ? trip.discountPriceOrdinary
+                            : trip.priceOrdinary,
                       )));
             }
             if (option == "Buy VIP Ticket") {
@@ -242,9 +240,9 @@ class _TripsViewState extends State<TripsView> {
                         trip: trip,
                         ticketChoice: "VIP",
                         ticketChoicePrice:
-                        trip.discountPriceVip == 0
-                            ? trip.priceVip
-                            : trip.discountPriceVip,
+                        trip.discountPriceVip > 0
+                            ? trip.discountPriceVip
+                            : trip.priceVip,
                       )));
             }
           },

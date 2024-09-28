@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bus_stop/config/collections/index.dart';
 import 'package:bus_stop/models/destination/locationModel.dart';
 
-final CollectionReference destinationsCollection = AppCollections.destinationsRef;
 
 class Destination {
   final String id;
@@ -29,7 +28,7 @@ List<Destination> _destinationListFromSnapshot(QuerySnapshot snapshot) {
 }
 
 Stream<List<Destination>> getDestinations() {
-  return destinationsCollection
+  return AppCollections().destinationsRef
       .orderBy('name')
       .snapshots()
       .map(_destinationListFromSnapshot);
@@ -38,7 +37,7 @@ Stream<List<Destination>> getDestinations() {
 
 Future<List<Destination>> fetchDestinations() async {
   try{
-    var results = await destinationsCollection.orderBy('name').get();
+    var results = await AppCollections().destinationsRef.orderBy('name').get();
     return _destinationListFromSnapshot(results);
   }catch(e){
     print("Future Error: fetchDestinations");

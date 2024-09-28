@@ -36,7 +36,7 @@ class BusCompany {
 
 Future<List<BusCompany>> fetchBusCompanies() async {
   try {
-    var res = await AppCollections.companiesRef.get();
+    var res = await AppCollections().companiesRef.get();
 
     return res.docs.map((doc) => BusCompany.fromSnapshot(doc)).toList();
   } catch (e) {
@@ -45,14 +45,14 @@ Future<List<BusCompany>> fetchBusCompanies() async {
 }
 
 Stream<List<BusCompany>> getAllBusCompanies() {
-  return AppCollections.companiesRef.snapshots().map((snap) {
+  return AppCollections().companiesRef.snapshots().map((snap) {
     return snap.docs.map((doc) => BusCompany.fromSnapshot(doc)).toList();
   });
 }
 
 Stream<List<ParkLocations>> getBusCompanyDestinations(
     {required String companyId}) {
-  return AppCollections.companiesRef
+  return AppCollections().companiesRef
       .doc(companyId)
       .snapshots()
       .map((DocumentSnapshot snap) {
@@ -72,7 +72,7 @@ Stream<List<ParkLocations>> getBusCompanyDestinations(
 
 Future getBusCompanyProfile({required String userId}) async {
   try {
-    var result = await AppCollections.companiesRef.doc(userId).get();
+    var result = await AppCollections().companiesRef.doc(userId).get();
     return BusCompany.fromSnapshot(result);
   } catch (e) {
     return null;

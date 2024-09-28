@@ -4,9 +4,6 @@ import 'package:bus_stop/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bus_stop/config/collections/index.dart';
 
-final CollectionReference transactionsCollection =
-    AppCollections.transactionsRef;
-
 class TransactionModel {
   final String transactionId;
   final String companyId;
@@ -100,7 +97,7 @@ class TransactionModel {
   static Future<List<TransactionModel>> getClientTransactions(
       {required String clientId}) async {
     try {
-      var results = await AppCollections.transactionsRef
+      var results = await AppCollections().transactionsRef
           .where('clientId', isEqualTo: clientId)
           .orderBy('createdAt', descending: true)
           .get();
@@ -160,7 +157,7 @@ Future<PaymentModel> buyTripTicket({
       'createdAt': DateTime.now().toIso8601String(),
     };
 
-    DocumentReference doc = await transactionsCollection.add(transactionData);
+    DocumentReference doc = await AppCollections().transactionsRef.add(transactionData);
 
     PaymentModel? paymentModel = await initiateTransaction(
         isTestMode: isTestMode,
@@ -178,9 +175,7 @@ Future<PaymentModel> buyTripTicket({
           isTestMode: isTestMode,
       );
 
-      print(transactionsCollection.doc(doc.id));
-
-      await transactionsCollection.doc(doc.id).update({
+      await AppCollections().transactionsRef.doc(doc.id).update({
         "culipaTxId": updatedPaymentModel.culipaTxId,
         "paymentStatus": updatedPaymentModel.status
       });

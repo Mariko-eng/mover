@@ -8,7 +8,6 @@ class Trip {
   // final DocumentReference arrivalLocation;
   final String arrivalLocationId;
   final String arrivalLocationName;
-
   // final DocumentReference departureLocation;
   final String departureLocationId;
   final String departureLocationName;
@@ -137,7 +136,7 @@ Future<List<Trip>> fetchActiveTrips() async {
     DateTime yesterday =
         DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-    var res = await AppCollections.tripsRef
+    var res = await AppCollections().tripsRef
         .where('departureTime', isGreaterThanOrEqualTo: yesterday)
         .where('isDraft', isEqualTo: false)
         .orderBy('departureTime')
@@ -157,7 +156,7 @@ Stream<List<Trip>> getAllActiveTrips() {
   DateTime yesterday =
       DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-  return AppCollections.tripsRef
+  return AppCollections().tripsRef
       .where('departureTime', isGreaterThanOrEqualTo: yesterday)
       .where('isDraft', isEqualTo: false)
       .orderBy('departureTime')
@@ -172,7 +171,7 @@ Stream<List<Trip>> getAllTripsForBusCompany({required String companyId}) {
   DateTime yesterday =
       DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-  return AppCollections.tripsRef
+  return AppCollections().tripsRef
       .where('companyId', isEqualTo: companyId)
       .where('departureTime', isGreaterThanOrEqualTo: yesterday)
       .where('isDraft', isEqualTo: false)
@@ -189,7 +188,7 @@ Future<List<Trip>> searchForTrips(
   DateTime yesterday =
       DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-  QuerySnapshot snapshot = await AppCollections.tripsRef
+  QuerySnapshot snapshot = await AppCollections().tripsRef
       .where('departureTime', isGreaterThan: yesterday)
       .where('departureLocationId', isEqualTo: fromDestId.trim())
       .where('arrivalLocationId', isEqualTo: toDestId.trim())
