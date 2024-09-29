@@ -39,23 +39,30 @@ class CustomSearchTripWidget extends SearchDelegate {
         future: fetchActiveTrips(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                "Something Went Wrong!",
-                style: textTheme.bodyMedium!
-                    .copyWith(color: Colors.black, fontSize: 15),
+            return Container(
+              color: Colors.white,
+              child: Center(
+                child: Text(
+                  "Something Went Wrong!",
+                  style: textTheme.bodyMedium!
+                      .copyWith(color: Colors.black, fontSize: 15),
+                ),
               ),
             );
           }
 
           if (!snapshot.hasData) {
-            return const Center(child: LoadingWidget());
+            return Container(
+                color: Colors.white,
+                child: const Center(child: LoadingWidget()));
           }
 
           List<Trip>? trips = snapshot.data;
 
           if (trips == null) {
-            return const Center(child: LoadingWidget());
+            return Container(
+                color: Colors.white,
+                child: const Center(child: LoadingWidget()));
           }
 
           List<Trip> matches = [];
@@ -110,23 +117,30 @@ class CustomSearchTripWidget extends SearchDelegate {
         future: fetchActiveTrips(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                "Something Went Wrong!",
-                style: textTheme.bodyMedium!
-                    .copyWith(color: Colors.black, fontSize: 15),
+            return Container(
+              color: Colors.white,
+              child: Center(
+                child: Text(
+                  "Something Went Wrong!",
+                  style: textTheme.bodyMedium!
+                      .copyWith(color: Colors.black, fontSize: 15),
+                ),
               ),
             );
           }
 
           if (!snapshot.hasData) {
-            return const Center(child: LoadingWidget());
+            return Container(
+                color: Colors.white,
+                child: const Center(child: LoadingWidget()));
           }
 
           List<Trip>? trips = snapshot.data;
 
           if (trips == null) {
-            return const Center(child: LoadingWidget());
+            return Container(
+                color: Colors.white,
+                child: const Center(child: LoadingWidget()));
           }
 
           List<Trip> matches = [];

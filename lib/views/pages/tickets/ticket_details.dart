@@ -705,29 +705,4 @@ class _TicketDetailsViewState extends State<TicketDetailsView> {
       ),
     );
   }
-
-//   Future<Uint8List> _capturePng() async {
-//     try {
-//       print('inside');
-//       inside = true;
-//       RenderRepaintBoundary boundary = _globalKey.currentContext!.findRenderObject();
-//       ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-//       ByteData byteData =
-//       await image.toByteData(format: ui.ImageByteFormat.png);
-//       Uint8List pngBytes = byteData.buffer.asUint8List();
-// //create file
-//       final String dir = (await getApplicationDocumentsDirectory()).path;
-//       imagePath = '$dir/file_name${DateTime.now()}.png';
-//       capturedFile = File(imagePath);
-//       await capturedFile.writeAsBytes(pngBytes);
-//       print(capturedFile.path);
-//       final result = await ImageGallerySaver.saveImage(pngBytes,
-//           quality: 60, name: "file_name${DateTime.now()}");
-//       print(result);
-//       print('png done');
-//       return pngBytes;
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
 }

@@ -3,7 +3,6 @@ import 'package:bus_stop/views/v3/pages/payment.dart';
 import 'package:bus_stop/views/widgets/loading_widget.dart';
 // import 'package:flutter_horizontal_date_picker/flutter_horizontal_date_picker.dart';
 import 'package:bus_stop/models/trip.dart';
-import 'package:bus_stop/views/v3/main/widgets/bottom_bar_widget.dart';
 import 'package:bus_stop/views/v3/main/widgets/trip_widget.dart';
 import 'package:bus_stop/views/v3/main/widgets/custom_search/trip.dart';
 
@@ -192,7 +191,7 @@ class _TripsViewState extends State<TripsView> {
           )
         ],
       ),
-      bottomNavigationBar: buildBottomAppBar(context: context, activeBar: 1),
+      // bottomNavigationBar: buildBottomAppBar(context: context, activeBar: 1),
     );
   }
 

@@ -76,16 +76,6 @@ Future<PaymentModel> initiateTransaction({
       apiKey = devCulipaAPIKey;
     }
 
-    // Map payload1 = {
-    //   "account":"785227694",
-    //   "amount":500,
-    //   "currency":"UGX",
-    //   "wallet":"MTN-AIRTEL-UG",
-    //   "transactionID":"ticket00456",
-    //   "merchant":"BusStop",
-    //   "memo":"Bus Ticket Payment"
-    // };
-
     Map payload = {
       "account": account,
       "amount":  amount,
@@ -95,9 +85,6 @@ Future<PaymentModel> initiateTransaction({
       "merchant": "BusStop",
       "memo": "Bus Ticket Payment"
     };
-
-    print("Be4 response");
-    print(payload);
 
     Response response = await dio.post(url, data: payload,
         options: Options(
@@ -151,8 +138,6 @@ Future<PaymentModel> checkPaymentTransactionStatus({
           )
       );
       PaymentModel data = PaymentModel.fromJson(response.data);
-
-      print(data.transactionId);
 
       if (data.status.toUpperCase() != "PENDING") {
         return data; // Transaction status is no longer "Pending", return the data

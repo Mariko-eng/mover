@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:bus_stop/config/collections/index.dart';
 import 'package:bus_stop/config/shared/constants.dart';
-import 'package:bus_stop/contollers/authController.dart';
+import 'package:bus_stop/controllers/authController.dart';
 import 'package:bus_stop/models/ticket.dart';
 import 'package:bus_stop/models/transaction/payment.dart';
 import 'package:bus_stop/models/transaction/transaction.dart';
@@ -556,7 +556,6 @@ class _PaymentViewState extends State<PaymentView> {
         _isProcessingTicket = false;
       });
     } catch (e) {
-      print(e.toString());
       setState(() {
         _canPopScreen = false;
         _isProcessingTicket = false;
@@ -566,7 +565,6 @@ class _PaymentViewState extends State<PaymentView> {
   }
 
   Future<void> _showFailureDialog({required String message}) async {
-    print("here 1");
     await Get.defaultDialog(
         title: "",
         barrierDismissible: true,

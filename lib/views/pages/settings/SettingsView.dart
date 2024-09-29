@@ -4,7 +4,7 @@ import 'package:bus_stop/views/pages/settings/TermsOfServiceView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:bus_stop/contollers/authController.dart';
+import 'package:bus_stop/controllers/authController.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});

@@ -40,7 +40,6 @@ Future<List<Destination>> fetchDestinations() async {
     var results = await AppCollections().destinationsRef.orderBy('name').get();
     return _destinationListFromSnapshot(results);
   }catch(e){
-    print("Future Error: fetchDestinations");
     throw(e.toString());
   }
 }

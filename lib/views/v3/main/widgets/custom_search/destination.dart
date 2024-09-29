@@ -4,8 +4,9 @@ import 'package:bus_stop/models/destination/destination.dart';
 class CustomSearchDestinationWidget extends SearchDelegate {
   List<Destination> searchTerms;
   final Function(Destination) setPlace;
+  final Function(Destination) setDestination;
 
-  CustomSearchDestinationWidget({required this.searchTerms, required this.setPlace});
+  CustomSearchDestinationWidget({required this.setDestination,required this.searchTerms, required this.setPlace});
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -46,6 +47,7 @@ class CustomSearchDestinationWidget extends SearchDelegate {
               title: Text(matches[index].name),
               onTap:  () {
                 setPlace(matches[index]);
+                setDestination(matches[index]);
                 close(context, null);
               },
             );
@@ -72,6 +74,7 @@ class CustomSearchDestinationWidget extends SearchDelegate {
               title: Text(matches[index].name),
               onTap:  () {
                 setPlace(matches[index]);
+                setDestination(matches[index]);
                 close(context, null);
               },
             );

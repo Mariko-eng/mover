@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:bus_stop/models/ticket.dart';
 
 class TicketWidget extends StatefulWidget {
-  const TicketWidget({super.key});
+  final TripTicket ticket;
+  const TicketWidget({super.key, required this.ticket});
 
   @override
   State<TicketWidget> createState() => _TicketWidgetState();
@@ -43,7 +45,8 @@ class _TicketWidgetState extends State<TicketWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Thausi Coaches UG",
+                        widget.ticket.companyName.toUpperCase(),
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
@@ -61,7 +64,7 @@ class _TicketWidgetState extends State<TicketWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Kampala Kampala Kampala",
+                              widget.ticket.departureLocation,
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
                                   .textTheme
@@ -110,7 +113,7 @@ class _TicketWidgetState extends State<TicketWidget> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              "Masaka",
+                              widget.ticket.arrivalLocation,
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
                                   .textTheme
@@ -149,7 +152,7 @@ class _TicketWidgetState extends State<TicketWidget> {
                                   .copyWith(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Mariko",
+                              widget.ticket.buyerNames,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
@@ -164,7 +167,7 @@ class _TicketWidgetState extends State<TicketWidget> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              "Ticket ID",
+                              "Ticket NO",
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
                                   .textTheme
@@ -172,7 +175,7 @@ class _TicketWidgetState extends State<TicketWidget> {
                                   .copyWith(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "1234",
+                              widget.ticket.ticketNumber,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!

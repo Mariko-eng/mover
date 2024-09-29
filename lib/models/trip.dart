@@ -8,6 +8,7 @@ class Trip {
   // final DocumentReference arrivalLocation;
   final String arrivalLocationId;
   final String arrivalLocationName;
+
   // final DocumentReference departureLocation;
   final String departureLocationId;
   final String departureLocationName;
@@ -72,22 +73,10 @@ class Trip {
   });
 
   Future<Trip> setCompanyData(BuildContext context) async {
-    // print(company);
     DocumentSnapshot companySnapshot = await company.get();
-    // print(companySnapshot.id);
-    // print(companySnapshot.get("name"));
     Map<String, dynamic> companyMap =
         companySnapshot.data() as Map<String, dynamic>;
     companyData = {'id': companySnapshot.id}..addAll(companyMap);
-
-    // DocumentSnapshot arrivalSnapshot = await arrivalLocation.get();
-    // Map<String,dynamic> arrivalData = arrivalSnapshot.data() as Map<String,dynamic>;
-    // arrival = {'id': arrivalSnapshot.id}..addAll(arrivalData);
-    //
-    // DocumentSnapshot departureSnapshot = await departureLocation.get();
-    // Map<String,dynamic> departureData = departureSnapshot.data() as Map<String,dynamic>;
-    // departure = {'id': departureSnapshot.id}..addAll(departureData);
-
     return this;
   }
 
@@ -136,7 +125,8 @@ Future<List<Trip>> fetchActiveTrips() async {
     DateTime yesterday =
         DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-    var res = await AppCollections().tripsRef
+    var res = await AppCollections()
+        .tripsRef
         .where('departureTime', isGreaterThanOrEqualTo: yesterday)
         .where('isDraft', isEqualTo: false)
         .orderBy('departureTime')
@@ -150,13 +140,12 @@ Future<List<Trip>> fetchActiveTrips() async {
 }
 
 Stream<List<Trip>> getAllActiveTrips() {
-  print("fetchActiveTrips");
-
   DateTime now = DateTime.now();
   DateTime yesterday =
       DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-  return AppCollections().tripsRef
+  return AppCollections()
+      .tripsRef
       .where('departureTime', isGreaterThanOrEqualTo: yesterday)
       .where('isDraft', isEqualTo: false)
       .orderBy('departureTime')
@@ -171,7 +160,8 @@ Stream<List<Trip>> getAllTripsForBusCompany({required String companyId}) {
   DateTime yesterday =
       DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-  return AppCollections().tripsRef
+  return AppCollections()
+      .tripsRef
       .where('companyId', isEqualTo: companyId)
       .where('departureTime', isGreaterThanOrEqualTo: yesterday)
       .where('isDraft', isEqualTo: false)
@@ -188,7 +178,38 @@ Future<List<Trip>> searchForTrips(
   DateTime yesterday =
       DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
 
-  QuerySnapshot snapshot = await AppCollections().tripsRef
+  QuerySnapshot snapshot = await AppCollections()
+      .tripsRef
+      .where('departureTime', isGreaterThan: yesterday)
+      .where('departureLocationId', isEqualTo: fromDestId.trim())
+      .where('arrivalLocationId', isEqualTo: toDestId.trim())
+      .where('isDraft', isEqualTo: false)
+      .get();
+  return snapshot.docs.map((doc) => Trip.fromSnapshot(doc)).toList();
+}
+
+Future<List<Trip>> searchTrips(
+    {required String fromDestId,
+    required String toDestId,
+    required String companyId}) async {
+  DateTime now = DateTime.now();
+  DateTime yesterday =
+      DateTime(now.year, now.month, now.day - 1, now.hour, now.minute);
+
+  if (companyId.isNotEmpty) { // companyId != ""
+    QuerySnapshot snapshot = await AppCollections()
+        .tripsRef
+        .where('companyId', isEqualTo: companyId)
+        .where('departureTime', isGreaterThan: yesterday)
+        .where('departureLocationId', isEqualTo: fromDestId.trim())
+        .where('arrivalLocationId', isEqualTo: toDestId.trim())
+        .where('isDraft', isEqualTo: false)
+        .get();
+    return snapshot.docs.map((doc) => Trip.fromSnapshot(doc)).toList();
+  }
+
+  QuerySnapshot snapshot = await AppCollections()
+      .tripsRef
       .where('departureTime', isGreaterThan: yesterday)
       .where('departureLocationId', isEqualTo: fromDestId.trim())
       .where('arrivalLocationId', isEqualTo: toDestId.trim())

@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:bus_stop/contollers/authController.dart';
+import 'package:bus_stop/controllers/authController.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});

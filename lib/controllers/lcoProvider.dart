@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:bus_stop/models/busCompany.dart';
 import 'package:bus_stop/models/destination/destination.dart';
 import 'package:bus_stop/models/trip.dart';
-import 'package:flutter/cupertino.dart';
+
 
 class LocationsProvider extends ChangeNotifier {
   List<Destination> destinations = [];
@@ -41,24 +42,7 @@ class LocationsProvider extends ChangeNotifier {
       print(err);
       destinations = [];
     } finally{
-      print("Finally Destinations!");
       notifyListeners();
     }
   }
-
-
-
-  // _getDestinations() {
-  //   print("Here : _getDestinations");
-  //   getDestinations().listen((List<Destination> results) {
-  //     print("results");
-  //     print(results);
-  //     destinations = results;
-  //     notifyListeners();
-  //   }).onError((e) {
-  //     print("Error : " + e.toString());
-  //     destinations = [];
-  //     notifyListeners();
-  //   });
-  // }
 }

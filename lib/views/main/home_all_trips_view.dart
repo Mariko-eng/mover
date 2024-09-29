@@ -1,4 +1,4 @@
-import 'package:bus_stop/contollers/locController.dart';
+import 'package:bus_stop/controllers/locController.dart';
 import 'package:bus_stop/models/trip.dart';
 import 'package:bus_stop/views/pages/trips/search.dart';
 import 'package:bus_stop/views/pages/trips/widgets/tripTile.dart';
@@ -7,7 +7,7 @@ import 'package:bus_stop/views/widgets/home_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:bus_stop/contollers/authController.dart';
+import 'package:bus_stop/controllers/authController.dart';
 
 class HomeAllTripsView extends StatefulWidget {
   const HomeAllTripsView({super.key});

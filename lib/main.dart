@@ -3,10 +3,9 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:bus_stop/config/collections/index.dart';
-import 'package:bus_stop/contollers/authController.dart';
-import 'package:bus_stop/contollers/lcoProvider.dart';
-import 'package:bus_stop/contollers/locController.dart';
+import 'package:bus_stop/controllers/authController.dart';
+import 'package:bus_stop/controllers/lcoProvider.dart';
+import 'package:bus_stop/controllers/locController.dart';
 import 'package:bus_stop/services/notifications.dart';
 import 'package:bus_stop/views/welcome/initial.dart';
 
@@ -26,11 +25,6 @@ void initializeNotifications() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       RemoteNotification? notification = message.notification;
       if (notification != null) {
-        print("RemoteMessage : " + message.toString());
-        print("Remote title : " + notification.title.toString());
-        print("Remote body : " + notification.body!
-          ..toString());
-
         await notifyHelper.displayNotification(
           notification.title!,
           notification.body!,

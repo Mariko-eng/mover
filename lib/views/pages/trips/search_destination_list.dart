@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bus_stop/models/destination/destination.dart';
 import 'package:bus_stop/models/trip.dart';
 import 'package:provider/provider.dart';
-import 'package:bus_stop/contollers/authController.dart';
+import 'package:bus_stop/controllers/authController.dart';
 import 'package:bus_stop/views/widgets/app_bar_widget.dart';
 import 'package:bus_stop/views/pages/trips/widgets/tripTile.dart';
 

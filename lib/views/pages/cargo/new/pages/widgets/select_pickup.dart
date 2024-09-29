@@ -71,23 +71,11 @@ class _SelectPickUpLocationViewState extends State<SelectPickUpLocationView> {
                           // Mode.fullscreen
                           components: [new Component(Component.country, "ug")]);
                       if (p1 != null) {
-                        // print(p1.placeId);
-                        // print(p1.description);
                         setState(() {
                           controller.text = p1.description!;
                         });
                         _getPickUpAddressCoordinates(
                             placeId: p1.placeId!, placeName: p1.description!);
-                        // pickPlaceId = p1.placeId;
-                        // orderController.pickCtr.text =
-                        // p1.description!;
-                        // orderController.setPickDropPickId(
-                        //     data: p1.placeId!);
-                        // orderController.setPickDropPickName(
-                        //     data: p1.description!);
-                        // _getPickUpAddressCoordinates(
-                        //     placeID: p1.placeId!,
-                        //     placeName: p1.description!);
                       }
                     },
                   ),
@@ -106,15 +94,6 @@ class _SelectPickUpLocationViewState extends State<SelectPickUpLocationView> {
                     mapController = controller;
                   });
                 },
-                // onTap: (LatLng val) {
-                //   print(val.latitude);
-                //   print(val.longitude);
-                //   setState(() {
-                //     startLocation = val;
-                //     widget.getCoordinates(val);
-                //     Get.back();
-                //   });
-                // },
                 markers: <Marker>{
                   Marker(
                     markerId: MarkerId("destination"),
@@ -122,120 +101,9 @@ class _SelectPickUpLocationViewState extends State<SelectPickUpLocationView> {
                     icon: BitmapDescriptor.defaultMarkerWithHue(
                         BitmapDescriptor.hueGreen),
                     position: startLocation,
-                    // draggable: true,
-                    // onDragEnd: (LatLng val) async {
-                    //   print(val.latitude);
-                    //   print(val.longitude);
-                    //   setState(() {
-                    //     startLocation = val;
-                    //   });
-                    // },
                   ),
                 },
               )),
-
-          // LayoutBuilder(
-          //   builder: (ctx, constraints) {
-          //     return Stack(
-          //       children: [
-          //         Container(
-          //           height: constraints.maxHeight * 1.0,
-          //           width: constraints.maxWidth,
-          //           color: Colors.grey[200],
-          //           padding: const EdgeInsets.symmetric(horizontal: 1),
-          //           child: GoogleMap(
-          //             mapType: MapType.normal,
-          //             indoorViewEnabled: true,
-          //             initialCameraPosition: _kGooglePlex,
-          //             onMapCreated: (GoogleMapController controller) {
-          //               _controller.complete(controller);
-          //             },
-          //             onTap: (LatLng val) {
-          //               print(val.latitude);
-          //               print(val.longitude);
-          //               setState(() {
-          //                 startLocation = val;
-          //                 widget.getCoordinates(val);
-          //                 Get.back();
-          //               });
-          //             },
-          //             markers: <Marker>{
-          //               Marker(
-          //                 markerId: MarkerId("destination"),
-          //                 infoWindow: InfoWindow(title: "destination"),
-          //                 icon: BitmapDescriptor.defaultMarkerWithHue(
-          //                     BitmapDescriptor.hueGreen),
-          //                 position: startLocation,
-          //                 draggable: true,
-          //                 onDragEnd: (LatLng val) async {
-          //                   print(val.latitude);
-          //                   print(val.longitude);
-          //                   setState(() {
-          //                     startLocation = val;
-          //                   });
-          //                 },
-          //               ),
-          //             },
-          //
-          //           ),
-          //         ),
-          //         Row(
-          //           children: [
-          //             Expanded(
-          //               child: TextField(
-          //                 minLines: 1,
-          //                 maxLines: 2,
-          //                 textAlign: TextAlign.justify,
-          //                 decoration: InputDecoration(
-          //                     suffixIcon: Icon(
-          //                       Icons.location_on_outlined,
-          //                       color: Theme.of(context).primaryColor,
-          //                     ),
-          //                     labelText: "Pick Up Location",
-          //                     labelStyle: TextStyle(
-          //                         color: Theme.of(context).primaryColor,
-          //                         fontSize: 14,
-          //                         fontWeight: FontWeight.w400),
-          //                     enabledBorder: OutlineInputBorder(
-          //                         borderRadius:
-          //                         BorderRadius.circular(10)),
-          //                     focusedBorder: OutlineInputBorder(
-          //                         borderRadius:
-          //                         BorderRadius.circular(10))),
-          //                 controller: controller,
-          //                 readOnly: true,
-          //                 onTap: () async {
-          //                   Prediction? p1 = await PlacesAutocomplete.show(
-          //                       context: context,
-          //                       apiKey: googleApiKey,
-          //                       mode: Mode.overlay,
-          //                       // Mode.fullscreen
-          //                       components: [
-          //                         new Component(Component.country, "ug")
-          //                       ]);
-          //                   if (p1 != null) {
-          //                     print(p1.placeId);
-          //                     print(p1.description);
-          //                     // pickPlaceId = p1.placeId;
-          //                     // orderController.pickCtr.text =
-          //                     // p1.description!;
-          //                     // orderController.setPickDropPickId(
-          //                     //     data: p1.placeId!);
-          //                     // orderController.setPickDropPickName(
-          //                     //     data: p1.description!);
-          //                     // _getPickUpAddressCoordinates(
-          //                     //     placeID: p1.placeId!,
-          //                     //     placeName: p1.description!);
-          //                   }
-          //                 },
-          //               ),
-          //             ),
-          //           ],
-          //         )
-          //       ],
-          //     );
-          //   },
-          // ),
         ],
       ),
       bottomNavigationBar: locationId == null

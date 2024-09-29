@@ -1,5 +1,5 @@
-import 'package:bus_stop/contollers/authController.dart';
-import 'package:bus_stop/contollers/locController.dart';
+import 'package:bus_stop/controllers/authController.dart';
+import 'package:bus_stop/controllers/locController.dart';
 import 'package:bus_stop/models/trip.dart';
 import 'package:bus_stop/views/pages/trips/widgets/searchTripTile.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class AllTripsSearchView extends StatefulWidget {
 class _AllTripsSearchViewState extends State<AllTripsSearchView> {
   LocationController controller = Get.find();
 
-  TextEditingController _searchCtr = TextEditingController();
+  final TextEditingController _searchCtr = TextEditingController();
   String searchString = "";
 
   bool isSearching = false;

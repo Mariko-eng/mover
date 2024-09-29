@@ -76,7 +76,6 @@ Future<void> updateToken({required String uid}) async {
     String? token = await fcm.getToken();
     await fcm.subscribeToTopic("client");
     if (token != null) {
-      print("Token : " + token);
       await AppCollections().clientsRef.doc(uid).update({"token": token});
     }
   } catch (e) {

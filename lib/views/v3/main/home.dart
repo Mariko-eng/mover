@@ -1,22 +1,21 @@
-import 'package:bus_stop/views/v3/main/widgets/app_drawer.dart';
-import 'package:bus_stop/views/v3/main/widgets/bottom_bar_widget.dart';
-import 'package:bus_stop/views/v3/main/widgets/draggable_scrollable_widget.dart';
-import 'package:bus_stop/views/v3/utils/google_map_options.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
+import 'package:bus_stop/models/busCompany.dart';
+import 'package:bus_stop/views/v3/main/widgets/draggable_scrollable_widget.dart';
+import 'package:bus_stop/views/v3/utils/google_map_options.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:bus_stop/services/directions_service.dart';
 import 'package:bus_stop/models/destination/destination.dart';
 import 'package:bus_stop/models/directions_model.dart';
-import 'package:bus_stop/contollers/locController.dart';
+import 'package:bus_stop/controllers/locController.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  const HomeView({super.key, required this.scaffoldKey});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -24,7 +23,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // final DraggableScrollableController _draggableScrollableController = DraggableScrollableController();
   LocationController locationController = Get.find();
@@ -54,9 +53,12 @@ class _HomeViewState extends State<HomeView> {
 
   final TextEditingController _fromCtr = TextEditingController();
   final TextEditingController _toCtr = TextEditingController();
+  final TextEditingController _busCompanyCtr = TextEditingController();
 
   Destination? _fromDestination;
   Destination? _toDestination;
+
+  BusCompany? _busCompany;
 
   double? totalDistanceValue;
   String? totalDuration;
@@ -144,7 +146,15 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  @override
+  _setBusCompany(BusCompany company) {
+    setState(() {
+      _busCompanyCtr.text = company.name;
+      _busCompany = company;
+    });
+  }
+
+
+    @override
   void initState() {
     super.initState();
     _getDestinations();
@@ -170,8 +180,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      drawer: AppDrawerWidget(),
+      // key: _scaffoldKey,
       body: Stack(
         children: [
           Stack(
@@ -204,6 +213,8 @@ class _HomeViewState extends State<HomeView> {
                 updateIsFrom: _updateIsFrom,
                 destinations: _items,
                 setPlace: _setPlace,
+                busCompanyCtr: _busCompanyCtr,
+                setBusCompany: _setBusCompany,
               ),
             ],
           ),
@@ -212,8 +223,8 @@ class _HomeViewState extends State<HomeView> {
               left: 20,
               child: InkWell(
                 onTap: () {
-                  if(!_scaffoldKey.currentState!.isDrawerOpen) {
-                    _scaffoldKey.currentState!.openDrawer();
+                  if(!widget.scaffoldKey.currentState!.isDrawerOpen) {
+                    widget.scaffoldKey.currentState!.openDrawer();
                   }
                 },
                 child: SvgPicture.asset(
@@ -225,8 +236,8 @@ class _HomeViewState extends State<HomeView> {
           )
         ],
       ),
-      bottomNavigationBar: buildBottomAppBar(
-          context: context, activeBar: 0),
+      // bottomNavigationBar: buildBottomAppBar(
+      //     context: context, activeBar: 0),
     );
   }
 

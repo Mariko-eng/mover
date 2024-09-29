@@ -17,20 +17,15 @@ class LocationController extends GetxController {
 
   @override
   void onReady () {
-    // _fetchDestinations();
   }
 
   getDestinations() async{
     try{
       List<Destination> results = await fetchDestinations();
       destinations.value = results;
-      // print("destinations");
-      // print(destinations);
     }catch (err){
-      print(err);
       destinations.value = [];
     } finally{
-      print("Finally Destinations!");
     }
   }
 
@@ -41,11 +36,9 @@ class LocationController extends GetxController {
       List<Trip> results = await fetchActiveTrips();
       trips.value = results;
     }catch (err){
-      print( err.toString());
       trips.value = [];
       isTripsError.value = true;
     }finally{
-      print("Finally Trips!");
       isTripsLoading.value = false;
     }
   }
@@ -58,11 +51,9 @@ class LocationController extends GetxController {
       companies.value = results;
       isCompaniesLoading.value = false;
     }catch (err){
-      print( err.toString());
       companies.value = [];
       isCompaniesLoading.value = false;
       isCompaniesError.value = true;
     }
   }
-
 }

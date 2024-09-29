@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // import 'package:bus_stop/views/v2/widgets/bottom_bar_widget.dart';
 // import 'package:bus_stop/views/v2/drawer.dart';
 import 'package:provider/provider.dart';
-import 'package:bus_stop/contollers/authController.dart';
+import 'package:bus_stop/controllers/authController.dart';
 
 class HomeTicketView extends StatefulWidget {
   const HomeTicketView({super.key});
@@ -53,9 +53,6 @@ class _HomeTicketViewState extends State<HomeTicketView> {
                                   // ignore: missing_return
                                   builder: (context, snapshot) {
                                     TripTicket? ticket = snapshot.data;
-
-                                    // print(ticket!.amountPaid.toString());
-
                                     switch (snapshot.connectionState) {
                                       case ConnectionState.waiting:
                                         if (index == 0) {
