@@ -255,27 +255,84 @@ Future<bool> purchaseVIPTicket(
   }
 }
 
-Stream<List<TripTicket>> getMyTickets({required String uid}) {
-  return AppCollections()
-      .ticketsRef
+Stream<List<TripTicket>> getMyTickets({required String uid}) async* {
+  Stream<QuerySnapshot> querySnapshotStream =
+  AppCollections().ticketsRef
       .where("userId", isEqualTo: uid)
       .orderBy("createdAt", descending: true)
-      .snapshots()
-      .map((snap) {
-    return snap.docs.map((doc) => TripTicket.fromSnapshot(doc)).toList();
-  });
+      .snapshots();
+
+  await for (QuerySnapshot querySnapshot in querySnapshotStream) {
+    List<TripTicket> tickets = [];
+
+    // Create a list of futures to fetch trips in parallel
+    List<Future<void>> tripFutures = [];
+
+    for (var snapshot in querySnapshot.docs) {
+      TripTicket ticket = TripTicket.fromSnapshot(snapshot);
+      var tripId = snapshot.get("tripId");
+
+      // Collect futures instead of awaiting immediately
+      tripFutures.add(
+        AppCollections().tripsRef.doc(tripId).get().then((tripResult) {
+          Trip trip = Trip.fromSnapshot(tripResult);
+          ticket.trip = trip;
+          tickets.add(ticket);
+        }),
+      );
+    }
+
+    // Wait for all trip fetches to complete
+    await Future.wait(tripFutures);
+
+    yield tickets;
+  }
 }
 
-Stream<List<TripTicket>> getTransactionTickets(
-    {required String transactionId}) {
-  return AppCollections()
-      .ticketsRef
+Stream<List<TripTicket>> getTransactionTickets({required String transactionId}) async* {
+  Stream<QuerySnapshot> querySnapshotStream =
+  AppCollections().ticketsRef
       .where("transactionId", isEqualTo: transactionId)
-      .snapshots()
-      .map((snap) {
-    return snap.docs.map((doc) => TripTicket.fromSnapshot(doc)).toList();
-  });
+      .snapshots();
+
+  await for (QuerySnapshot querySnapshot in querySnapshotStream) {
+    List<TripTicket> tickets = [];
+
+    // Create a list of futures to fetch trips in parallel
+    List<Future<void>> tripFutures = [];
+
+    for (var snapshot in querySnapshot.docs) {
+      TripTicket ticket = TripTicket.fromSnapshot(snapshot);
+      var tripId = snapshot.get("tripId");
+
+      // Collect futures instead of awaiting immediately
+      tripFutures.add(
+        AppCollections().tripsRef.doc(tripId).get().then((tripResult) {
+          Trip trip = Trip.fromSnapshot(tripResult);
+          ticket.trip = trip;
+          tickets.add(ticket);
+        }),
+      );
+    }
+
+    // Wait for all trip fetches to complete
+    await Future.wait(tripFutures);
+
+    yield tickets;
+  }
 }
+
+
+// Stream<List<TripTicket>> getTransactionTickets(
+//     {required String transactionId}) {
+//   return AppCollections()
+//       .ticketsRef
+//       .where("transactionId", isEqualTo: transactionId)
+//       .snapshots()
+//       .map((snap) {
+//     return snap.docs.map((doc) => TripTicket.fromSnapshot(doc)).toList();
+//   });
+// }
 
 Stream<List<TripTicket>> getMyTicketsForBusCompany(
     {required String uid, required String companyId}) {

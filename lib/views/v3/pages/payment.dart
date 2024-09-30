@@ -94,35 +94,16 @@ class _PaymentViewState extends State<PaymentView> {
                             child: TicketTimeCountdownWidget(
                               departureDate: widget.trip.departureTime,
                             ),
-
-                            // child: Container(
-                            //   height: 35,
-                            //   color: Color(0xfff7b8b8),
-                            //   alignment: Alignment.center,
-                            //   child: Text(
-                            //     "Remaining payment time : 54mins",
-                            //     style: Theme.of(context)
-                            //         .textTheme
-                            //         .bodyMedium!
-                            //         .copyWith(
-                            //             fontSize: 15,
-                            //             fontWeight: FontWeight.w400,
-                            //             color: Colors.black),
-                            //   ),
-                            // ),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TripPaymentWidget(
-                        trip: widget.trip,
-                        ticketChoice: widget.ticketChoice,
-                        ticketChoicePrice: widget.ticketChoicePrice,
-                      ),
-                      SizedBox(
-                        height: 10,
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: TripPaymentWidget(
+                          trip: widget.trip,
+                          ticketChoice: widget.ticketChoice,
+                          ticketChoicePrice: widget.ticketChoicePrice,
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -235,9 +216,6 @@ class _PaymentViewState extends State<PaymentView> {
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -442,11 +420,12 @@ class _PaymentViewState extends State<PaymentView> {
                                                 color: Colors.white,
                                               )
                                             : Text(
-                                                "Pay $finalTicketsCharges SHS",
+                                                "Pay SHS $finalTicketsCharges",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodyMedium!
                                                     .copyWith(
+                                                  fontWeight: FontWeight.w900,
                                                         fontSize: 18,
                                                         color: Colors.white),
                                               ),

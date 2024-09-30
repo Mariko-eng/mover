@@ -1,3 +1,4 @@
+import 'package:bus_stop/views/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bus_stop/models/info.dart';
@@ -121,7 +122,7 @@ Widget tabNews(BuildContext context) {
                           children: [
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 5),
+                                  horizontal: 10, vertical: 5),
                               child: Container(
                                 height: 200,
                                 width: double.infinity,
@@ -191,85 +192,83 @@ Widget tabNews(BuildContext context) {
                   child: ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.to(() =>
-                                  InfoDetailView(infoModel: data[index]));
-                            },
-                            child: Container(
-                              height: 270,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Stack(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 5),
-                                    child: Container(
-                                      height: 200,
-                                      width: double.infinity,
-                                      child: Hero(
-                                          tag: data[index].id,
-                                          child: Image.network(
-                                              data[index].imageUrl)),
-                                    ),
+                        return GestureDetector(
+                          onTap: () {
+                            Get.to(() =>
+                                InfoDetailView(infoModel: data[index]));
+                          },
+                          child: Container(
+                            height: 270,
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 5),
+                                  child: Container(
+                                    height: 200,
+                                    width: double.infinity,
+                                    child: Hero(
+                                        tag: data[index].id,
+                                        child: Image.network(
+                                            data[index].imageUrl)),
                                   ),
-                                  Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Container(
-                                      height: 270,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(20),
-                                        border: Border.all(
-                                            color: Colors.black26),
-                                        gradient: LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          stops: [0.35, 0.95, 1.0],
-                                          colors: [
-                                            Colors.transparent,
-                                            Colors.black87,
-                                            Colors.black,
-                                            // Dark color at the bottom (adjust opacity as needed)
-                                          ],
-                                        ),
-                                      ),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 15),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            data[index].title,
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.white,
-                                                fontWeight:
-                                                FontWeight.bold),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            data[index].subTitle,
-                                            style: TextStyle(
-                                                fontSize: 17,
-                                                color: Colors.white),
-                                          )
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Container(
+                                    height: 270,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.circular(20),
+                                      border: Border.all(
+                                          color: Colors.black26),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        stops: [0.35, 0.95, 1.0],
+                                        colors: [
+                                          Colors.transparent,
+                                          Colors.black87,
+                                          Colors.black,
+                                          // Dark color at the bottom (adjust opacity as needed)
                                         ],
                                       ),
                                     ),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 15),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          data[index].title,
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white,
+                                              fontWeight:
+                                              FontWeight.bold),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          data[index].subTitle,
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              color: Colors.white),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         );
@@ -281,8 +280,8 @@ Widget tabNews(BuildContext context) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircularProgressIndicator(
-                        color: Colors.red,
+                      LoadingWidget(
+                        color: Theme.of(context).primaryColor,
                       )
                     ],
                   ),
@@ -297,7 +296,7 @@ Widget tabNews(BuildContext context) {
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
+                                horizontal: 10, vertical: 5),
                             child: Container(
                               height: 200,
                               width: double.infinity,

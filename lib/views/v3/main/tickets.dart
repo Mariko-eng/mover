@@ -165,10 +165,21 @@ class _TicketsViewState extends State<TicketsView> {
                             ),
                           );
                         } else {
-                          List<TripTicket>? tickets = snapshot.data;
-                          if (tickets == null) {
-                            return Container();
+                          List<TripTicket> allTickets = snapshot.data ?? [];
+
+                          List<TripTicket> upcomingTickets = [];
+                          List<TripTicket> historyTickets = [];
+
+                          for (var tt in allTickets) {
+                            if (tt.trip!.arrivalTime.isBefore(DateTime.now())){
+                              upcomingTickets.add(tt);
+                            }else {
+                              historyTickets.add(tt);
+                            }
                           }
+
+                          List<TripTicket> tickets = isUpComing ? upcomingTickets : historyTickets;
+
                           if (tickets.isEmpty) {
                             return Expanded(
                               child: Center(

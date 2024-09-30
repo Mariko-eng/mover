@@ -4,7 +4,6 @@ import 'package:bus_stop/views/widgets/loading_widget.dart';
 import 'package:bus_stop/views/v3/main/widgets/trip_widget.dart';
 import 'package:bus_stop/views/v3/pages/payment.dart';
 
-
 class CustomSearchTripWidget extends SearchDelegate {
   // List<Trip> searchTerms;
 
@@ -68,7 +67,8 @@ class CustomSearchTripWidget extends SearchDelegate {
           List<Trip> matches = [];
 
           for (var item in trips) {
-            if (item.arrivalLocationName
+            if (item.companyName.toLowerCase().contains(query.toLowerCase()) ||
+                item.arrivalLocationName
                     .toLowerCase()
                     .contains(query.toLowerCase()) ||
                 item.departureLocationName
@@ -80,6 +80,7 @@ class CustomSearchTripWidget extends SearchDelegate {
 
           return Container(
             color: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: ListView.builder(
                 itemCount: matches.length,
                 itemBuilder: (context, int index) {
@@ -146,7 +147,8 @@ class CustomSearchTripWidget extends SearchDelegate {
           List<Trip> matches = [];
 
           for (var item in trips) {
-            if (item.arrivalLocationName
+            if (item.companyName.toLowerCase().contains(query.toLowerCase()) ||
+                item.arrivalLocationName
                     .toLowerCase()
                     .contains(query.toLowerCase()) ||
                 item.departureLocationName
@@ -158,6 +160,7 @@ class CustomSearchTripWidget extends SearchDelegate {
 
           return Container(
             color: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: ListView.builder(
                 itemCount: matches.length,
                 itemBuilder: (context, int index) {

@@ -144,9 +144,6 @@ class _TripsViewState extends State<TripsView> {
               ],
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
           Expanded(
             child: FutureBuilder(
                 future: fetchActiveTrips(),
@@ -181,30 +178,33 @@ class _TripsViewState extends State<TripsView> {
                     );
                   }
 
-                  return ListView.builder(
-                      itemCount: data.length,
-                      itemBuilder: (context, int index) {
-                        return GestureDetector(
-                          onTap: () {
-                            if(data[index].isClosed) {
-                              return;
-                            }
-                            if (data[index].tripType == "Ordinary") {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PaymentView(
-                                        trip: data[index],
-                                        ticketChoice: "Ordinary",
-                                        ticketChoicePrice: data[index].discountPriceOrdinary > 0 ? data[index].discountPriceOrdinary : data[index].priceOrdinary,
-                                      )));
-                            } else {
-                              _openBottomSheet(context: context, trip:  data[index]);
-                            }
-                          },
-                          child: TripWidget(trip: data[index]),
-                        );
-                      });
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ListView.builder(
+                        itemCount: data.length,
+                        itemBuilder: (context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              if(data[index].isClosed) {
+                                return;
+                              }
+                              if (data[index].tripType == "Ordinary") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => PaymentView(
+                                          trip: data[index],
+                                          ticketChoice: "Ordinary",
+                                          ticketChoicePrice: data[index].discountPriceOrdinary > 0 ? data[index].discountPriceOrdinary : data[index].priceOrdinary,
+                                        )));
+                              } else {
+                                _openBottomSheet(context: context, trip:  data[index]);
+                              }
+                            },
+                            child: TripWidget(trip: data[index]),
+                          );
+                        }),
+                  );
                 }
             ),
           )

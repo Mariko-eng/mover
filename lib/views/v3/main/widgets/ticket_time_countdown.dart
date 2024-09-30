@@ -11,10 +11,11 @@ class TicketTimeCountdownWidget extends StatefulWidget {
 
 class _TicketTimeCountdownWidgetState extends State<TicketTimeCountdownWidget> {
 
+  late Timer _timer;
   late int remainingTimeInSeconds = 0;
 
   void _startTimer() {
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         Duration remainingTime = widget.departureDate.difference(DateTime.now());
         remainingTimeInSeconds = remainingTime.inSeconds;
@@ -31,6 +32,12 @@ class _TicketTimeCountdownWidgetState extends State<TicketTimeCountdownWidget> {
   void initState() {
     super.initState();
     _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer safely
+    super.dispose();
   }
 
   @override

@@ -16,26 +16,30 @@ class TicketWidget extends StatefulWidget {
 class _TicketWidgetState extends State<TicketWidget> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: widget.ticket.setTripData(context),
-      // ignore: missing_return
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            return Container();
-            // return const LoadingWidget();
-          case ConnectionState.none:
-            return Container();
-            // return const LoadingWidget();
-            return Container();
-          case ConnectionState.active:
-            return Container();
-            // return const LoadingWidget();
-          case ConnectionState.done:
-            return buildTicketWidget(context, widget.ticket);
-        }
-      },
-    );
+
+    return buildTicketWidget(context, widget.ticket);
+
+
+    // return FutureBuilder(
+    //   future: widget.ticket.setTripData(context),
+    //   // ignore: missing_return
+    //   builder: (context, snapshot) {
+    //     switch (snapshot.connectionState) {
+    //       case ConnectionState.waiting:
+    //         return Container();
+    //         // return const LoadingWidget();
+    //       case ConnectionState.none:
+    //         return Container();
+    //         // return const LoadingWidget();
+    //         return Container();
+    //       case ConnectionState.active:
+    //         return Container();
+    //         // return const LoadingWidget();
+    //       case ConnectionState.done:
+    //         return buildTicketWidget(context, widget.ticket);
+    //     }
+    //   },
+    // );
   }
 }
 
@@ -263,7 +267,6 @@ Widget buildTicketWidget(BuildContext context, TripTicket ticket) {
                           ),
                           Text(
                             dateToStringNew(ticket.trip!.departureTime),
-                            // "13/13/13",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
