@@ -16,7 +16,6 @@ class TripPaymentWidget extends StatefulWidget {
 class _TripWidgetState extends State<TripPaymentWidget> {
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
 
     return Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -24,7 +23,7 @@ class _TripWidgetState extends State<TripPaymentWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 100,
+              height: 130,
               decoration: BoxDecoration(
                 color: Color(0xffffffff),
                 borderRadius: BorderRadius.only(
@@ -78,6 +77,13 @@ class _TripWidgetState extends State<TripPaymentWidget> {
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
                               Text(
+                                dateToStringNew(widget.trip.departureTime),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(fontWeight: FontWeight.w400),
+                              ),
+                              Text(
                                 dateToTime(widget.trip.departureTime),
                                 style: Theme.of(context)
                                     .textTheme
@@ -125,6 +131,13 @@ class _TripWidgetState extends State<TripPaymentWidget> {
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                dateToStringNew(widget.trip.arrivalTime),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(fontWeight: FontWeight.w400),
                               ),
                               Text(
                                 dateToTime(widget.trip.arrivalTime),

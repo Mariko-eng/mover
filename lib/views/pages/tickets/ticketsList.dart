@@ -60,7 +60,6 @@ class _TripsTicketListState extends State<TripsTicketList> {
           : ListView.builder(
               itemCount: tickets.length,
               itemBuilder: (context, index) {
-
                 return FutureBuilder(
                   future: tickets[index].setTripData(context),
                   // ignore: missing_return

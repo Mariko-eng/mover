@@ -1,3 +1,4 @@
+import 'package:bus_stop/views/v3/main/widgets/ticket_time_countdown.dart';
 import 'package:bus_stop/views/v3/main/widgets/trip_payment_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -90,21 +91,25 @@ class _PaymentViewState extends State<PaymentView> {
                       Row(
                         children: [
                           Expanded(
-                            child: Container(
-                              height: 35,
-                              color: Color(0xfff7b8b8),
-                              alignment: Alignment.center,
-                              child: Text(
-                                "Remaining payment time : 54mins",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.black),
-                              ),
+                            child: TicketTimeCountdownWidget(
+                              departureDate: widget.trip.departureTime,
                             ),
+
+                            // child: Container(
+                            //   height: 35,
+                            //   color: Color(0xfff7b8b8),
+                            //   alignment: Alignment.center,
+                            //   child: Text(
+                            //     "Remaining payment time : 54mins",
+                            //     style: Theme.of(context)
+                            //         .textTheme
+                            //         .bodyMedium!
+                            //         .copyWith(
+                            //             fontSize: 15,
+                            //             fontWeight: FontWeight.w400,
+                            //             color: Colors.black),
+                            //   ),
+                            // ),
                           ),
                         ],
                       ),
@@ -139,12 +144,15 @@ class _PaymentViewState extends State<PaymentView> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  payMethod = "mtnug";
-                                });
+                                if (_isProcessingTicket == false) {
+                                  setState(() {
+                                    payMethod = "mtnug";
+                                  });
+                                }
                               },
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -169,9 +177,11 @@ class _PaymentViewState extends State<PaymentView> {
                                       value: "mtnug",
                                       groupValue: payMethod,
                                       onChanged: (String? val) {
-                                        setState(() {
-                                          payMethod = val!;
-                                        });
+                                        if (_isProcessingTicket == false) {
+                                          setState(() {
+                                            payMethod = val!;
+                                          });
+                                        }
                                       })
                                 ],
                               ),
@@ -181,12 +191,15 @@ class _PaymentViewState extends State<PaymentView> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  payMethod = "airtelug";
-                                });
+                                if (_isProcessingTicket == false) {
+                                  setState(() {
+                                    payMethod = "airtelug";
+                                  });
+                                }
                               },
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -211,9 +224,11 @@ class _PaymentViewState extends State<PaymentView> {
                                       value: "airtelug",
                                       groupValue: payMethod,
                                       onChanged: (String? val) {
-                                        setState(() {
-                                          payMethod = val!;
-                                        });
+                                        if (_isProcessingTicket == false) {
+                                          setState(() {
+                                            payMethod = val!;
+                                          });
+                                        }
                                       })
                                 ],
                               ),
@@ -246,7 +261,8 @@ class _PaymentViewState extends State<PaymentView> {
                                 ),
                                 GestureDetector(
                                     onTap: () {
-                                      if (noOfTickets > 1) {
+                                      if (noOfTickets > 1 &&
+                                          _isProcessingTicket == false) {
                                         setState(() {
                                           noOfTickets--;
                                         });
@@ -272,9 +288,11 @@ class _PaymentViewState extends State<PaymentView> {
                                 ),
                                 GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        noOfTickets++;
-                                      });
+                                      if (_isProcessingTicket == false) {
+                                        setState(() {
+                                          noOfTickets++;
+                                        });
+                                      }
                                     },
                                     child: Icon(Icons.add_circle,
                                         color: Colors.blue[800]))
@@ -306,6 +324,7 @@ class _PaymentViewState extends State<PaymentView> {
                                       minLines: 1,
                                       maxLines: 1,
                                       controller: _nameCtr,
+                                      readOnly: _isProcessingTicket,
                                       decoration: InputDecoration(
                                           hintText: "Enter first & last name",
                                           border: OutlineInputBorder(),
@@ -353,6 +372,7 @@ class _PaymentViewState extends State<PaymentView> {
                                       minLines: 1,
                                       maxLines: 1,
                                       controller: _phoneCtr,
+                                      readOnly: _isProcessingTicket,
                                       decoration: InputDecoration(
                                           hintText: "0712 121212",
                                           border: OutlineInputBorder(),
@@ -378,7 +398,8 @@ class _PaymentViewState extends State<PaymentView> {
                               height: 20,
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -400,12 +421,13 @@ class _PaymentViewState extends State<PaymentView> {
                                               msg: "Enter Your Phone Number");
                                           return;
                                         }
-                                        if(_isProcessingTicket == true){
+                                        if (_isProcessingTicket == true) {
                                           return;
-                                        }else{
+                                        } else {
                                           _onPressed(
                                               client: userProvider.client!,
-                                              finalCharges: finalTicketsCharges);
+                                              finalCharges:
+                                                  finalTicketsCharges);
                                         }
                                       },
                                       child: Container(
@@ -415,17 +437,19 @@ class _PaymentViewState extends State<PaymentView> {
                                             color: Color(0xffcd181a),
                                             borderRadius:
                                                 BorderRadius.circular(5)),
-                                        child: _isProcessingTicket ? const LoadingWidget(
-                                          color: Colors.white,
-                                        ) : Text(
-                                          "Pay $finalTicketsCharges SHS",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .copyWith(
-                                                  fontSize: 18,
-                                                  color: Colors.white),
-                                        ),
+                                        child: _isProcessingTicket
+                                            ? const LoadingWidget(
+                                                color: Colors.white,
+                                              )
+                                            : Text(
+                                                "Pay $finalTicketsCharges SHS",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium!
+                                                    .copyWith(
+                                                        fontSize: 18,
+                                                        color: Colors.white),
+                                              ),
                                       ),
                                     ),
                                   )
@@ -506,7 +530,9 @@ class _PaymentViewState extends State<PaymentView> {
               _canPopScreen = true;
               _isProcessingTicket = false;
             });
-            _showFailureDialog(message: "ERROR! \n Failed to process ticket! \n Contact Support!!");
+            _showFailureDialog(
+                message:
+                    "ERROR! \n Failed to process ticket! \n Contact Support!!");
           }
         } else {
           bool res = await purchaseVIPTicket(
@@ -539,7 +565,9 @@ class _PaymentViewState extends State<PaymentView> {
               _canPopScreen = true;
               _isProcessingTicket = false;
             });
-            _showFailureDialog(message: "ERROR! \n Failed to process ticket! \n Contact Support!!");
+            _showFailureDialog(
+                message:
+                    "ERROR! \n Failed to process ticket! \n Contact Support!!");
           }
         }
       }
@@ -560,7 +588,7 @@ class _PaymentViewState extends State<PaymentView> {
         _canPopScreen = false;
         _isProcessingTicket = false;
       });
-      _showFailureDialog( message: "Failed to Complete Transaction!");
+      _showFailureDialog(message: "Failed to Complete Transaction!");
     }
   }
 

@@ -1,6 +1,7 @@
-import 'package:bus_stop/config/shared/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:bus_stop/models/trip.dart';
+import 'package:bus_stop/config/shared/utils.dart';
+
 
 class TripWidget extends StatefulWidget {
   final Trip trip;
@@ -22,7 +23,7 @@ class _TripWidgetState extends State<TripWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 100,
+              height: 130,
               decoration: BoxDecoration(
                 color: Color(0xffffffff),
                 borderRadius: BorderRadius.only(
@@ -76,6 +77,13 @@ class _TripWidgetState extends State<TripWidget> {
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
                               Text(
+                                dateToStringNew(widget.trip.departureTime),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(fontWeight: FontWeight.w400),
+                              ),
+                              Text(
                                 dateToTime(widget.trip.departureTime),
                                 style: Theme.of(context)
                                     .textTheme
@@ -123,6 +131,13 @@ class _TripWidgetState extends State<TripWidget> {
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                  dateToStringNew(widget.trip.arrivalTime),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(fontWeight: FontWeight.w400),
                               ),
                               Text(
                                 dateToTime(widget.trip.arrivalTime),

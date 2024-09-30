@@ -38,6 +38,25 @@ class _TripsViewState extends State<TripsView> {
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal:10),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      print("Refreshing...");
+                    });
+                  },
+                    child: Icon(Icons.refresh,
+                    color: Theme.of(context).primaryColor,
+                      size: 30,
+                    ))
+              ],
+            ),
+          )
+        ],
       ),
       body: Column(
         children: [
