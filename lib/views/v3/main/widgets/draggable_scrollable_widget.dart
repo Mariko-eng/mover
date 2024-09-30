@@ -129,24 +129,48 @@ class _DraggableScrollableWidgetState extends State<DraggableScrollableWidget> {
                                     children: [
                                       Container(
                                         width: 20,
-                                        height: 30,
+                                        height: 20,
                                         decoration: BoxDecoration(
                                             color: Theme.of(context).primaryColor,
                                             borderRadius:
-                                                BorderRadius.circular(15)),
+                                                BorderRadius.circular(7)),
                                       ),
                                       Expanded(
-                                          child: Container(
-                                            color: Theme.of(context).primaryColor,
-                                        width: 5,
-                                      )),
+                                        child: LayoutBuilder(
+                                          builder: (context, constraints) {
+                                            // Calculate the number of items based on the width of the parent widget.
+                                            final itemCount = (constraints.maxWidth / 7).floor();
+                                            return Flex(
+                                              children: List.generate(
+                                                itemCount,
+                                                    (index) => SizedBox(
+                                                  height: 5,
+                                                  width: 3,
+                                                  child: DecoratedBox(
+                                                    decoration:
+                                                    BoxDecoration(color: Theme.of(context).primaryColor),
+                                                  ),
+                                                ),
+                                              ),
+                                              direction: Axis.vertical,
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      // Expanded(
+                                      //     child: Container(
+                                      //       color: Theme.of(context).primaryColor,
+                                      //   width: 5,
+                                      // )),
                                       Container(
                                         width: 20,
-                                        height: 30,
+                                        height: 20,
                                         decoration: BoxDecoration(
                                             color: Theme.of(context).primaryColor,
                                             borderRadius:
-                                                BorderRadius.circular(15)),
+                                                BorderRadius.circular(10)),
                                       ),
                                     ],
                                   ),
@@ -308,7 +332,7 @@ class _DraggableScrollableWidgetState extends State<DraggableScrollableWidget> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 40.0),
+                            SizedBox(height: 20.0),
                             Row(
                               children: [
                                 Expanded(
@@ -347,7 +371,8 @@ class _DraggableScrollableWidgetState extends State<DraggableScrollableWidget> {
                                   ),
                                 ))
                               ],
-                            )
+                            ),
+                            SizedBox(height: 20.0),
                           ],
                         ),
                       ),

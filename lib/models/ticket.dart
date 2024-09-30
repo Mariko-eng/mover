@@ -256,8 +256,8 @@ Future<bool> purchaseVIPTicket(
 }
 
 Stream<List<TripTicket>> getMyTickets({required String uid}) async* {
-  Stream<QuerySnapshot> querySnapshotStream =
-  AppCollections().ticketsRef
+  Stream<QuerySnapshot> querySnapshotStream = AppCollections()
+      .ticketsRef
       .where("userId", isEqualTo: uid)
       .orderBy("createdAt", descending: true)
       .snapshots();
@@ -272,14 +272,37 @@ Stream<List<TripTicket>> getMyTickets({required String uid}) async* {
       TripTicket ticket = TripTicket.fromSnapshot(snapshot);
       var tripId = snapshot.get("tripId");
 
-      // Collect futures instead of awaiting immediately
-      tripFutures.add(
-        AppCollections().tripsRef.doc(tripId).get().then((tripResult) {
-          Trip trip = Trip.fromSnapshot(tripResult);
-          ticket.trip = trip;
-          tickets.add(ticket);
-        }),
-      );
+      // Check if tripId exists
+      if (tripId != null && tripId.isNotEmpty) {
+        // Collect futures instead of awaiting immediately
+        tripFutures.add(
+          AppCollections().tripsRef.doc(tripId).get().then((tripResult) {
+            if (tripResult.exists) {
+              Trip trip = Trip.fromSnapshot(tripResult);
+              ticket.trip = trip;
+              tickets.add(ticket);
+            } else {
+              // Handle the case where the trip snapshot does not exist
+              print("Error fetching trip: Does not exist!");
+              ticket.trip = null; // Or handle it as needed
+
+              // Don't add the ticket
+              // tickets.add(ticket);
+            }
+          }).catchError((error) {
+            // Handle errors in fetching the trip
+            print("Error fetching trip: $error");
+            ticket.trip = null; // Or handle it as needed
+            // Don't add the ticket
+            // tickets.add(ticket);
+          }),
+        );
+      } else {
+        // Handle case where tripId is null or empty
+        ticket.trip = null; // Or handle it as needed
+        // Don't add the ticket
+        // tickets.add(ticket);
+      }
     }
 
     // Wait for all trip fetches to complete
@@ -289,9 +312,10 @@ Stream<List<TripTicket>> getMyTickets({required String uid}) async* {
   }
 }
 
-Stream<List<TripTicket>> getTransactionTickets({required String transactionId}) async* {
-  Stream<QuerySnapshot> querySnapshotStream =
-  AppCollections().ticketsRef
+Stream<List<TripTicket>> getTransactionTickets(
+    {required String transactionId}) async* {
+  Stream<QuerySnapshot> querySnapshotStream = AppCollections()
+      .ticketsRef
       .where("transactionId", isEqualTo: transactionId)
       .snapshots();
 
@@ -305,14 +329,36 @@ Stream<List<TripTicket>> getTransactionTickets({required String transactionId}) 
       TripTicket ticket = TripTicket.fromSnapshot(snapshot);
       var tripId = snapshot.get("tripId");
 
-      // Collect futures instead of awaiting immediately
-      tripFutures.add(
-        AppCollections().tripsRef.doc(tripId).get().then((tripResult) {
-          Trip trip = Trip.fromSnapshot(tripResult);
-          ticket.trip = trip;
-          tickets.add(ticket);
-        }),
-      );
+      // Check if tripId exists
+      if (tripId != null && tripId.isNotEmpty) {
+        // Collect futures instead of awaiting immediately
+        tripFutures.add(
+          AppCollections().tripsRef.doc(tripId).get().then((tripResult) {
+            if (tripResult.exists) {
+              Trip trip = Trip.fromSnapshot(tripResult);
+              ticket.trip = trip;
+              tickets.add(ticket);
+            } else {
+              // Handle the case where the trip snapshot does not exist
+              print("Error fetching trip: Trip Does not exist!");
+              ticket.trip = null; // Or handle it as needed
+              // Don't add the ticket
+              // tickets.add(ticket);
+            }
+          }).catchError((error) {
+            // Handle errors in fetching the trip
+            print("Error fetching trip: $error");
+            ticket.trip = null; // Or handle it as needed
+            // Don't add the ticket
+            // tickets.add(ticket);
+          }),
+        );
+      } else {
+        // Handle case where tripId is null or empty
+        ticket.trip = null; // Or handle it as needed
+        // Don't add the ticket
+        // tickets.add(ticket);
+      }
     }
 
     // Wait for all trip fetches to complete
@@ -321,7 +367,6 @@ Stream<List<TripTicket>> getTransactionTickets({required String transactionId}) 
     yield tickets;
   }
 }
-
 
 // Stream<List<TripTicket>> getTransactionTickets(
 //     {required String transactionId}) {

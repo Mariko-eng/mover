@@ -30,6 +30,7 @@ class CustomSearchDestinationWidget extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    return Container();
     List<Destination> matches = [];
 
     for (var item in searchTerms) {
@@ -43,13 +44,18 @@ class CustomSearchDestinationWidget extends SearchDelegate {
       child: ListView.builder(
           itemCount: matches.length,
           itemBuilder: (context, int index) {
-            return ListTile(
-              title: Text(matches[index].name),
-              onTap:  () {
-                setPlace(matches[index]);
-                setDestination(matches[index]);
-                close(context, null);
-              },
+            return Card(
+              color: Colors.white,
+              child: ListTile(
+                leading: Icon(Icons.location_on, color: Theme.of(context).primaryColor,),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                title: Text(matches[index].name),
+                onTap:  () {
+                  setPlace(matches[index]);
+                  setDestination(matches[index]);
+                  close(context, null);
+                },
+              ),
             );
           }),
     );
@@ -70,13 +76,18 @@ class CustomSearchDestinationWidget extends SearchDelegate {
       child: ListView.builder(
           itemCount: matches.length,
           itemBuilder: (context, int index) {
-            return ListTile(
-              title: Text(matches[index].name),
-              onTap:  () {
-                setPlace(matches[index]);
-                setDestination(matches[index]);
-                close(context, null);
-              },
+            return Card(
+              color: Colors.white,
+              child: ListTile(
+                leading: Icon(Icons.location_on, color: Theme.of(context).primaryColor,),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                title: Text(matches[index].name),
+                onTap:  () {
+                  setPlace(matches[index]);
+                  setDestination(matches[index]);
+                  close(context, null);
+                },
+              ),
             );
           }),
     );

@@ -63,6 +63,8 @@ class _HomeWrapperViewState extends State<HomeWrapperView> {
       // body: _pages[_currentIndex],
       bottomNavigationBar: BottomAppBar(
         // padding: EdgeInsets.symmetric(v),
+        color: Colors.white,
+        shadowColor: Theme.of(context).primaryColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,

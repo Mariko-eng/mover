@@ -31,6 +31,8 @@ class CustomSearchBusCompanyWidget extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    return Container();
+
     final textTheme = Theme.of(context).textTheme;
 
     return FutureBuilder(
@@ -84,8 +86,13 @@ class CustomSearchBusCompanyWidget extends SearchDelegate {
                         setBusCompanyId(matches[index].uid);
                         close(context, null);
                       },
-                      child: ListTile(
-                        title: Text(matches[index].name),
+                      child: Card(
+                        color: Colors.white,
+                        child: ListTile(
+                          // leading: Icon(Icons.bus_alert, color: Theme.of(context).primaryColor,),
+                          trailing: Icon(Icons.keyboard_arrow_right),
+                          title: Text(matches[index].name),
+                        ),
                       ));
                 }),
           );
@@ -147,8 +154,13 @@ class CustomSearchBusCompanyWidget extends SearchDelegate {
                         setBusCompanyId(matches[index].uid);
                         close(context, null);
                       },
-                      child: ListTile(
-                        title: Text(matches[index].name),
+                      child: Card(
+                        color: Colors.white,
+                        child: ListTile(
+                          // leading: Icon(Icons.bus_alert, color: Theme.of(context).primaryColor,),
+                          trailing: Icon(Icons.keyboard_arrow_right),
+                          title: Text(matches[index].name),
+                        ),
                       ));
                 }),
           );

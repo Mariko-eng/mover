@@ -32,6 +32,8 @@ class CustomSearchTripWidget extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    return Container();
+
     final textTheme = Theme.of(context).textTheme;
 
     return FutureBuilder(
