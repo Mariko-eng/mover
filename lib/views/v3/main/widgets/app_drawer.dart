@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:bus_stop/controllers/authController.dart';
+import 'package:bus_stop/views/v3/pages/my_profile.dart';
+import 'package:bus_stop/views/v3/pages/my_transactions.dart';
+import 'package:bus_stop/views/v3/pages/help_and_support.dart';
 
 class AppDrawerWidget extends StatefulWidget {
   const AppDrawerWidget({super.key});
@@ -67,6 +70,12 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                         ),
                       ),
                       ListTile(
+                        onTap: () {
+                          Get.back();
+                          Get.to(() => MyProfileView(
+                                client: userProvider.client!,
+                              ));
+                        },
                         leading: Icon(Icons.person),
                         title: Text(
                           'My Profile',
@@ -75,22 +84,23 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                         ),
                       ),
                       ListTile(
-                        leading: Icon(Icons.settings),
+                        onTap: () {
+                          Get.back();
+                          Get.to(() =>
+                              MyTransactionsView(client: userProvider.client!));
+                        },
+                        leading: Icon(Icons.receipt),
                         title: Text(
-                          'Settings',
+                          'My Transactions',
                           style: textTheme.bodyMedium!
                               .copyWith(color: Colors.black),
                         ),
                       ),
                       ListTile(
-                        leading: Icon(Icons.info),
-                        title: Text(
-                          'About us',
-                          style: textTheme.bodyMedium!
-                              .copyWith(color: Colors.black),
-                        ),
-                      ),
-                      ListTile(
+                        onTap: () {
+                          Get.back();
+                          Get.to(() => HelpAndSupportView());
+                        },
                         leading: Icon(Icons.feedback),
                         title: Text(
                           'Help & Support',
@@ -108,7 +118,8 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
             leading: const Icon(Icons.logout),
             title: Text(
               'Logout',
-              style: textTheme.bodyMedium!.copyWith(color: Colors.black),
+              style: textTheme.bodyMedium!
+                  .copyWith(color: Theme.of(context).primaryColor),
             ),
           )
         ],

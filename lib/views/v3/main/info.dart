@@ -1,8 +1,8 @@
-import 'package:bus_stop/views/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bus_stop/models/info.dart';
-import 'package:bus_stop/views/pages/info/info_detail.dart';
+import 'package:bus_stop/views/widgets/loading_widget.dart';
+import 'package:bus_stop/views/v3/pages/info_news_detail.dart';
 
 class InfoView extends StatefulWidget {
   const InfoView({super.key});
@@ -195,7 +195,7 @@ Widget tabNews(BuildContext context) {
                         return GestureDetector(
                           onTap: () {
                             Get.to(() =>
-                                InfoDetailView(infoModel: data[index]));
+                                InfoNewsDetailView(infoModel: data[index]));
                           },
                           child: Container(
                             height: 270,

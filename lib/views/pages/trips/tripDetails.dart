@@ -620,14 +620,14 @@ class _TripDetailsState extends State<TripDetails> {
                       backgroundColor: Colors.grey[200]);
                   return;
                 }
-                Get.to(() => TicketPayment(
-                      client: widget.client,
-                      trip: widget.trip,
-                      ticketChoice: widget.ticketChoice,
-                      ticketPrice: widget.ticketChoicePrice,
-                      noOfTickets: noOfTickets,
-                      totalAmount: totalAmount,
-                    ));
+                // Get.to(() => TicketPayment(
+                //       client: widget.client,
+                //       trip: widget.trip,
+                //       ticketChoice: widget.ticketChoice,
+                //       ticketPrice: widget.ticketChoicePrice,
+                //       noOfTickets: noOfTickets,
+                //       totalAmount: totalAmount,
+                //     ));
               },
               child: Container(
                 // width: 300,

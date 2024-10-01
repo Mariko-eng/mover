@@ -22,10 +22,10 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final TextEditingController _fromCtr = TextEditingController();
+  final TextEditingController _toCtr = TextEditingController();
+  final TextEditingController _busCompanyCtr = TextEditingController();
 
-  // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  // final DraggableScrollableController _draggableScrollableController = DraggableScrollableController();
   LocationController locationController = Get.find();
 
   // created controller for displaying Google Maps
@@ -51,14 +51,8 @@ class _HomeViewState extends State<HomeView> {
         .asUint8List();
   }
 
-  final TextEditingController _fromCtr = TextEditingController();
-  final TextEditingController _toCtr = TextEditingController();
-  final TextEditingController _busCompanyCtr = TextEditingController();
-
   Destination? _fromDestination;
   Destination? _toDestination;
-
-  BusCompany? _busCompany;
 
   double? totalDistanceValue;
   String? totalDuration;
@@ -67,16 +61,25 @@ class _HomeViewState extends State<HomeView> {
 
   bool isFrom = true;
 
-  List<Destination> _items = [];
+  void _updateIsFrom (bool val) {
+    setState(() {
+      isFrom = val;
+    });
+  }
+
+  final List<Destination> _items = [
+    Destination(id: "", name: "None")
+  ];
 
   _getDestinations() async {
     try {
       await locationController.getDestinations();
 
       setState(() {
-        _items = locationController.destinations;
-        _loadMarkers(_items);
+        _items.addAll(locationController.destinations);
+        // _loadMarkers(locationController.destinations);
       });
+      await _loadMarkers(locationController.destinations); // Wait for markers to load
     } catch (e) {
       print("Failed to fetch destinations: $e");
     }
@@ -84,38 +87,71 @@ class _HomeViewState extends State<HomeView> {
 
   _loadMarkers(List<Destination> destinations) async {
     if (destinations.isNotEmpty) {
-      for (int i = 0; i < destinations.length; i++) {
-        String busImage = 'lib/images/small_bus.png';
 
+      final List<Future<void>> markerFutures = destinations.map((destination) async {
+        String busImage = 'lib/images/small_bus.png';
         final Uint8List markIcons = await getImages(busImage, 100);
-        // makers added according to index
+
         _markers.add(Marker(
-          // given marker id
-          markerId: MarkerId(i.toString()),
-          // given marker icon
+          markerId: MarkerId(destination.id.toString()), // Use a unique identifier
           icon: BitmapDescriptor.fromBytes(markIcons),
-          // given position
           position: LatLng(
-              destinations[i].locationDetails!.geometry!.location.lat,
-              destinations[i].locationDetails!.geometry!.location.lng),
+            destination.locationDetails!.geometry!.location.lat,
+            destination.locationDetails!.geometry!.location.lng,
+          ),
           infoWindow: InfoWindow(
-            // given title for marker
-            title: 'Location: ' + destinations[i].name,
+            title: 'Location: ' + destination.name,
           ),
         ));
+      }).toList();
+
+      await Future.wait(markerFutures); // Wait for all markers to load
+      if (mounted) {
+        setState(() {}); // Call setState only if still mounted
       }
-      setState(() {});
+
+      // for (int i = 0; i < destinations.length; i++) {
+      //   String busImage = 'lib/images/small_bus.png';
+      //
+      //   final Uint8List markIcons = await getImages(busImage, 100);
+      //   // makers added according to index
+      //   _markers.add(Marker(
+      //     // given marker id
+      //     markerId: MarkerId(i.toString()),
+      //     // given marker icon
+      //     icon: BitmapDescriptor.fromBytes(markIcons),
+      //     // given position
+      //     position: LatLng(
+      //         destinations[i].locationDetails!.geometry!.location.lat,
+      //         destinations[i].locationDetails!.geometry!.location.lng),
+      //     infoWindow: InfoWindow(
+      //       // given title for marker
+      //       title: 'Location: ' + destinations[i].name,
+      //     ),
+      //   ));
+      // }
+      // setState(() {});
     }
   }
 
   _setPlace(Destination destination) {
     setState(() {
       if (isFrom) {
+        if(destination.id == "") {
+          _fromDestination = null;
+          _fromCtr.clear();
+          return;
+        }
         if (_toCtr.text != destination.name) {
           _fromDestination = destination;
           _fromCtr.text = destination.name;
         }
       } else {
+        if(destination.id == "") {
+          _toDestination = null;
+          _toCtr.clear();
+          return;
+        }
         if (_fromCtr.text != destination.name) {
           _toDestination = destination;
           _toCtr.text = destination.name;
@@ -148,8 +184,11 @@ class _HomeViewState extends State<HomeView> {
 
   _setBusCompany(BusCompany company) {
     setState(() {
+      if (company.uid == "") {
+        _busCompanyCtr.clear();
+        return;
+      }
       _busCompanyCtr.text = company.name;
-      _busCompany = company;
     });
   }
 
@@ -171,16 +210,9 @@ class _HomeViewState extends State<HomeView> {
     controller.dispose();
   }
 
-  void _updateIsFrom (bool val) {
-    setState(() {
-      isFrom = val;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // key: _scaffoldKey,
       body: Stack(
         children: [
           Stack(

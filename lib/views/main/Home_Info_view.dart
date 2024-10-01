@@ -136,8 +136,8 @@ class _HomeInfoViewState extends State<HomeInfoView> {
                               padding: const EdgeInsets.all(10.0),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.to(() =>
-                                      InfoDetailView(infoModel: data[index]));
+                                  // Get.to(() =>
+                                  //     InfoDetailView(infoModel: data[index]));
                                 },
                                 child: Container(
                                   height: 270,

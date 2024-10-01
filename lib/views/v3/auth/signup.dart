@@ -1,12 +1,13 @@
-import 'package:bus_stop/views/main/home_view.dart';
-import 'package:bus_stop/views/v3/auth/signin.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:provider/provider.dart';
 import 'package:bus_stop/controllers/authController.dart';
+import 'package:bus_stop/views/v3/auth/signin.dart';
+import 'package:bus_stop/views/v3/auth/wrapper.dart';
+
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -184,6 +185,7 @@ class _SignUpViewState extends State<SignUpView> {
                               controller: _passwordController1,
                               minLines: 1,
                               maxLines: 1,
+                              obscureText: _obscurePassword,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText: "Enter password",
@@ -242,6 +244,7 @@ class _SignUpViewState extends State<SignUpView> {
                               controller: _passwordController2,
                               minLines: 1,
                               maxLines: 1,
+                              obscureText: _obscurePassword,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText: "Enter password",
@@ -326,7 +329,7 @@ class _SignUpViewState extends State<SignUpView> {
                       );
 
                       if (res == true) {
-                        Get.offAll(() => HomeView());
+                        Get.offAll(() => const AuthWrapperView());
                       }
                       setState(() {
                         isLoading = false;

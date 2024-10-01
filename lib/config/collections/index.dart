@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bus_stop/config/collections/prod.dart';
 import 'package:bus_stop/config/collections/dev.dart';
 
-bool isTestMode = true;
+bool isTestMode = false;
 
 class AppCollections {
   // Private constructor for singleton

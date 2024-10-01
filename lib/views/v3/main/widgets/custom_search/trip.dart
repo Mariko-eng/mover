@@ -5,10 +5,13 @@ import 'package:bus_stop/views/v3/main/widgets/trip_widget.dart';
 import 'package:bus_stop/views/v3/pages/payment.dart';
 
 class CustomSearchTripWidget extends SearchDelegate {
-  // List<Trip> searchTerms;
 
-  // CustomSearchTripWidget(
-  //     {required this.searchTerms});
+  Future<List<Trip>>? _activeTripsFuture;
+
+  @override
+  // TODO: implement searchFieldLabel
+  String? get searchFieldLabel => "Enter Destination / Company";
+
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -33,91 +36,21 @@ class CustomSearchTripWidget extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     return Container();
-
-    final textTheme = Theme.of(context).textTheme;
-
-    return FutureBuilder(
-        future: fetchActiveTrips(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Container(
-              color: Colors.white,
-              child: Center(
-                child: Text(
-                  "Something Went Wrong!",
-                  style: textTheme.bodyMedium!
-                      .copyWith(color: Colors.black, fontSize: 15),
-                ),
-              ),
-            );
-          }
-
-          if (!snapshot.hasData) {
-            return Container(
-                color: Colors.white,
-                child: const Center(child: LoadingWidget()));
-          }
-
-          List<Trip>? trips = snapshot.data;
-
-          if (trips == null) {
-            return Container(
-                color: Colors.white,
-                child: const Center(child: LoadingWidget()));
-          }
-
-          List<Trip> matches = [];
-
-          for (var item in trips) {
-            if (item.companyName.toLowerCase().contains(query.toLowerCase()) ||
-                item.arrivalLocationName
-                    .toLowerCase()
-                    .contains(query.toLowerCase()) ||
-                item.departureLocationName
-                    .toLowerCase()
-                    .contains(query.toLowerCase())) {
-              matches.add(item);
-            }
-          }
-
-          return Container(
-            color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: ListView.builder(
-                itemCount: matches.length,
-                itemBuilder: (context, int index) {
-                  return GestureDetector(
-                      onTap: () {
-                        if (matches[index].isClosed) {
-                          return;
-                        }
-                        if (matches[index].tripType == "Ordinary") {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PaymentView(
-                                        trip: matches[index],
-                                        ticketChoice: "Ordinary",
-                                        ticketChoicePrice:
-                                            matches[index].priceOrdinary,
-                                      )));
-                        } else {
-                          _openBottomSheet(
-                              context: context, trip: matches[index]);
-                        }
-                      },
-                      child: TripWidget(trip: matches[index]));
-                }),
-          );
-        });
-  }
+}
 
   @override
   Widget buildSuggestions(BuildContext context) {
+
+    // Only fetch active trips the first time this method is called
+    if (_activeTripsFuture == null) {
+      _activeTripsFuture = fetchActiveTrips();
+    }
+
     final textTheme = Theme.of(context).textTheme;
 
     return FutureBuilder(
-        future: fetchActiveTrips(),
+        // future: fetchActiveTrips(),
+        future: _activeTripsFuture,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Container(

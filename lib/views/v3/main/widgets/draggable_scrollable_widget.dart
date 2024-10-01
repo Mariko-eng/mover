@@ -34,7 +34,7 @@ class DraggableScrollableWidget extends StatefulWidget {
 
 class _DraggableScrollableWidgetState extends State<DraggableScrollableWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  double _scrollPosition = 0.05;
+  double _scrollPosition = 0.7;
 
   Destination? fromDest;
   Destination? toDest;
@@ -43,18 +43,27 @@ class _DraggableScrollableWidgetState extends State<DraggableScrollableWidget> {
 
   _setFromDestination(Destination dest) {
     setState(() {
+      if (dest.id == "") {
+        fromDest = null;
+      }
       fromDest = dest;
     });
   }
 
   _setToDestination(Destination dest) {
     setState(() {
+      if (dest.id == "") {
+        toDest = null;
+      }
       toDest = dest;
     });
   }
 
   _setBusCompanyId(String id) {
     setState(() {
+      if (id == "") {
+        _busCompanyIdCtr.clear();
+      }
       _busCompanyIdCtr.text = id;
     });
   }
@@ -69,8 +78,8 @@ class _DraggableScrollableWidgetState extends State<DraggableScrollableWidget> {
         return true;
       },
       child: DraggableScrollableSheet(
-        initialChildSize: 0.05,
-        // initialChildSize: 0.7,
+        // initialChildSize: 0.05,
+        initialChildSize: 0.7,
         // Height of the sheet as a fraction of the viewport height
         minChildSize: 0.05,
         maxChildSize: 0.7,

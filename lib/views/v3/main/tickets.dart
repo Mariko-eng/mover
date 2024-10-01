@@ -180,18 +180,17 @@ class _TicketsViewState extends State<TicketsView> {
 
                           List<TripTicket> tickets = isUpComing ? upcomingTickets : historyTickets;
 
-                          if (tickets.isEmpty) {
-                            return Expanded(
-                              child: Center(
-                                child: Text(
-                                  "...Please Wait...",
-                                  style: textTheme.bodyMedium!.copyWith(
-                                      fontSize: 15,
-                                      color: Theme.of(context).primaryColor),
+                            if(tickets.isEmpty) {
+                              return Expanded(
+                                child: Center(
+                                  child: Text(
+                                    "No Tickets At The Moment!",
+                                    style: textTheme.bodyMedium!.copyWith(
+                                        color: Colors.black, fontSize: 15),
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
+                              );
+                            }
                           return Expanded(
                             child: SingleChildScrollView(
                               child: Column(
