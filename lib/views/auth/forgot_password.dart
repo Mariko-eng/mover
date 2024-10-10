@@ -1,5 +1,4 @@
 import 'package:bus_stop/services/auth.dart';
-import 'package:bus_stop/views/widgets/TextFieldConatiner.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -95,31 +94,35 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             const SizedBox(
                               height: 10,
                             ),
-                            TextFieldContainer(
-                              child: TextFormField(
-                                controller: _emailController,
-                                style: const TextStyle(fontSize: 17),
-                                cursorColor: Colors.red,
-                                textAlignVertical: TextAlignVertical.center,
-                                decoration: const InputDecoration(
-                                  icon: Icon(
-                                    Icons.email,
-                                    color: Colors.red,
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: _emailController,
+                                      style: const TextStyle(fontSize: 17),
+                                      cursorColor: Colors.red,
+                                      textAlignVertical: TextAlignVertical.center,
+                                      decoration: const InputDecoration(
+                                        icon: Icon(
+                                          Icons.email,
+                                          color: Colors.red,
+                                        ),
+                                        hintText: "example@email.com",
+                                        border: InputBorder.none,
+                                      ),
+                                      validator: (String? val) {
+                                        final bool isValid =
+                                            EmailValidator.validate(val!.trim());
+                                        if (isValid == false) {
+                                          return "Enter A Valid Email Address";
+                                        } else {
+                                          return null;
+                                        }
+                                      },
+                                    ),
                                   ),
-                                  hintText: "example@email.com",
-                                  border: InputBorder.none,
-                                ),
-                                validator: (String? val) {
-                                  final bool isValid =
-                                      EmailValidator.validate(val!.trim());
-                                  if (isValid == false) {
-                                    return "Enter A Valid Email Address";
-                                  } else {
-                                    return null;
-                                  }
-                                },
+                                ],
                               ),
-                            ),
                           ],
                         ),
                       ),

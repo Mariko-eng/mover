@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:provider/provider.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:bus_stop/controllers/authController.dart';
-import 'package:bus_stop/views/auth/signin.dart';
 import 'package:bus_stop/views/auth/wrapper.dart';
+import 'package:bus_stop/views/auth/signup.dart';
 
-
-class SignUpView extends StatefulWidget {
-  const SignUpView({super.key});
+class SignInView extends StatefulWidget {
+  const SignInView({super.key});
 
   @override
-  State<SignUpView> createState() => _SignUpViewState();
+  State<SignInView> createState() => _SignInViewState();
 }
 
-class _SignUpViewState extends State<SignUpView> {
-  String countryCde = "";
-  final _usernameController = TextEditingController();
-  final _phoneController = TextEditingController();
+class _SignInViewState extends State<SignInView> {
   final _emailController = TextEditingController();
-  final _passwordController1 = TextEditingController();
-  final _passwordController2 = TextEditingController();
+  final _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-
   bool _obscurePassword = true;
 
   bool isLoading = false;
@@ -57,7 +51,7 @@ class _SignUpViewState extends State<SignUpView> {
                     height: statusHeight + 20,
                   ),
                   Text(
-                    "Create Account",
+                    "Sign in",
                     textAlign: TextAlign.center,
                     style: textTheme.bodyMedium!.copyWith(
                         fontSize: 17,
@@ -68,55 +62,13 @@ class _SignUpViewState extends State<SignUpView> {
                     height: 20,
                   ),
                   Text(
-                    "Register with your username or phone number \n and password to get started.",
+                    "Login into your account.",
                     textAlign: TextAlign.center,
                     style: textTheme.bodyMedium!
                         .copyWith(fontSize: 17, color: Colors.grey[900]),
                   ),
                   SizedBox(
                     height: 50,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Username or Phone number",
-                            style: textTheme.bodyMedium!
-                                .copyWith(fontSize: 15, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: _usernameController,
-                              minLines: 1,
-                              maxLines: 1,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Enter input",
-                                hintStyle: TextStyle(fontSize: 12),
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Required';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +113,7 @@ class _SignUpViewState extends State<SignUpView> {
                     ],
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,7 +134,7 @@ class _SignUpViewState extends State<SignUpView> {
                         children: [
                           Expanded(
                             child: TextFormField(
-                              controller: _passwordController1,
+                              controller: _passwordController,
                               minLines: 1,
                               maxLines: 1,
                               obscureText: _obscurePassword,
@@ -199,7 +151,7 @@ class _SignUpViewState extends State<SignUpView> {
                                       child: Icon(Icons.visibility))
                               ),
                               validator: (value) {
-                                if (value == null || value.length < 7) {
+                                if (value == null || value.isEmpty) {
                                   return 'Required';
                                 }
                                 return null;
@@ -216,89 +168,6 @@ class _SignUpViewState extends State<SignUpView> {
                                 .copyWith(fontSize: 15, color: Colors.black),
                           ),
                         ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Confirm Password",
-                            style: textTheme.bodyMedium!
-                                .copyWith(fontSize: 15, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: _passwordController2,
-                              minLines: 1,
-                              maxLines: 1,
-                              obscureText: _obscurePassword,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: "Enter password",
-                                  hintStyle: TextStyle(fontSize: 12),
-                                  suffixIcon: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          _obscurePassword = !_obscurePassword;
-                                        });
-                                      },
-                                      child: Icon(Icons.visibility))
-                              ),
-                              validator: (value) {
-                                if (value == null || value.length < 7) {
-                                  return 'Required';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Password must be more than 8 characters.",
-                            style: textTheme.bodyMedium!
-                                .copyWith(fontSize: 15, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Checkbox(
-                          checkColor: Colors.grey,
-                          value: true,
-                          onChanged: (val) {}),
-                      Text(
-                        "Agree with ",
-                        textAlign: TextAlign.center,
-                        style: textTheme.bodyMedium!
-                            .copyWith(fontSize: 15, color: Colors.black54),
-                      ),
-                      Text(
-                        "Terms & Conditions",
-                        textAlign: TextAlign.center,
-                        style: textTheme.bodyMedium!
-                            .copyWith(fontSize: 15, color: Colors.blue),
                       ),
                     ],
                   ),
@@ -315,25 +184,16 @@ class _SignUpViewState extends State<SignUpView> {
                         isLoading = true;
                       });
 
-                      String phoneNumber = "";
-                      if ((countryCde + _phoneController.text.trim()).length >=
-                          10) {
-                        phoneNumber = countryCde + _phoneController.text.trim();
-                      }
+                      bool res = await _userProvider.signIn(
+                          email: _emailController.text.trim(),
+                          password: _passwordController.text.trim());
 
-                      bool res = await _userProvider.registerClient(
-                        email: _emailController.text.trim(),
-                        username: _usernameController.text.trim(),
-                        phoneNumber: phoneNumber,
-                        password: _passwordController1.text.trim(),
-                      );
-
-                      if (res == true) {
-                        Get.offAll(() => const AuthWrapperView());
-                      }
                       setState(() {
                         isLoading = false;
                       });
+                      if (res == true) {
+                        Get.offAll(() => const AuthWrapperView());
+                      }
                     },
                     child: Container(
                       height: 50,
@@ -345,10 +205,10 @@ class _SignUpViewState extends State<SignUpView> {
                       child: isLoading
                           ? const SpinKitThreeInOut(
                               color: Colors.white,
-                        size: 30,
+                              size: 30,
                             )
                           : Text(
-                              "Sign Up",
+                              "Sign in",
                               textAlign: TextAlign.center,
                               style: textTheme.bodyMedium!
                                   .copyWith(fontSize: 17, color: Colors.white),
@@ -362,7 +222,7 @@ class _SignUpViewState extends State<SignUpView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Already have an account?",
+                        "Don't have an account?",
                         textAlign: TextAlign.center,
                         style: textTheme.bodyMedium!
                             .copyWith(fontSize: 17, color: Colors.black54),
@@ -372,10 +232,10 @@ class _SignUpViewState extends State<SignUpView> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.off(() => SignInView());
+                          Get.off(() => SignUpView());
                         },
                         child: Text(
-                          "Sign in",
+                          "Sign up",
                           textAlign: TextAlign.center,
                           style: textTheme.bodyMedium!
                               .copyWith(fontSize: 17, color: Colors.blue[500]),

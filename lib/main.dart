@@ -7,7 +7,7 @@ import 'package:bus_stop/controllers/authController.dart';
 import 'package:bus_stop/controllers/lcoProvider.dart';
 import 'package:bus_stop/controllers/locController.dart';
 import 'package:bus_stop/services/notifications.dart';
-import 'package:bus_stop/views/welcome/initial.dart';
+import 'package:bus_stop/views/auth/initial.dart';
 
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

@@ -1,4 +1,4 @@
-import 'package:bus_stop/views/v3/auth/wrapper.dart';
+import 'package:bus_stop/views/auth/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
