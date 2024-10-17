@@ -9,6 +9,16 @@ class CustomSearchDestinationWidget extends SearchDelegate {
   CustomSearchDestinationWidget({required this.setDestination,required this.searchTerms, required this.setPlace});
 
   @override
+  // TODO: implement searchFieldLabel
+  String? get searchFieldLabel => "Enter Destination";
+
+  @override
+  TextStyle get searchFieldStyle => const TextStyle(
+      fontSize: 14,
+      color: Colors.black87
+  );
+
+  @override
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(

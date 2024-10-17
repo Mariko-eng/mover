@@ -9,6 +9,16 @@ class CustomSearchBusCompanyWidget extends SearchDelegate {
 
   CustomSearchBusCompanyWidget({required this.setBusCompanyId,required this.setBusCompany});
 
+  @override
+  // TODO: implement searchFieldLabel
+  String? get searchFieldLabel => "Enter Bus Company";
+
+  @override
+  TextStyle get searchFieldStyle => const TextStyle(
+      fontSize: 14,
+      color: Colors.black87
+  );
+
   Future<List<BusCompany>>? _activeCompaniesFuture;
 
   @override

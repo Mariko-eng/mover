@@ -19,8 +19,10 @@ class _InitialState extends State<Initial> with SingleTickerProviderStateMixin {
     SecondWidget(),
     ThirdWidget(),
     FourthWidget(),
-    // FifthWidget(),
+
+    FifthWidget(),
   ];
+
   int i = 0;
 
   @override
@@ -154,7 +156,7 @@ class FifthWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xffE4181D),
+      color: Color(0xffffffff),
     );
   }
 }

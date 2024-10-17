@@ -55,14 +55,13 @@ class _HomeWrapperViewState extends State<HomeWrapperView> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: AppDrawerWidget(),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
-      // body: _pages[_currentIndex],
+      drawer: AppDrawerWidget(scaffoldKey: _scaffoldKey,),
+      // body: IndexedStack(
+      //   index: _currentIndex,
+      //   children: _pages,
+      // ),
+      body: _pages[_currentIndex],
       bottomNavigationBar: BottomAppBar(
-        // padding: EdgeInsets.symmetric(v),
         color: Colors.white,
         shadowColor: Theme.of(context).primaryColor,
         child: Row(

@@ -10,7 +10,13 @@ class CustomSearchTripWidget extends SearchDelegate {
 
   @override
   // TODO: implement searchFieldLabel
-  String? get searchFieldLabel => "Enter Destination / Company";
+  String? get searchFieldLabel => "Enter Destination Or Company";
+
+  @override
+  TextStyle get searchFieldStyle => const TextStyle(
+    fontSize: 14,
+    color: Colors.black87
+  );
 
 
   @override

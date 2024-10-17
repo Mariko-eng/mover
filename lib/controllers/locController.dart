@@ -29,19 +29,19 @@ class LocationController extends GetxController {
     }
   }
 
-  activeTrips() async{
-    isTripsLoading.value = true;
-    isTripsError.value = false;
-    try{
-      List<Trip> results = await fetchActiveTrips();
-      trips.value = results;
-    }catch (err){
-      trips.value = [];
-      isTripsError.value = true;
-    }finally{
-      isTripsLoading.value = false;
-    }
-  }
+  // activeTrips() async{
+  //   isTripsLoading.value = true;
+  //   isTripsError.value = false;
+  //   try{
+  //     List<Trip> results = await fetchActiveTrips();
+  //     trips.value = results;
+  //   }catch (err){
+  //     trips.value = [];
+  //     isTripsError.value = true;
+  //   }finally{
+  //     isTripsLoading.value = false;
+  //   }
+  // }
 
   busCompanies() async{
     isCompaniesLoading.value = true;

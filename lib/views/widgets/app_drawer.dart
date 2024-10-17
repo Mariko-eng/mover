@@ -7,7 +7,9 @@ import 'package:bus_stop/views/pages/payment/my_transactions.dart';
 import 'package:bus_stop/views/pages/help_and_support.dart';
 
 class AppDrawerWidget extends StatefulWidget {
-  const AppDrawerWidget({super.key});
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  const AppDrawerWidget({super.key, required this.scaffoldKey});
+  // const AppDrawerWidget({super.key});
 
   @override
   State<AppDrawerWidget> createState() => _AppDrawerWidgetState();
@@ -37,15 +39,20 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Icon(Icons.arrow_back_ios),
-                                Text(
-                                  'Back',
-                                  style: textTheme.bodyMedium!
-                                      .copyWith(color: Colors.black),
-                                ),
-                              ],
+                            GestureDetector(
+                              onTap: () {
+                                widget.scaffoldKey.currentState!.closeDrawer();
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(Icons.arrow_back_ios),
+                                  Text(
+                                    'Back',
+                                    style: textTheme.bodyMedium!
+                                        .copyWith(color: Colors.black),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(
                               height: 10,

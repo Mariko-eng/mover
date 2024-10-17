@@ -39,23 +39,23 @@ class _TripsViewState extends State<TripsView> {
               fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal:10),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      print("Refreshing...");
-                    });
-                  },
-                    child: Icon(Icons.refresh,
-                    color: Theme.of(context).primaryColor,
-                      size: 30,
-                    ))
-              ],
-            ),
-          )
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal:10),
+          //   child: Row(
+          //     children: [
+          //       GestureDetector(
+          //         onTap: () {
+          //           setState(() {
+          //             print("Refreshing...");
+          //           });
+          //         },
+          //           child: Icon(Icons.refresh,
+          //           color: Theme.of(context).primaryColor,
+          //             size: 30,
+          //           ))
+          //     ],
+          //   ),
+          // )
         ],
       ),
       body: Column(
@@ -145,8 +145,8 @@ class _TripsViewState extends State<TripsView> {
             ),
           ),
           Expanded(
-            child: FutureBuilder(
-                future: fetchActiveTrips(),
+            child: StreamBuilder(
+                stream: activeTrips(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Center(

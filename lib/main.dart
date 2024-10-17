@@ -72,6 +72,7 @@ class _BusStopAppState extends State<BusStopApp> {
         title: "Bus Stop",
         theme: ThemeData(primaryColor: Color(0xffcd181a), primarySwatch: Colors.red),
         home: const Initial(),
+        // home: TestView(),
       ),
     );
   }

@@ -34,23 +34,23 @@ class _TicketsViewState extends State<TicketsView> {
               fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal:10),
-            child: Row(
-              children: [
-                GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        print("Refreshing...");
-                      });
-                    },
-                    child: Icon(Icons.refresh,
-                      color: Theme.of(context).primaryColor,
-                      size: 30,
-                    ))
-              ],
-            ),
-          )
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal:10),
+          //   child: Row(
+          //     children: [
+          //       GestureDetector(
+          //           onTap: () {
+          //             setState(() {
+          //               print("Refreshing...");
+          //             });
+          //           },
+          //           child: Icon(Icons.refresh,
+          //             color: Theme.of(context).primaryColor,
+          //             size: 30,
+          //           ))
+          //     ],
+          //   ),
+          // )
         ],
       ),
       body: userProvider.client == null
