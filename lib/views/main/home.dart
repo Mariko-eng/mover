@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
   // given camera position
   static const CameraPosition _kGoogle = CameraPosition(
     target: LatLng(0.3152, 32.5816),
-    zoom: 7,
+    zoom: 10.5,
     tilt: 40.0,
   );
 
@@ -234,7 +234,7 @@ class _HomeViewState extends State<HomeView> {
                   // below line displays google map in our app
                   onMapCreated: (GoogleMapController controller) {
                     _googleMapController.complete(controller);
-                    controller.setMapStyle(googleMapStyle2);
+                    // controller.setMapStyle(googleMapStyle2);
                   },
                   polylines: polys == null ? {} : polys!,
                 ),
